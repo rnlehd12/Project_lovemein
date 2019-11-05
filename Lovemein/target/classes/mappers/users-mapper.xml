@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="usersMapper">
+<!-- 회원 Mapper -->	
+	<!-- users 테이블 저장용 -->
+	<insert id="joinUsers1" parameterType="Users">
+		INSERT INTO users
+		  VALUES (
+		    TO_CHAR(SEQ_U_NO.nextval),
+		    #{u_email},#{u_pw},#{u_name},#{u_phone},3,null,null,#{u_intro},sysdate)
+	</insert>
+	
+	<insert id="joinUsers" parameterType="HashMap">
+		INSERT ALL
+	    INTO primaryinfo VALUES (
+	    (select max(to_number(u_no)) from users),
+	    #{primary.u_birth},
+	    #{primary.u_gender},
+	    #{primary.u_loc},
+	    #{primary.u_edu},
+	    #{primary.u_shcool},
+	    #{primary.u_job},
+	    #{primary.u_height},
+	    #{primary.u_weight})
+	    into style values (
+	    (select max(to_number(u_no)) from users),
+	    #{style.s_appeal},
+	    #{style.s_inter},
+	    #{style.s_ds},
+	    #{style.s_ls})
+	    into addinfo values (
+	    (select max(to_number(u_no)) from users),
+	    #{add.u_blood},
+	    #{add.u_char},
+	    #{add.u_rei},
+	    #{add.u_drinking},
+	    #{add.u_smoking})
+	    SELECT *
+	    FROM DUAL
+	</insert>
+	
+	<insert id="idealSave" parameterType="Ideal">
+		INSERT INTO ideal
+		  VALUES (
+		    (select max(to_number(u_no)) from users),
+		    #{i_height},#{i_loc},#{i_edu},#{i_age},#{i_weight})
+	</insert>
+	
+	<select id="loginCheck" parameterType="string" resultType="AllUsers">
+		select * from users u
+		join addinfo a on a.u_no = u.u_no
+		join primaryinfo p on p.u_no = u.u_no
+		join style s on s.u_no = u.u_no
+		join ideal i on i.u_no = u.u_no
+		where u.u_email = #{u_email}
+	</select>
+	
+	<select id="checkId" parameterType="string" resultType="Users">
+		select * from users
+		where u_email = #{u_email}
+	</select>
+
+	<select id="checkPw" parameterType="string" resultType="Users">
+		select * from users
+		where u_phone = #{u_phone}
+	</select>
+	
+	<update id="changePw" parameterType="Users">
+		UPDATE users SET u_pw = #{u_pw} WHERE u_phone = #{u_phone}
+	</update>
+	
+	<update id="accountInfoModi" parameterType="Users">
+		UPDATE users 
+		SET
+		u_name = #{u_name}, 
+		u_pw = #{u_pw},
+		u_intro = #{u_intro}
+		WHERE u_no = #{u_no}
+	</update>
+
+</mapper>

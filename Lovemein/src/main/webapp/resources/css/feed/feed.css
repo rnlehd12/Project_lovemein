@@ -1,0 +1,62 @@
+@charset "UTF-8";
+/*마이피드 css by 귀정*/
+#feedWrap{width:1300px; margin:15px auto; border:1px solid #cfcfcf; border-left:none; height:770px;}
+#feedArea{display:inline-block; width:72.9%; background:#EAEAEA; height:770px;}
+#accountArea{display:inline-block; width:21%; background:#fff; float:right; padding:35px;}
+#feedcontentsArea{width:97%; margin:15px auto; background:#fff; height:740px; overflow:scroll;}
+#accountName{font-size:20px; font-weight:bold; color:#353535;}
+#accountName img{position:relative; top: 2px;}
+#imgArea{display:inline-block;}
+#accountPrimaryInfo{display:inline-block; position: relative; top: -20px; left: 15px;}
+#profileImg{width:75px; height:75px; border-radius:50%;}
+#writeFeedBtn{ background-color:#e64c7f; color:#fff; font-size:18px; border:none; 
+			   border-radius:3px;  font-weight:600; width:100%; height:48px; margin-top:20px}
+#writeFeedBtn:hover{background-color:#e42e5f; color:#fff; font-size:18px;; 
+					border-radius:3px;}
+#accountIntro{ width:98%; font-size:14px; color:#8c8c8c; margin: 12px auto; margin-bottom:0px;}	
+#accountLikeCountArea{ font-size: 16px; padding-bottom:5px; padding-top:20px; font-weight: bold; margin-left: 5px;}
+#accountLikeCountArea span{ color:#e64c7f;}
+#accountLikeList{background:#f8f8f8; padding:20px;}	
+#likeProfileImg{display:inline-block;}
+#likePersonNameArea{display:inline-block; font-size:14.5px; color:#353535; position: relative; left: 10px; top: -10px; font-weight:bold;}
+#likeProfileImg img{width:30px; height:30px; border-radius: 50%;}
+#accountLikeCountArea img{width:17px; margin-right: 5px; position: relative; top: 2px;}
+#personWrap{padding:6px 0;}
+.noLikesMent {text-align:center; font-size:14px; color:#8c8c8c;}
+#goStoryFeedBtn{ background-color: #e64c7f; color: #fff; font-size: 14px; border: none; border-radius: 3px;
+    		 	width: 67%; height: 33px; margin-top: 7px; font-weight: normal; padding: 0;}
+#yourFeedBtn{background-color: #e64c7f; color: #fff; font-size: 14px; border: none; border-radius: 20px;
+    		 width: 100%; height: 29px; font-weight: normal; padding: 0px 14px; }
+#btnArea{display:inline-block;float: right;}    	
+#accountEmail{color: #4C4C4C !important; font-weight: bold; font-size:13px !important;}	 	
+#feedContainer { width: 95%; background: #fafbfc; margin: 0 auto; min-height: 500px; position: relative; top: 22px; margin-bottom:20px;}
+#feedContents{width: 45%; display: inline-block; display:inline-block;}
+#feedContents #profileImgArea{display:inline-block;}  	
+#feedContents #profileImgArea #profileImgs{ width:60px; height:60px; border-radius:50%;}
+#feedWriterWrap{padding:25px; padding-bottom:0px;}
+#feedNameArea{display:inline-block; font-size:16px; font-weight:bold; color:#353535; position: relative; left: 10px; top: -10px;}
+#feedNameArea span{font-weight:normal; font-size:13px; color:#8c8c8c;} 	
+#textArea{padding:0 25px; font-size:14px; color:#5d5d5d; font-weight:bold; clear:both;}
+#feedTag{padding: 5px 25px;}
+#hashTagId{font-size:13px; color:#4374D9; padding-right:5px; font-weight:bold;}
+#hashTagId:hover{text-decoration:underline;}
+#likeCnt{display:inline-block; padding-left: 25px; padding-top: 12px; display: inline-block; font-weight: bold; font-size:15px;}
+#likeCnt img{width: 17px; height: 15px; position: relative; top: 2px; padding-right: 5px;}
+#replyCnt{display:inline-block; padding-left: 15px; padding-top: 12px; display: inline-block; font-weight: bold; font-size:15px;}
+#replyCnt img{width: 17px; height: 15px; position: relative; top: 2px; padding-right: 5px;}
+#lines { height: 1px; width: 91%; background: none; border-bottom: 1px solid #d5d5d5; margin: 0 auto; padding-top: 15px;}
+#replyOne{ padding-bottom: 0px; padding-left: 25px; padding-top: 15px;}
+#replyNickName{ color:#353535; font-size:14px; font-weight:bold;}
+#replyText{ color:#626262; font-size:13px; display:inline-block;}
+#replyProfileImg{ display:inline-block;}
+#replyProfileImg img{ width:35px; height:35px; border-radius:50%;}
+#rightArea{ display:inline-block; padding-left:10px}
+#insertReply{padding-left:25px; padding-top:30px; padding-bottom:25px;}
+#insertForm input[type='text']{border-radius:3px; border:1px solid #d5d5d5; width: 80%; height: 35px; padding-left: 10px;}
+#insertBtn{background:url("../../images/feed/insertReply25.png") no-repeat; border:none; height: 25px; width:25px; margin-left:5px;
+			position: relative; top: 7px;}
+#feedImg{ width:55%; display:inline-block;}
+#editArea{display:inline-block; margin-left:5px;}
+#editArea a {float: right; font-size: 13px; padding-right: 3px; position: relative; top: 5px; color:#8c8c8c}
+#editArea a:hover{text-decoration:underline; color:#000}	
+#feed_date{color: #8c8c8c; font-size: 12px; text-align: right; display: inline-block; float: right; padding-right: 30px; position: relative; top: -25px;}

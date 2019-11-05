@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="feedMapper">
+<!-- 피드 Mapper -->
+	<select id="likeCount" parameterType="String" resultType="int">
+		select count(*)
+		from users u
+		join likes l on l.U_NO_SEND = u.u_no
+		where u.u_no = #{param}
+	</select>
+	
+	<select id="sendLikeList" parameterType="String" resultType="Likes">
+		select u_no_send, u_no_rec, u_name as u_rec_name, u_profile as u_rec_profileImg
+		from (select u_no_send, u_no_rec
+		from users u
+		join likes l on l.U_NO_SEND = u.u_no
+		where u.u_no =#{param}) su
+		join users us on us.u_no = su.u_no_rec
+	</select>
+	
+	<select id="myFeedList" parameterType="String" resultType="Feed">
+		select f_no, f_text, f_img, f_tag, f_date, u.u_no, u_email, u_name, u_profile 
+		from feed f
+		join users u on u.u_no = f.u_no
+		where u.u_no = #{param}
+		order by f_no desc
+	</select>
+	
+	<select id="feedLikeMethod" parameterType="String" resultType="Feed">
+		select f_no,(select count(*) from feed_like where f_no = feed.f_no) count from feed
+	</select>
+	
+	<select id="feedReplyMethod" parameterType="String" resultType="Feed">
+		  select f_no,(select count(*) from feed_reply where f_no = feed.f_no) count from feed
+	</select>
+	
+	<select id="feedReplyListMethod" parameterType="String" resultType="FeedReply">
+		select f.f_no, fr_text, u_profile, u_name, fr.FR_DATE, fr.u_no
+		from feed f
+		join FEED_REPLY fr on f.f_no = fr.f_no
+		join users u on u.u_no = fr.u_no
+		where f.u_no = #{param}
+		order by 5 asc
+	</select>
+	
+	<insert id="insertReply" parameterType="FeedReply">
+		 INSERT INTO FEED_REPLY
+		  VALUES (
+		   TO_CHAR(SEQ_FR_NO.nextval),
+		   #{f_no},
+		   #{fr_text},
+		    SYSDATE,
+		   #{u_no}
+		   )
+	</insert>
+
+
+</mapper>
