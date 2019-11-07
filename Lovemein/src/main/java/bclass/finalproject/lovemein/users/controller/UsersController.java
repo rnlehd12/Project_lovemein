@@ -416,25 +416,23 @@ public class UsersController {
    }
    
    //## 계정정보수정 tab1 컨트롤러
-   @RequestMapping("accountInfo.do")
-   public ModelAndView accountInfoMethod(Users users, ModelAndView mv) {
-	   
-	    String returnView = "users/myInfo";
-	   
-	   	String password = users.getU_pw();
-		users.setU_pw(bcryptPasswordEncoder.encode(password));	
-		 
-		 int result = userService.accountInfoModi(users);
-			
-			if(result < 0) {
-				
-				mv.addObject("message", "정보수정에 실패하였습니다. 다시시도해주세요.");
-				mv.setViewName(returnView);
-			}else {
-				
-				mv.setViewName(returnView);
-			}
-	   
-	   return mv;	//수정페이지 재호출
+   @RequestMapping(value="accountInfo.do", method=RequestMethod.POST)
+   public String accountInfoMethod(Users users) {
+      
+         String password = users.getU_pw();
+      users.setU_pw(bcryptPasswordEncoder.encode(password));   
+       
+      int result = userService.accountInfoModi(users);
+      
+      if(result > 0) {
+         
+         logger.info("ㅋㅋ");
+         return "feed/myFeed";
+         
+      }else {
+         
+         return "feed/myFeed";
+      }
+      
    }
 }

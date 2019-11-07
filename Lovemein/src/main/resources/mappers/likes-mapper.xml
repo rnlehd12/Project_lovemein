@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="likesMapper">
+<!-- 찜 Mapper -->
+	
+	<!-- 내가찜한 리스트용 --> 
+	<select id="fromMeList" parameterType="String" resultType="Likes">
+		select u_no_send, u_no_rec, u_name as u_rec_name, u_profile as u_rec_profileImg, 
+		TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(u_birth, 'RR/MM/DD'))/12) as u_rec_age, u_job as u_rec_job, u_shcool as u_rec_sch, u_loc as u_rec_loc
+		from(select *
+				from (select * from likes l where u_no_send = #{senderNo}) lr
+				join users u on lr.u_no_rec = u.u_no) lru
+		join primaryinfo p on lru.u_no_rec = p.u_no
+	</select>
+	
+	<select id="addfromMeList" parameterType="hashmap" resultType="Likes">
+		<![CDATA[
+		select *
+		from(select rownum rnum, u_no_send, u_no_rec, u_name as u_rec_name, u_profile as u_rec_profileImg, 
+			TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(u_birth, 'RR/MM/DD'))/12) as u_rec_age, u_job as u_rec_job, u_shcool as u_rec_sch, u_loc as u_rec_loc
+			from((select *
+				from (select * from likes l where u_no_send = #{senderNo}) lr
+					join users u on lr.u_no_rec = u.u_no) lru
+				join primaryinfo p on lru.u_no_rec = p.u_no)order by rnum asc)
+		where rnum >= #{startRow} and rnum <= #{endRow}
+			]]>
+	</select>
+
+
+</mapper>

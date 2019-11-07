@@ -10,7 +10,6 @@
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 	function menuCloseFunc(){
-		
 		$(".subMenu").css("display","none");
 	}
 	
@@ -27,6 +26,7 @@
 		$("#myMenu").css("display","block");
 		$("#alMenu").css("display","none");
 	}
+	
 </script>
 </head>
 <body>
@@ -42,12 +42,12 @@
 				</form>
 			</div>
 			<div id="quickMenuWrap">
-				<button id="matchingBtn">소개팅 매칭</button>
+				<button id="matchingBtn" onclick="location.href='moveMatch.do'">소개팅 매칭</button>
 				<div id="iconWrap">
 					<button id="chatBtn" class="headerIcon">
 						<img src="resources/images/common/chatIcon.png">
 					</button>
-					<button id="likeBtn" class="headerIcon">
+					<button id="likeBtn" class="headerIcon" onclick="location.href='moveLikesList.do'">
 						<img src="resources/images/common/heartIcon2.png">
 					</button>
 					<button id="alBtn" class="headerIcon" type="button" onclick="alOpenFunc();">
