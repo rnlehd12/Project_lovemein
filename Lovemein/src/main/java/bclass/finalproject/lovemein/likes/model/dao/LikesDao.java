@@ -16,12 +16,12 @@ public class LikesDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public List<Likes> fromMeListMethod(String senderNo) {
-		return sqlSession.selectList("fromMeList", senderNo);
+	public List<Likes> addFromMeListMethod(HashMap<String, Object> map) {
+		return sqlSession.selectList("addFromMeList", map);
 	}
 
-	public List<Likes> addfromMeListMethod(HashMap<String, Object> map) {
-		return sqlSession.selectList("addfromMeList", map);
+	public List<Likes> addToMeListMethod(HashMap<String, Object> map) {
+		return sqlSession.selectList("addToMeList", map);
 	}
 	
 	

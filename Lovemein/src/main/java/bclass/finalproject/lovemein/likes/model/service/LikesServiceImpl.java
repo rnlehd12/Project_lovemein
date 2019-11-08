@@ -21,14 +21,15 @@ public class LikesServiceImpl implements LikesService{
 		return null;
 	}*/
 
+
 	@Override
-	public List<Likes> fromMeListMethod(String senderNo) {
-		return likesDao.fromMeListMethod(senderNo);
+	public List<Likes> addFromMeListMethod(HashMap<String, Object> map) {
+		return likesDao.addFromMeListMethod(map);
 	}
 
 	@Override
-	public List<Likes> addfromMeListMethod(HashMap<String, Object> map) {
-		return likesDao.addfromMeListMethod(map);
+	public List<Likes> addToMeListMethod(HashMap<String, Object> map) {
+		return likesDao.addToMeListMethod(map);
 	}
 	
 }

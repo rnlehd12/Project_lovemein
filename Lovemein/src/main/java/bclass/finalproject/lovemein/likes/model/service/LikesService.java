@@ -10,8 +10,9 @@ public interface LikesService {
 
 	/*List<AllUsers> sendLikesList(int u_no);*/
 
-	List<Likes> fromMeListMethod(String senderNo);
 
-	List<Likes> addfromMeListMethod(HashMap<String, Object> map);
+	List<Likes> addFromMeListMethod(HashMap<String, Object> map);
+
+	List<Likes> addToMeListMethod(HashMap<String, Object> map);
 	
 }

@@ -41,8 +41,8 @@ public class LikesController {
 	}
 	
 	/*fromMediv용*/
-	@RequestMapping(value="addfromMeList.do", method=RequestMethod.POST)
-	public void addfromMeListMethod(@RequestParam("u_no_send") String senderNo, 
+	@RequestMapping(value="addFromMeList.do", method=RequestMethod.POST)
+	public void addFromMeListMethod(@RequestParam("u_no_send") String senderNo, 
 			@RequestParam(name="btn_val", required=false) String btn_val, HttpServletResponse response) throws IOException {
 		int startRow = 1 + Integer.parseInt(btn_val);
 		int endRow = startRow + 8;
@@ -54,9 +54,9 @@ public class LikesController {
 		
 		
 		
-		logger.info("addfromeMe메소드 실행 senderNo: " +senderNo +", endRow" + endRow );
+//		logger.info("addfromeMe메소드 실행 senderNo: " +senderNo +", endRow" + endRow );
 		List<Likes> likeslist = new ArrayList<Likes>();
-		likeslist = likesService.addfromMeListMethod(map);
+		likeslist = likesService.addFromMeListMethod(map);
 		
 		JSONObject fromJsonO = new JSONObject();
 		JSONArray jarr = new JSONArray();
@@ -75,6 +75,14 @@ public class LikesController {
 			job.put("u_rec_job", URLEncoder.encode(likes.getU_rec_job(), "utf-8"));
 			job.put("u_rec_sch", URLEncoder.encode(likes.getU_rec_sch(), "utf-8"));
 			job.put("u_rec_loc", URLEncoder.encode(likes.getU_rec_loc(), "utf-8"));
+			//하트
+			if(likes.getU_type() == null) {
+				job.put("u_type", URLEncoder.encode("♡", "utf-8"));
+			}else{
+				job.put("u_type", URLEncoder.encode("♥", "utf-8"));
+			}
+//			logger.info("addfrom메소드의 u_type 확인" + likes.getU_type());
+			
 			//프로필이미지
 			if(likes.getU_rec_profileImg() == null) {	
 				job.put("u_rec_profile", URLEncoder.encode("nullProfile.png", "utf-8"));
@@ -99,62 +107,66 @@ public class LikesController {
 	}  // fromMe찜리스트 추가 출력
 	
 	/*toMediv용*/
-	@RequestMapping(value="fromMeList.do", method=RequestMethod.POST)
-	public void fromMeListMethod(@RequestParam("u_no_send") String senderNo, 
+	@RequestMapping(value="addToMeList.do", method=RequestMethod.POST)
+	public void addToMeListMethod(@RequestParam("u_no_rec") String receiverNo, 
 			@RequestParam(name="btn_val", required=false) String btn_val, HttpServletResponse response) throws IOException {
-		/* int startRow = 1 + Integer.parseInt(btn_val);
-		int endRow = startRow + 9;
+		int startRow = 1 + Integer.parseInt(btn_val);
+		int endRow = startRow + 8;
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
-		map.put("senderNo", senderNo);
-		*/
-		///여기까지 수정
+		map.put("receiverNo", receiverNo);
 		
-		logger.info("fromeMe메소드 실행, senderNo : " +senderNo);
+		
+		
+//		logger.info("addToMe메소드 실행 receiverNo: " +receiverNo +", endRow" + endRow );
 		List<Likes> likeslist = new ArrayList<Likes>();
-		likeslist = likesService.fromMeListMethod(senderNo);
+		likeslist = likesService.addToMeListMethod(map);
 		
 		JSONObject fromJsonO = new JSONObject();
 		JSONArray jarr = new JSONArray();
 		
 		for(Likes likes : likeslist) {
-/*			u_no_send,  u_no_rec,  u_rec_name, 
-			u_rec_profileImg, u_rec_age, u_rec_job, 
-			u_rec_sch, u_rec_loc;*/
-			
+/*			u_no_rec,  u_no_send,  u_send_name, 
+			u_send_profileImg, u_send_age, u_send_job, 
+			u_send_sch, u_send_loc, u_type ;*/ // toMe찜리스트
 			JSONObject job = new JSONObject();
 			
 			job.put("u_no_send", likes.getU_no_send());
 			job.put("u_no_rec", likes.getU_no_rec());
-			job.put("u_rec_name", URLEncoder.encode(likes.getU_rec_name(), "utf-8"));
-			job.put("u_rec_age", likes.getU_rec_age());
-			job.put("u_rec_job", URLEncoder.encode(likes.getU_rec_job(), "utf-8"));
-			job.put("u_rec_sch", URLEncoder.encode(likes.getU_rec_sch(), "utf-8"));
-			job.put("u_rec_loc", URLEncoder.encode(likes.getU_rec_loc(), "utf-8"));
+			job.put("u_send_name", URLEncoder.encode(likes.getU_send_name(), "utf-8"));
+			job.put("u_send_age", likes.getU_send_age());
+			job.put("u_send_job", URLEncoder.encode(likes.getU_send_job(), "utf-8"));
+			job.put("u_send_sch", URLEncoder.encode(likes.getU_send_sch(), "utf-8"));
+			job.put("u_send_loc", URLEncoder.encode(likes.getU_send_loc(), "utf-8"));
+			//하트
+			job.put("u_type", likes.getU_type());
+
+			logger.info("addto메소드의 u_type 확인" + likes.getU_type());
+			
 			//프로필이미지
-			if(likes.getU_rec_profileImg() == null) {	
-				job.put("u_rec_profile", URLEncoder.encode("nullProfile.png", "utf-8"));
+			if(likes.getU_send_profileImg() == null) {	
+				job.put("u_send_profile", URLEncoder.encode("nullProfile.png", "utf-8"));
 			}else {	
-				job.put("u_rec_profile", URLEncoder.encode(likes.getU_rec_profileImg(), "utf-8"));
+				job.put("u_send_profile", URLEncoder.encode(likes.getU_send_profileImg(), "utf-8"));
 			}
 			
-			/*logger.info("fromeMe 메소드 job 객체 저장 확인 " +job.toString());*/
+		/*	logger.info("addTomeMe 메소드 job 객체 저장 확인 " +job.toString());*/ // toMe찜리스트
 			jarr.add(job);
 		}
 		
-		/*logger.info("fromeMe 메소드 jarr 배열 저장 확인 " +jarr.toString());*/
+		/*logger.info("toeMe 메소드 jarr 배열 저장 확인 " +jarr.toString());*/ // toMe찜리스트
 		fromJsonO.put("list", jarr);
 		
 		response.setContentType("application/json; charset=utf-8"); 
 		PrintWriter out = response.getWriter();
-		
+		// toMe찜리스트
 		out.println(fromJsonO.toJSONString());
 		out.flush();
 		out.close();
 		
-	}  // toMe찜리스트 처음 출력
+	}   // toMe찜리스트 처음 출력
 		
 
 

@@ -1,5 +1,7 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
 
+*{ margin:0; padding:0; font-family:'Noto Sans KR', sans-serif;}
 
 #likesDiv{
 /* 전체 div */
@@ -12,6 +14,7 @@
 .myLikesList_div{
 /* 	1.1div 1.2div 전체 공통*/
 	width: 65%;
+	border-radius: 20px;
 	/* height: 1250px; */
 	/* border: 1px solid yellow; */
 	position: relative;
@@ -29,19 +32,27 @@
 /* 	border: 1px solid red; */
 	padding: 0px;
 	margin:0px;
+	border-radius: 20px;
 	
 }
 .tab_link.active{
 /* 	탭 활성화 */
-	border: 1px solid orange;
+	/* border: 1px solid orange; */
  	background-color: rgb(250, 243, 244);
-	color: red;
+	 	padding-top: 5px;
+	 	padding-bottom: 5px;
+}
+.tab_link.active a{
+	color: #e64c7f;
+	
 }
 .tab_link{
 /* 	탭비활성화 */
-background-color: rgb(233, 233, 233);
+	background-color: rgb(233, 233, 233);
 	border: 1px solid sky;
-	font-color: blue;
+	 	padding-top: 5px;
+	 	padding-bottom: 5px;
+	
 	/* display: none; */
 }
 #tab1{
@@ -49,6 +60,7 @@ background-color: rgb(233, 233, 233);
 	display: inline-block;
 	width: 50%;
 	height:100%;
+	border-radius: 20px 0px 0px 0px;
 /* 	border: 1px solid red; */
 	/* border-top: 1px solid rgb(250, 220, 220);
 	border-left: 1px solid rgb(250, 220, 220);
@@ -56,6 +68,7 @@ background-color: rgb(233, 233, 233);
 }
 #tab2{
 	/* 	오른쪽탭 */
+	border-radius: 0px 20px 0px 0px;
 	display: inline-block;
 	width: 50%;
 	height:100%;
@@ -73,6 +86,7 @@ background-color: rgb(233, 233, 233);
 	 font-size: 1.2em;
 	 font-weight: bold;
 	 text-align: center;
+	 color: gray;
 /* 	 border: 1px solid yellow; */
 }
 
@@ -83,7 +97,7 @@ background-color: rgb(233, 233, 233);
 	width: 99.8%;
 	margin:0px;	
 	padding:0px;
-	border:1px solid orange;
+	/* border:1px solid orange; */
 /*  	border-top: none; 
 	border-bottom: 1px solid rgb(250, 220, 220);
 
@@ -144,6 +158,7 @@ ul li .oneImg_div{ /* 이미지 리스트 ul li div : 한칸 */
 	
 	border: 1px solid rgb(233, 233, 233);
 	background-color: rgb(233, 233, 233);
+/* 	background-color: rgb(250, 248, 249); */
 	/* background-color: #e64c7f; */
 	width: 240px;
 	height: 340px;
@@ -152,7 +167,7 @@ ul li .oneImg_div{ /* 이미지 리스트 ul li div : 한칸 */
     left: 3%; */
 
 }	
-#imgPart{ /* 이미지 리스트 ul li div div : 한칸 안의 img부분*/
+.imgPart{ /* 이미지 리스트 ul li div div : 한칸 안의 img부분*/
  position: relative;
 	margin:0px;
 	padding:0px;
@@ -161,7 +176,7 @@ ul li .oneImg_div{ /* 이미지 리스트 ul li div : 한칸 */
 	/* border: 1px solid yellow; */
 	background-color: #F6F6F6;
 }
-#imgPart img{ /* 이미지 div크기에 맞추기 */
+.imgPart img{ /* 이미지 div크기에 맞추기 */
 	margin: 0px;
 	padding: 0px;
 	position: absolute;
@@ -171,7 +186,7 @@ ul li .oneImg_div{ /* 이미지 리스트 ul li div : 한칸 */
 	height:100%;
 }
 
-#profilePart{/*  ul li div div : 한칸 안의 프로필*/
+.profilePart{/*  ul li div div : 한칸 안의 프로필*/
 	 position: relative;
 	margin:0px;
 	padding:0px;
@@ -180,7 +195,7 @@ ul li .oneImg_div{ /* 이미지 리스트 ul li div : 한칸 */
 	height: 100px;
 /* 	border: 1px solid yellow; */
 }
-#matp{/* p태그 둘러싼 div	 */
+.matp{/* p태그 둘러싼 div	 */
 		/* border: 1px solid yellow; */
 	 display: inline-block;
 	margin: 0px;
@@ -190,7 +205,7 @@ ul li .oneImg_div{ /* 이미지 리스트 ul li div : 한칸 */
     width: 68%; 
 
 }
-#matp p{
+.matp p{
 	margin: 0px;
 	padding-left: 6%;
 	padding-top: 0%;
@@ -198,37 +213,37 @@ ul li .oneImg_div{ /* 이미지 리스트 ul li div : 한칸 */
 	/* border: 1px solid orange; */
 }
 /* 글자이동 */
-#pname{
+.pname{
 	 display: inline-block;
 	 position: relative;
 	top: 0px;
 	
 }
-#page{
+.page{
 	 display: inline-block;
 	  position: relative;
 	top:0px;
 	width: 40px;
 }
-#pjob{
+.pjob{
 	/*  display: inline-block; */
 	  position: relative;
 	top: 0%;
 /* 	width: 80px; */
 }
-#psch{
+.psch{
 	/*  display: inline-block; */
 	  position: relative;
 		top: 0%;
 /* 	width:55px; */
 }
-#ploc{
+.ploc{
 	 	position: relative;
 	top: 0%;
 } 
 
 /* 이미지안, p오른쪽div */
-#matright{
+.matright{
 		margin: -4px;
 		padding: 0px;
 	/* border: 1px solid green; */
@@ -238,7 +253,7 @@ ul li .oneImg_div{ /* 이미지 리스트 ul li div : 한칸 */
 	height: 100%;
 	top: -30%;
 }
-#matright #math{
+.matright .math{
 	margin: 0px;
 	/* border: 1px solid blue; */
 	position: relative;
@@ -246,36 +261,71 @@ ul li .oneImg_div{ /* 이미지 리스트 ul li div : 한칸 */
 	left:30%;
 	width:50%;
 	height: 40px;
-	font-size: 1.8em;
+	font-size: 2.0em;
 	text-align: center;
+	text-decoration: none; 
 	color: red;
 }
-#matright #matchat{
+.matright .math:hover {
+	color: gray;
+}
+.matright .math:active {
+	color: red;
+}
+
+.matright .matchat{
 	margin: 0px;
 	/* border: 1px solid orange; */
-
+	text-align: center;
 	position: relative;
-	left:0%;
+	left:-5%;
 	top:10px;
 	width:100%;
 	height: 40%;
 } 
 
-#matright #matchat #matchatbt{
-	margin: 0px;
+.matright .matchat .matchatbt{
+ 	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360); 
+	display: block;
+	/* margin: 20px auto;
+	max-width: 180px; */
+		margin: 0px;
+			position: relative;
+	top:5px;
+	left: 0px;
+	width:100%;
+	height:60%;
+	text-decoration: none;
+	font-size: 0.89em;
+	border-radius: 4px;
+	padding: 3px 4px;
+	/* padding: 0px; */
+	color: rgba(30, 22, 54, 0.6);
+	box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;	
+/* 	margin: 0px;
 	padding: 0px;
 	position: relative;
 	top:10px;
 	left: 0px;
 	background-color: rgb(41, 128, 185);
 	color: #fff;
-/* 	border: 0px solid black; */
+	border: 0px solid black;
 		width:100%;
 	height:60%;
-	font-size: 0.82em;
+	font-size: 0.82em */;
 }
 
-#addlistBtnDiv {
+.matright .matchat .matchatbt:hover {
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+}
+
+/* from 버튼 */
+#f_addlistBtnDiv {
 	width: 100%;
 	height: 50px;
 	position: relative;
@@ -283,7 +333,37 @@ ul li .oneImg_div{ /* 이미지 리스트 ul li div : 한칸 */
 		text-align: center;
 		padding-top: 2%;
 }
-#addlistBtnDiv #addlistBtn {
+#f_addlistBtnDiv #f_addlistBtn {
+	position: relative;
+	width: 90%;
+	height: 40px;
+	broder: 0px;
+	background-color: rgb(210,210,210);
+	color: #fff;
+	text-align: center;
+	/* border: 5px solid green; */
+}
+#f_addlistBtnDiv #f_addlistBtn:disabled{
+	position: relative;
+	width: 90%;
+	height: 40px;
+	broder: 0px;
+	background-color: #fff;
+	color: rgb(200,200,200);
+	text-align: center;
+	/* text-size: 1.5em; */
+}
+
+/* to버튼 */
+#t_addlistBtnDiv {
+	width: 100%;
+	height: 50px;
+	position: relative;
+	/* border: 1px solid red; */
+		text-align: center;
+		padding-top: 2%;
+}
+#t_addlistBtnDiv #t_addlistBtn {
 	position: relative;
 	width: 90%;
 	height: 40px;
@@ -294,7 +374,7 @@ ul li .oneImg_div{ /* 이미지 리스트 ul li div : 한칸 */
 	/* border: 5px solid green; */
 }
 
-#addlistBtnDiv #addlistBtn:disabled{
+#t_addlistBtnDiv #t_addlistBtn:disabled{
 	position: relative;
 	width: 90%;
 	height: 40px;

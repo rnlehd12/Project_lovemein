@@ -21,7 +21,7 @@ public class Likes implements Serializable{
 	private String u_send_sch; 
 	private String u_rec_loc;  
 	private String u_send_loc;  
-	
+	private String u_type; // 서로가 찜했으면 1, 일방적으로 찜했으면 null
 
 	
 	public Likes() {}
@@ -53,6 +53,37 @@ public class Likes implements Serializable{
 		this.u_send_sch = u_send_sch;
 		this.u_rec_loc = u_rec_loc;
 		this.u_send_loc = u_send_loc;
+	}
+
+	
+	
+	public Likes(String u_no_send, String u_no_rec, String u_rec_name, String u_send_name, String u_rec_profileImg,
+			String u_send_profileImg, String u_rec_age, String u_send_age, String u_rec_job, String u_send_job,
+			String u_rec_sch, String u_send_sch, String u_rec_loc, String u_send_loc, String u_type) {
+		super();
+		this.u_no_send = u_no_send;
+		this.u_no_rec = u_no_rec;
+		this.u_rec_name = u_rec_name;
+		this.u_send_name = u_send_name;
+		this.u_rec_profileImg = u_rec_profileImg;
+		this.u_send_profileImg = u_send_profileImg;
+		this.u_rec_age = u_rec_age;
+		this.u_send_age = u_send_age;
+		this.u_rec_job = u_rec_job;
+		this.u_send_job = u_send_job;
+		this.u_rec_sch = u_rec_sch;
+		this.u_send_sch = u_send_sch;
+		this.u_rec_loc = u_rec_loc;
+		this.u_send_loc = u_send_loc;
+		this.u_type = u_type;
+	}
+
+	public String getU_type() {
+		return u_type;
+	}
+
+	public void setU_type(String u_type) {
+		this.u_type = u_type;
 	}
 
 	public String getU_no_send() {
@@ -175,8 +206,19 @@ public class Likes implements Serializable{
 				+ ", u_send_name=" + u_send_name + ", u_rec_profileImg=" + u_rec_profileImg + ", u_send_profileImg="
 				+ u_send_profileImg + ", u_rec_age=" + u_rec_age + ", u_send_age=" + u_send_age + ", u_rec_job="
 				+ u_rec_job + ", u_send_job=" + u_send_job + ", u_rec_sch=" + u_rec_sch + ", u_send_sch=" + u_send_sch
-				+ ", u_rec_loc=" + u_rec_loc + ", u_send_loc=" + u_send_loc + "]";
+				+ ", u_rec_loc=" + u_rec_loc + ", u_send_loc=" + u_send_loc + ", u_type=" + u_type + "]";
 	}
+
+	
+	
+/*	@Override
+	public String toString() {
+		return "Likes [u_no_send=" + u_no_send + ", u_no_rec=" + u_no_rec + ", u_rec_name=" + u_rec_name
+				+ ", u_send_name=" + u_send_name + ", u_rec_profileImg=" + u_rec_profileImg + ", u_send_profileImg="
+				+ u_send_profileImg + ", u_rec_age=" + u_rec_age + ", u_send_age=" + u_send_age + ", u_rec_job="
+				+ u_rec_job + ", u_send_job=" + u_send_job + ", u_rec_sch=" + u_rec_sch + ", u_send_sch=" + u_send_sch
+				+ ", u_rec_loc=" + u_rec_loc + ", u_send_loc=" + u_send_loc + "]";
+	}*/
 
 /*	@Override
 	public String toString() {
