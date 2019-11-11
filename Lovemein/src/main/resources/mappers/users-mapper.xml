@@ -80,7 +80,5 @@
 		WHERE u_no = #{u_no}
 	</update>
 	
-<!-- 매칭 리스트용
-	<select id="matchList" parameterType="AllUsers" resultType="AllUsers">
-	</select> -->
+
 </mapper>

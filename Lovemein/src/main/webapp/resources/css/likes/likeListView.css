@@ -49,7 +49,7 @@
 .tab_link{
 /* 	탭비활성화 */
 	background-color: rgb(233, 233, 233);
-	border: 1px solid sky;
+	/* border: 1px solid sky; */
 	 	padding-top: 5px;
 	 	padding-bottom: 5px;
 	
@@ -113,7 +113,7 @@
 	width: 99.8%;
 	margin:0px;	
 	padding:0px;
-	border:1px solid blue;
+	/* border:1px solid blue; */
 /*  	border-top: none; 
 	border-bottom: 1px solid rgb(250, 220, 220);
 
@@ -274,6 +274,7 @@ ul li .oneImg_div{ /* 이미지 리스트 ul li div : 한칸 */
 }
 
 .matright .matchat{
+	display:none; 
 	margin: 0px;
 	/* border: 1px solid orange; */
 	text-align: center;
@@ -283,8 +284,21 @@ ul li .oneImg_div{ /* 이미지 리스트 ul li div : 한칸 */
 	width:100%;
 	height: 40%;
 } 
+.matright .matchat.active{
+	display: block;
+	
+}
+.matright .matchat.tactive{
+	display: block;
+	
+}
+/* 
+.matright .matchat.active .matchatbt{
+	
+} */
 
 .matright .matchat .matchatbt{
+	
  	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
 	-moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
 	-ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);

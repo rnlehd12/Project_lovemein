@@ -14,5 +14,9 @@ public interface LikesService {
 	List<Likes> addFromMeListMethod(HashMap<String, Object> map);
 
 	List<Likes> addToMeListMethod(HashMap<String, Object> map);
+
+	int insertLikesMethod(Likes likes);
+
+	int deleteLikesMethod(Likes likes);
 	
 }

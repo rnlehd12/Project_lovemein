@@ -27,7 +27,7 @@
 									from likes where u_no_send = #{senderNo})) ru on ru.uus = lk.u_no_rec) lr
 				join users u on lr.u_no_rec = u.u_no) lru
 		join primaryinfo p on lru.u_no_rec = p.u_no)order by rnum asc)
-		where rnum >=#{startRow} and rnum <= #{endRow}
+		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
 	</select>
 	
@@ -44,11 +44,26 @@
 									from likes where u_no_rec = #{receiverNo})) ru on ru.uur = lk.u_no_send) lr
 				join users u on lr.u_no_send = u.u_no) lru
 		join primaryinfo p on lru.u_no_send = p.u_no)order by rnum asc)
-		where rnum >=#{startRow} and rnum <= #{endRow}
+		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
 	</select>
+	
+	<insert id="insertLikes" parameterType="Likes">
+		INSERT INTO LIKES
+  			VALUES (
+  			(select u_no from users where u_no = #{u_no_send}),
+   			(select u_no from users where u_no = #{u_no_rec})
+   			)
+	</insert>
 
-
-
+	<delete id="deleteLikes" parameterType="Likes">
+		DELETE 
+   		FROM LIKES
+   		WHERE(
+   		(U_NO_SEND = #{u_no_send})
+   		AND
+   		(U_NO_REC = #{u_no_rec})
+   		)
+	</delete>
 
 </mapper>

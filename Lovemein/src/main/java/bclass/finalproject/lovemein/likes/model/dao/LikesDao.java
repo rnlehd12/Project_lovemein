@@ -24,5 +24,13 @@ public class LikesDao {
 		return sqlSession.selectList("addToMeList", map);
 	}
 	
+	public int insertLikesMethod(Likes likes) {
+		return sqlSession.insert("insertLikes", likes);
+	}
+
+	public int deleteLikesMethod(Likes likes) {
+		return sqlSession.delete("deleteLikes", likes);
+	}
+	
 	
 }

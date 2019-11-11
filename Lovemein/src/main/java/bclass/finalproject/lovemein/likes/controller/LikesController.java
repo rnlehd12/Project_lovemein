@@ -2,7 +2,6 @@ package bclass.finalproject.lovemein.likes.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,9 +18,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import bclass.finalproject.lovemein.likes.model.service.LikesService;
 import bclass.finalproject.lovemein.likes.model.vo.Likes;
+
 
 
 @Controller
@@ -76,12 +77,9 @@ public class LikesController {
 			job.put("u_rec_sch", URLEncoder.encode(likes.getU_rec_sch(), "utf-8"));
 			job.put("u_rec_loc", URLEncoder.encode(likes.getU_rec_loc(), "utf-8"));
 			//하트
-			if(likes.getU_type() == null) {
-				job.put("u_type", URLEncoder.encode("♡", "utf-8"));
-			}else{
-				job.put("u_type", URLEncoder.encode("♥", "utf-8"));
-			}
-//			logger.info("addfrom메소드의 u_type 확인" + likes.getU_type());
+			job.put("u_type", likes.getU_type());
+//			logger.info("addfrom의 send, rec, u_type:"+
+//			likes.getU_no_send()+"," +likes.getU_no_rec()+"," + likes.getU_type());
 			
 			//프로필이미지
 			if(likes.getU_rec_profileImg() == null) {	
@@ -142,8 +140,14 @@ public class LikesController {
 			job.put("u_send_loc", URLEncoder.encode(likes.getU_send_loc(), "utf-8"));
 			//하트
 			job.put("u_type", likes.getU_type());
-
-			logger.info("addto메소드의 u_type 확인" + likes.getU_type());
+/*			if(likes.getU_type() == null) {
+				job.put("u_type", URLEncoder.encode("♡", "utf-8"));
+			}else{
+				job.put("u_type", URLEncoder.encode("♥", "utf-8"));
+			}*/
+//			logger.info("addto의 send, rec, u_type:"+
+//					likes.getU_no_send()+"," +likes.getU_no_rec()+"," + likes.getU_type());
+//			logger.info("addto메소드의 u_type 확인" + likes.getU_type());
 			
 			//프로필이미지
 			if(likes.getU_send_profileImg() == null) {	
@@ -168,7 +172,35 @@ public class LikesController {
 		
 	}   // toMe찜리스트 처음 출력
 		
+	@RequestMapping(value="insertLikes.do", method=RequestMethod.POST)
+	public ModelAndView insertLikesMethod(Likes likes, ModelAndView mv){
+//		logger.info("insertLikes controller옴"+ likes.getU_no_rec()+ likes.getU_no_send());
+//		if처리 안한다면 
+//		m.addAttribute("result", likesService.insertLikesMethod(loginNo));
+		int result = likesService.insertLikesMethod(likes);
+		if(result > 0) {
+//			logger.info("insertLiskes에서 result값 받아옴. result : " + result);
+			mv.addObject("result", result);
+			mv.setViewName("JsonView");
+			//m.addAttribute("result", result);
+		} else	{
+			logger.info("insertLiskes에서 result값 못받아옴");
+		}			
+		return mv;
+	}
 
-
-
+	@RequestMapping(value="deleteLikes.do", method=RequestMethod.POST)
+	public ModelAndView deleteLikesMethod(Likes likes, ModelAndView mv) {
+		logger.info("deleteLikes controller옴"+ likes.getU_no_rec()+ likes.getU_no_send());
+		int result = likesService.deleteLikesMethod(likes);
+		if(result >0) {
+			logger.info("insertLiskes에서 result값 받아옴. result : " + result);
+			mv.addObject("result", result);
+			mv.setViewName("JsonView");
+		} else {
+			logger.info("deleteLikes에서 result 값 못받아옴");
+		}
+		return mv;
+	}
+		
 }

@@ -16,12 +16,6 @@ public class LikesServiceImpl implements LikesService{
 	@Autowired
 	private LikesDao likesDao;
 
-/*	@Override
-	public List<AllUsers> sendLikesList(int u_no) {
-		return null;
-	}*/
-
-
 	@Override
 	public List<Likes> addFromMeListMethod(HashMap<String, Object> map) {
 		return likesDao.addFromMeListMethod(map);
@@ -31,5 +25,17 @@ public class LikesServiceImpl implements LikesService{
 	public List<Likes> addToMeListMethod(HashMap<String, Object> map) {
 		return likesDao.addToMeListMethod(map);
 	}
-	
+
+
+	@Override
+	public int insertLikesMethod(Likes likes) {
+		return likesDao.insertLikesMethod(likes);
+	}
+
+	@Override
+	public int deleteLikesMethod(Likes likes) {
+		return likesDao.deleteLikesMethod(likes);
+	}
+
+
 }
