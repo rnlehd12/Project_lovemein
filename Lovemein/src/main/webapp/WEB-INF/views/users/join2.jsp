@@ -57,5 +57,6 @@
 			<input type="submit" value="다음단계" id="subBtn">
 		</form>	
 	</div>
+	<c:import url="../common/footer.jsp"/>
 </body>
 </html>

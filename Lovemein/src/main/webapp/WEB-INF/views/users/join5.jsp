@@ -212,5 +212,6 @@ function laterFunc(){
 			</div>			
 		</form>	
 	</div>
+	<c:import url="../common/footer.jsp"/>
 </body>
 </html>

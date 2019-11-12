@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/*마이피드 css by 귀정*/
+/*마이피드 + 상대피드 css by 귀정*/
 #feedWrap{width:1300px; margin:15px auto; border:1px solid #cfcfcf; border-left:none; height:770px;}
 #feedArea{display:inline-block; width:72.9%; background:#EAEAEA; height:770px;}
 #accountArea{display:inline-block; width:21%; background:#fff; float:right; padding:35px;}
@@ -10,8 +10,8 @@
 #accountPrimaryInfo{display:inline-block; position: relative; top: -20px; left: 15px;}
 #profileImg{width:75px; height:75px; border-radius:50%;}
 #writeFeedBtn{ background-color:#e64c7f; color:#fff; font-size:18px; border:none; 
-			   border-radius:3px;  font-weight:600; width:100%; height:48px; margin-top:20px}
-#writeFeedBtn:hover{background-color:#e42e5f; color:#fff; font-size:18px;; 
+			   border-radius:3px;  font-weight:600; width:100%; height:48px; margin-top:20px; cursor:pointer;}
+#writeFeedBtn:hover{background-color:#e42e5f; color:#fff; font-size:18px; 
 					border-radius:3px;}
 #accountIntro{ width:98%; font-size:14px; color:#8c8c8c; margin: 12px auto; margin-bottom:0px;}	
 #accountLikeCountArea{ font-size: 16px; padding-bottom:5px; padding-top:20px; font-weight: bold; margin-left: 5px;}
@@ -26,7 +26,7 @@
 #goStoryFeedBtn{ background-color: #e64c7f; color: #fff; font-size: 14px; border: none; border-radius: 3px;
     		 	width: 67%; height: 33px; margin-top: 7px; font-weight: normal; padding: 0;}
 #yourFeedBtn{background-color: #e64c7f; color: #fff; font-size: 14px; border: none; border-radius: 20px;
-    		 width: 100%; height: 29px; font-weight: normal; padding: 0px 14px; }
+    		 width: 100%; height: 29px; font-weight: normal; padding: 0px 14px;  cursor:pointer; outline: 0;}
 #btnArea{display:inline-block;float: right;}    	
 #accountEmail{color: #4C4C4C !important; font-weight: bold; font-size:13px !important;}	 	
 #feedContainer { width: 95%; background: #fafbfc; margin: 0 auto; min-height: 500px; position: relative; top: 22px; margin-bottom:20px;}
@@ -46,17 +46,74 @@
 #replyCnt img{width: 17px; height: 15px; position: relative; top: 2px; padding-right: 5px;}
 #lines { height: 1px; width: 91%; background: none; border-bottom: 1px solid #d5d5d5; margin: 0 auto; padding-top: 15px;}
 #replyOne{ padding-bottom: 0px; padding-left: 25px; padding-top: 15px;}
-#replyNickName{ color:#353535; font-size:14px; font-weight:bold;}
-#replyText{ color:#626262; font-size:13px; display:inline-block;}
+#replyNickName{ color:#353535; font-size:14px; font-weight:bold; display:inline-block; padding-right:5px;}
+#replyText{ color:#626262; font-size:13px; display:block;}
 #replyProfileImg{ display:inline-block;}
 #replyProfileImg img{ width:35px; height:35px; border-radius:50%;}
 #rightArea{ display:inline-block; padding-left:10px}
 #insertReply{padding-left:25px; padding-top:30px; padding-bottom:25px;}
 #insertForm input[type='text']{border-radius:3px; border:1px solid #d5d5d5; width: 80%; height: 35px; padding-left: 10px;}
 #insertBtn{background:url("../../images/feed/insertReply25.png") no-repeat; border:none; height: 25px; width:25px; margin-left:5px;
-			position: relative; top: 7px;}
+			position: relative; top: 7px; cursor:pointer;}
 #feedImg{ width:55%; display:inline-block;}
 #editArea{display:inline-block; margin-left:5px;}
 #editArea a {float: right; font-size: 13px; padding-right: 3px; position: relative; top: 5px; color:#8c8c8c}
 #editArea a:hover{text-decoration:underline; color:#000}	
 #feed_date{color: #8c8c8c; font-size: 12px; text-align: right; display: inline-block; float: right; padding-right: 30px; position: relative; top: -25px;}
+#replyDate{display:inline-block; font-size:11px; color:#5D5D5D}
+#feedImg{ width: 50%; height: 400px; display: inline-block; background: #EAEAEA; position: absolute; top: 30px; left: 420px;}
+.replyWrap{position:relative;overflow:hidden;}
+.replyWrapMore{position:relative;overflow:hidden; height:185px;}
+#feeimgs{width:100%; height:100%}
+.modiDiv{margin-top: 7px; display:none;}
+.modiDiv input[type='text']{border-radius:3px; border:1px solid #d5d5d5; width: 70%; height: 35px; padding-left: 10px;}
+#replyModiForm #replyModiSub{background:#e42e5f; color:#fff; border: none; padding: 7px 9px; border-radius: 3px; cursor:pointer;}
+#replyModiForm #closeReplyModiSub{background:#747474; color:#fff; border: none; padding: 7px 9px; border-radius: 3px; cursor:pointer;}
+#feedMenu{position: absolute; top: 20px; left: 335px;}
+
+/*글쓰기 모달 팝업 css*/
+#mask { position:absolute; z-index:99998; background-color:#000; display:none; left:0; top:0;} 
+#feedWriteForm{ width: 800px; height: 700px; background: #fff; margin: 0 auto; z-index: 99999; position: fixed; top: 80px; 
+				left: 27%; display:none;}
+#findClose{border: none; background: #fff; color: #ccc; font-size: 40px; font-weight: bold; float: right; 
+			margin-right: 30px;}
+#unChekedHeart{display:none;}
+#feedMenu #gofeedMenu img{ width:26px; cursor:pointer;}	
+#feedMenu #gofeedMenu{ border:none; background:#fafbfc;}	
+.feedCategory{ display: block; position: absolute; left: 263px; top: 45px; z-index: 99999; padding: 10px 14px; background: #f0f0f0; 
+				font-size: 14px; display:none;}	
+#insertFeedWriteForm{display:block; width:700px; margin:40px auto; font-size: 14px; font-weight: bold;}
+#insertFeedWriteForm textarea{ border-radius: 3px; width:100%; border: 1px solid #cccccc; height:200px; padding:5px; }	
+#insertFeedWriteForm input[type='text']{ width:100%; border:1px solid #cccc; height:32px; border-radius: 3px;}
+#imgAreas{ width:100%;}
+#imgAreas #imgDiv{ width:100%; display:inline-block; padding: 5px; margin-bottom:10px;}
+#insertFeedWriteForm p{ margin-top: 20px; margin-bottom: 5px;}	
+#writeTitle{font-size: 34px; display: block; margin: 0 auto; width: 25%; text-align: center; margin-bottom: 25px !important;}
+#insertFeedWriteForm p span{color:#8c8c8c; font-weight:normal;}
+#insertFeedWriteForm input[type='submit']{ background: #e42e5f; color: #fff; border: none; width:100%; font-size: 18px; 
+											font-weight: bold; border-radius: 3px; height:43px; margin-top:20px}
+#imgDiv img{height: 100px; border-radius: 7px; margin-right: 10px; border: 1px dashed #ccc;}		
+#upfilesBtn{ background: #e42e5f; color: #fff; border: none; font-size: 14px; font-weight: normal; border-radius: 3px; 
+			height: 43px; margin-top: 20px; padding: 8px 14px; cursor:pointer;}	
+#f_img {display:none;}
+.moreReply{background: #fafbfc; border: none; border-top: 1px solid #ccc; color: #353535; width: 90%; margin-left: 25px; 
+			margin-top: 30px; padding-top: 10px; cursor:pointer; outline:0;}
+
+/*피드 이미지 슬라이드 영역*/
+.feedSlideDiv{ width: 400px; height: 400px; background: #EAEAEA; display: inline-block; 
+				position: absolute; top:25px; left: 420px;}	
+.feedSlideDiv img{ width:400px; height:400px;}
+.swiper-container { width: 400px; height: 400px; }
+#noFeedImage{ font-size:14px; font-weight:bold; margin-top:180px; text-align:center;}
+.swiper-container-horizontal>.swiper-scrollbar{ background:#fff !important;}		
+.swiper-scrollbar-drag { background:#e42e5f !important;}
+
+/*상대피드 추가 css 소스*/
+.pinfoAreas{color:#353535; padding:3px 10px; background:#E7E7E7; border-radius:20px; font-size:12px; display:inline-block; margin-bottom:5px;}
+#tarPinfoArea{margin:10px 0; margin-top:25px;}
+#tarTitle{font-size:14px; font-weight:bold; margin-bottom:5px; margin-top:10px;}
+#goLikeTargetBtn{ background-color:#e64c7f; color:#fff; font-size:18px; border:none; 
+			   border-radius:3px;  font-weight:600; width:100%; height:48px; margin-top:20px; cursor:pointer;}
+#goLikeTargetImg{width:22px; position: relative; top: 3px;}	
+#goLikeTargetBtn:hover{background-color:#e42e5f; color:#fff; font-size:18px; 
+					border-radius:3px;}														

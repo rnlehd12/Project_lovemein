@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import bclass.finalproject.lovemein.users.model.dao.UsersDao;
 import bclass.finalproject.lovemein.users.model.vo.AllUsers;
 import bclass.finalproject.lovemein.users.model.vo.Ideal;
+import bclass.finalproject.lovemein.users.model.vo.PrimaryInfo;
 import bclass.finalproject.lovemein.users.model.vo.Users;
 
 //회원관련 Service Implements by 귀정
@@ -71,5 +72,23 @@ public class UsersServiceImpl implements UsersService {
 		
 		return usersDao.accountInfoModi(users);
 	}
+
+
+	@Override
+	public int primaryInfo(PrimaryInfo pinfo) {
+		
+		return usersDao.primaryInfo(pinfo);
+		
+	}
+
+
+	@Override
+	public AllUsers targetUserInfo(String u_no) {
+		
+		return usersDao.targetUserInfo(u_no);
+	}
+
+
+	
 
 }

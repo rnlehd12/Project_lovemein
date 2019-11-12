@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="paymentMapper">
+
+ <!-- 해당 id에 대한 결제테이블에 대한 전체 테이블 정보가져가오는 SQL -->
+<!--
+<select id="payList" parameterType="string" resultType="Payment">
+payment : p_no ,p_date, u_no, p_coin, p_price
+select * from payment where u_no = #{u_no}					
+</select> -->
+
+<!--  -->
+<select id="getListCount" parameterType="string" resultType="int" >
+select count(*) as count from payment where u_no = #{u_no}
+</select>
+
+<select id="selectList" parameterType="hashmap" resultType="Payment">
+<![CDATA[
+			select * 
+			from (select rownum as p_no,
+					  p_date, u_no, p_coin, p_price					   
+				  from (select * 
+				  		from payment
+				  		where u_no = #{u_no} 
+				  		order by p_no desc)) 
+			where p_no >= #{startRow} and p_no <= #{endRow}
+		]]>
+</select>
+
+<insert id="paySuccess" parameterType="Payment">
+INSERT INTO PAYMENT VALUES(TO_CHAR(SEQ_P_NO.nextval), SYSDATE, #{u_no}, #{p_coin}, #{p_price})
+</insert>
+
+<update id="paySuccess2" parameterType="Payment">
+UPDATE USERS SET u_coin = u_coin + #{p_coin} where u_no = #{u_no}
+</update>
+
+<select id="userCoin" parameterType="string" resultType="int">
+select u_coin from users where u_no = #{u_no}
+</select>
+</mapper>

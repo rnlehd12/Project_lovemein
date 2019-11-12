@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import bclass.finalproject.lovemein.users.model.vo.AllUsers;
 import bclass.finalproject.lovemein.users.model.vo.Ideal;
+import bclass.finalproject.lovemein.users.model.vo.PrimaryInfo;
 import bclass.finalproject.lovemein.users.model.vo.Users;
 
 //회원관련 Service by 귀정
@@ -24,6 +25,11 @@ public interface UsersService {
 	int changePw(Users userFindPwd);
 
 	int accountInfoModi(Users users);
+
+	int primaryInfo(PrimaryInfo pinfos);
+
+	AllUsers targetUserInfo(String u_no);
+
 
 
 }

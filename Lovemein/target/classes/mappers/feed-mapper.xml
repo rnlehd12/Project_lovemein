@@ -3,7 +3,9 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="feedMapper">
-<!-- 피드 Mapper -->
+<!-- 피드 Mapper by 귀정 -->
+
+	<!-- 찜한사람들 숫자 -->
 	<select id="likeCount" parameterType="String" resultType="int">
 		select count(*)
 		from users u
@@ -11,6 +13,7 @@
 		where u.u_no = #{param}
 	</select>
 	
+	<!-- 내가 찜한 사람들 목록 -->
 	<select id="sendLikeList" parameterType="String" resultType="Likes">
 		select u_no_send, u_no_rec, u_name as u_rec_name, u_profile as u_rec_profileImg
 		from (select u_no_send, u_no_rec
@@ -20,24 +23,28 @@
 		join users us on us.u_no = su.u_no_rec
 	</select>
 	
+	<!-- 피드 글 리스트  -->
 	<select id="myFeedList" parameterType="String" resultType="Feed">
 		select f_no, f_text, f_img, f_tag, f_date, u.u_no, u_email, u_name, u_profile 
 		from feed f
 		join users u on u.u_no = f.u_no
-		where u.u_no = #{param}
-		order by f_no desc
+		where u.u_no = #{u_no}
+		order by to_number(f_no) desc
 	</select>
 	
+	<!-- 피드 좋아요 수 -->
 	<select id="feedLikeMethod" parameterType="String" resultType="Feed">
 		select f_no,(select count(*) from feed_like where f_no = feed.f_no) count from feed
 	</select>
 	
+	<!-- 피드 댓글 수 -->
 	<select id="feedReplyMethod" parameterType="String" resultType="Feed">
 		  select f_no,(select count(*) from feed_reply where f_no = feed.f_no) count from feed
 	</select>
 	
+	<!-- 피드 댓글 리스트 -->
 	<select id="feedReplyListMethod" parameterType="String" resultType="FeedReply">
-		select f.f_no, fr_text, u_profile, u_name, fr.FR_DATE, fr.u_no
+		select f.f_no, fr_text, u_profile, u_name, fr.FR_DATE, fr.u_no, fr.fr_no
 		from feed f
 		join FEED_REPLY fr on f.f_no = fr.f_no
 		join users u on u.u_no = fr.u_no
@@ -45,6 +52,7 @@
 		order by 5 asc
 	</select>
 	
+	<!-- 댓글 달기 -->
 	<insert id="insertReply" parameterType="FeedReply">
 		 INSERT INTO FEED_REPLY
 		  VALUES (
@@ -55,6 +63,64 @@
 		   #{u_no}
 		   )
 	</insert>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="replyDel" parameterType="String">
+		delete from feed_reply where fr_no = #{param}
+	</delete>
+	
+	<!-- 댓글 수정 -->
+	<update id="replyModi" parameterType="FeedModiReply">
+		UPDATE feed_reply 
+		SET
+		fr_text = #{fr_text,jdbcType=VARCHAR}
+		WHERE fr_no = #{fr_no}
+	</update>
+	
+	<!-- 피드좋아요여부 체크하기 -->
+	<select id="feedLikeChk" parameterType="String" resultType="Feed">
+		select feed_like.f_no, feed_like.u_no
+	  	from feed_like 
+	 	left join feed f on feed_like.f_NO = f.f_NO
+	  	where feed_like.u_no = #{u_no} and f.u_no = #{u_no}
+	</select>
+	
+	<!-- 좋아요 있을 시 삭제 -->
+	<delete id="delLike" parameterType="FeedLike">
+		delete from feed_like
+		where f_no= #{f_no} and u_no = #{u_no}
+	</delete>
 
-
+	<!-- 좋아요 없을 시 추가 -->
+	<insert id="plusLike" parameterType="FeedLike">
+		insert into feed_like
+		values (#{f_no},#{u_no})
+	</insert>
+	
+	<insert id="insertFeed" parameterType="Feed">
+		insert into feed
+		values(
+			TO_CHAR(SEQ_F_NO.nextval),
+			#{f_text},
+			#{f_img},
+			#{f_tag},
+			sysdate,
+			#{u_no}
+		)
+	</insert>
+	
+	<!-- 피드 글 삭제 -->
+	<delete id="feedDel" parameterType="String">
+		delete from feed
+		where f_no= #{f_no}
+	</delete>
+	
+	<!-- 상대피드 좋아요 체크여부 -->
+	<select id="feedLikeChkTarget" parameterType="TargetLikeCheck" resultType="Feed">
+		select feed_like.f_no, feed_like.u_no
+	  	from feed_like 
+	 	left join feed f on feed_like.f_NO = f.f_NO
+	  	where feed_like.u_no = #{u_no} and f.u_no = #{target_no}
+	</select>
+	
 </mapper>
