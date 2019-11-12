@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="likesMapper">
+<!-- 찜 Mapper -->
+	
+	<!-- 내가찜한 리스트용 --> 
+<!-- 	<select id="fromMeList" parameterType="String" resultType="Likes">
+		select u_no_send, u_no_rec, u_name as u_rec_name, u_profile as u_rec_profileImg, 
+		TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(u_birth, 'RR/MM/DD'))/12) as u_rec_age, u_job as u_rec_job, u_shcool as u_rec_sch, u_loc as u_rec_loc
+		from(select *
+				from (select * from likes l where u_no_send = #{senderNo}) lr
+				join users u on lr.u_no_rec = u.u_no) lru
+		join primaryinfo p on lru.u_no_rec = p.u_no
+	</select>
+	 -->
+	<select id="addFromMeList" parameterType="hashmap" resultType="Likes">
+		<![CDATA[
+		select *
+		from(select rownum rnum, u_no_send, u_no_rec, u_name as u_rec_name, u_profile as u_rec_profileImg, 
+		TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(u_birth, 'RR/MM/DD'))/12) as u_rec_age, u_job as u_rec_job, u_shcool as u_rec_sch, u_loc as u_rec_loc, u_type
+		from((select * from (select *from (select u_no_send, u_no_rec
+											from likes	where u_no_send = #{senderNo}) lk
+											full outer join (select  (nvl2((u_no_send +u_no_rec), 1,0)) u_type, u_no_send as uus, u_no_rec as uur
+									from likes where u_no_rec = #{senderNo} and u_no_send in (select u_no_rec
+									from likes where u_no_send = #{senderNo})) ru on ru.uus = lk.u_no_rec) lr
+				join users u on lr.u_no_rec = u.u_no) lru
+		join primaryinfo p on lru.u_no_rec = p.u_no)order by rnum asc)
+		where rnum >= #{startRow} and rnum <= #{endRow}
+		]]>
+	</select>
+	
+	<select id="addToMeList" parameterType="hashmap" resultType="Likes">
+		<![CDATA[
+		select *
+		from(select rownum rnum, u_no_send, u_no_rec, u_name as u_send_name, u_profile as u_send_profileImg, 
+				TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(u_birth, 'RR/MM/DD'))/12) as u_send_age, u_job as u_send_job, 
+				u_shcool as u_send_sch, u_loc as u_send_loc, u_type									
+				from((select * from (select *from(select u_no_send, u_no_rec
+											from likes	where u_no_rec = #{receiverNo}) lk
+											full outer join(select  (nvl2((u_no_send +u_no_rec), 1,0)) u_type, u_no_send as uus, u_no_rec as uur
+									from likes where u_no_send = #{receiverNo} and u_no_rec in (select u_no_send
+									from likes where u_no_rec = #{receiverNo})) ru on ru.uur = lk.u_no_send) lr
+				join users u on lr.u_no_send = u.u_no) lru
+		join primaryinfo p on lru.u_no_send = p.u_no)order by rnum asc)
+		where rnum >= #{startRow} and rnum <= #{endRow}
+		]]>
+	</select>
+	
+	<insert id="insertLikes" parameterType="Likes">
+		INSERT INTO LIKES
+  			VALUES (
+  			(select u_no from users where u_no = #{u_no_send}),
+   			(select u_no from users where u_no = #{u_no_rec})
+   			)
+	</insert>
+
+	<delete id="deleteLikes" parameterType="Likes">
+		DELETE 
+   		FROM LIKES
+   		WHERE(
+   		(U_NO_SEND = #{u_no_send})
+   		AND
+   		(U_NO_REC = #{u_no_rec})
+   		)
+	</delete>
+
+</mapper>

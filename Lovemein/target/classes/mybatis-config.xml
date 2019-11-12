@@ -23,6 +23,7 @@
 		<mapper resource="mappers/users-mapper.xml" />
 		<mapper resource="mappers/feed-mapper.xml" />
 		<mapper resource="mappers/payment-mapper.xml" />
+    <mapper resource="mappers/likes-mapper.xml" />
 	</mappers>
 	
 	

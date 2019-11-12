@@ -1,0 +1,177 @@
+@charset "UTF-8";
+
+/* 버튼영역전체div */
+#matdiv1{
+	border: 1px solid red;
+	height:80px; 
+    width:100%; 
+}
+/* 버튼공통 */
+.matbt{
+	
+	height:30px; 
+    width:100px; 
+    font-size: 1em;
+	position:relative;
+    top:30%; 
+    left:43%;
+	border-radius: 10%;
+	margin-left:auto;
+	margin-right:auto;
+}
+/* 버튼1 */
+.matbt#matbt1{
+	background-color: gray;
+	color: #fff;
+	border: 0px;
+}
+/* 버튼2 */
+.matbt#matbt2{
+	background-color: rgb(230, 76, 117);
+	border: 0px;
+	color: #fff;
+}
+
+/* 사진영역전체div */
+#matdiv2{
+	border: 1px solid blue;
+	height: 1000px;
+    width:100%; 
+}
+#matdiv2 #matdiv2_1{
+	border: 1px solid red;
+	height: 100%;
+    width:60%; 
+    margin-left: auto;
+    margin-right: auto;
+}
+ul{
+	clear: both;
+	position:relative;
+	left:3.5%;
+}
+ul li{
+	list-style: none;
+	float: left;	
+}
+/* 이미지배경있는 div */
+ul li div{
+	margin: 10px;
+	/* border: 1px solid red; */
+	width: 250px;
+		height: 250px;
+		background-repeat: no-repeat; 
+	background-size: cover;
+	
+	text-align: bottom;
+	
+}
+/* ul li div(백그라운드로 사진있는 div) */
+.matimg{
+
+    display: inline-block;
+    position: relative;
+    color: red;
+}
+.matimg:before{
+	position: absolute;
+	bottom:0;
+	content:"";
+	width: 100%;
+	    height: 40%;
+	background: linear-gradient(to bottom, rgba(166, 166, 166, 0),  rgb(115, 115, 115));
+}
+
+ul li div p{
+	margin: 0px;
+	padding-left: 10px;
+
+	color: #fff;
+}
+
+/* p태그 둘러싼 div	 */
+.matp{
+	/* border: 1px solid red; */
+	display: inline-block;
+	margin: 0px;
+	position: relative;
+	top: 60%;
+	height: 100px;
+    width: 48%; 
+    font-size: 1.0em;
+}
+/* 글자 이동 */
+#pname{
+	 display: inline-block;
+	 position: relative;
+	top: 18px;
+}
+#page{
+	 display: inline-block;
+	  position: relative;
+	top: 18px;
+	/* width: 73%; */
+}
+#pjob{
+	 display: inline-block;
+	  position: relative;
+	top: 22px;
+}
+#psch{
+	 display: inline-block;
+	  position: relative;
+	top: 22px;
+}
+#pad{
+	 	position: relative;
+	top: 26px 
+}
+
+/* 이미지안, p오른쪽div */
+.matright{
+	margin: 0px;
+	/* border: 1px solid red; */
+	display: inline-block;
+	position: relative;
+	top: 60%;
+	width:48%;
+	height: 90px;
+}
+.matright .math{
+	/* 하트div */
+	margin: 0px;
+	/* border: 1px solid blue; */
+
+	position: relative;
+	top: 10px;
+	left:50%;
+	width:50%;
+	height: 40px;
+	font-size: 1.7em;
+	text-align: center;
+}
+.matright .matchat{
+	/* 채팅이동 div */
+	margin: 0px;
+	/* border: 1px solid blue; */
+	left:30%;
+	position: relative;
+	top: 5px;
+	width:50%;
+	height: 40px;
+	
+} 
+
+.matright .matchat #matchatbt{
+	margin: 0px;
+	padding: 0px;
+	position: relative;
+	top:10px;
+	left: 0px;
+	background-color: rgb(41, 128, 185);
+	color: #fff;
+	border: 0px solid black;
+	width:80px;
+	height:25px;
+	border-radius: 5px;
+}

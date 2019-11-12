@@ -467,7 +467,7 @@ public class UsersController {
 	   return "redirect:redirectFeed.do";	//피드재호출
    }
    
-	//## 상대방 피드 이동용 컨트롤러
+//## 상대방 피드 이동용 컨트롤러
  	@RequestMapping("goTargetFeed.do")
  	public ModelAndView goTargetFeedMethod(@RequestParam("u_no") String u_no, ModelAndView mv,
  			AllUsers allUsers, TargetLikeCheck targetChk) {
@@ -492,41 +492,6 @@ public class UsersController {
 				
 				mv.addObject("message", "등록된 피드가 존재하지않습니다.");
 			}
-	   return mv;	//수정페이지 재호출
-   }
-
- //결제 성공 DB에 추가
- 		@RequestMapping("paySuccess.do")
- 		public ModelAndView paySuccessMethod(HttpSession session, ModelAndView mv, @RequestParam("u_no")String u_no,
- 		@RequestParam("p_price")int p_price, @RequestParam("p_coin")int p_coin) {
-
- 			
- 			//받아온 requestParam Vo에 저장
- 			Payment payment = new Payment();
- 		
- 			payment.setU_no(u_no);
- 			payment.setP_price(p_price);
- 			payment.setP_coin(p_coin);
- 			
- 			//payment테이블에 결제정보 추가하는 서비스 
- 			int result = paymentService.paySuccess(payment);
- 			System.out.println(result);
- 			
- 			//user테이블에 coin 정보 추가하는 서비스
- 			int result2 = paymentService.paySuccess2(payment);
- 		
- 			//usercoin 값 받아오는 서비스
- 			loginMember.setU_Coin(paymentService.userCoin(u_no));
-
- 			if(result >0 && result2 >0) {
- 				//json으로 뷰보냄
- 	 			mv.setViewName("JsonView");
- 			}
- 	
- 			
- 			return mv;
- 		}
-
 			//피드 좋아요수 출력
 			List<Feed> feedLikeCnt = new ArrayList<Feed>();
 			feedLikeCnt = feedService.feedLikeMethod(u_no);
@@ -558,5 +523,38 @@ public class UsersController {
  		
  		return mv;
  	}
+
+//결제 성공 DB에 추가
+ 		@RequestMapping("paySuccess.do")
+ 		public ModelAndView paySuccessMethod(HttpSession session, ModelAndView mv, @RequestParam("u_no")String u_no,
+ 		@RequestParam("p_price")int p_price, @RequestParam("p_coin")int p_coin) {
+
+ 			
+ 			//받아온 requestParam Vo에 저장
+ 			Payment payment = new Payment();
+ 		
+ 			payment.setU_no(u_no);
+ 			payment.setP_price(p_price);
+ 			payment.setP_coin(p_coin);
+ 			
+ 			//payment테이블에 결제정보 추가하는 서비스 
+ 			int result = paymentService.paySuccess(payment);
+ 			System.out.println(result);
+ 			
+ 			//user테이블에 coin 정보 추가하는 서비스
+ 			int result2 = paymentService.paySuccess2(payment);
+ 		
+ 			//usercoin 값 받아오는 서비스
+ 			loginMember.setU_Coin(paymentService.userCoin(u_no));
+
+ 			if(result >0 && result2 >0) {
+ 				//json으로 뷰보냄
+ 	 			mv.setViewName("JsonView");
+ 			}
+ 	
+ 			
+ 			return mv;
+ 		}
+
 
 }
