@@ -3,7 +3,8 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="usersMapper">
-<!-- 회원 Mapper -->	
+<!-- 회원 Mapper by 귀정-->	
+
 	<!-- users 테이블 저장용 -->
 	<insert id="joinUsers1" parameterType="Users">
 		INSERT INTO users
@@ -12,6 +13,7 @@
 		    #{u_email},#{u_pw},#{u_name},#{u_phone},3,null,null,#{u_intro},sysdate)
 	</insert>
 	
+	<!-- 그외 테이블 저장용 -->
 	<insert id="joinUsers" parameterType="HashMap">
 		INSERT ALL
 	    INTO primaryinfo VALUES (
@@ -41,6 +43,7 @@
 	    FROM DUAL
 	</insert>
 	
+	<!-- 이상형 저장용 -->
 	<insert id="idealSave" parameterType="Ideal">
 		INSERT INTO ideal
 		  VALUES (
@@ -48,6 +51,7 @@
 		    #{i_height},#{i_loc},#{i_edu},#{i_age},#{i_weight})
 	</insert>
 	
+	<!-- 로그인 용 -->
 	<select id="loginCheck" parameterType="string" resultType="AllUsers">
 		select * from users u
 		join addinfo a on a.u_no = u.u_no
@@ -57,20 +61,24 @@
 		where u.u_email = #{u_email}
 	</select>
 	
+	<!-- 아이디 찾기 -->
 	<select id="checkId" parameterType="string" resultType="Users">
 		select * from users
 		where u_email = #{u_email}
 	</select>
 
+	<!-- 비밀번호 찾기 -->
 	<select id="checkPw" parameterType="string" resultType="Users">
 		select * from users
 		where u_phone = #{u_phone}
 	</select>
 	
+	<!-- 임시 비밀번호 변경 -->
 	<update id="changePw" parameterType="Users">
 		UPDATE users SET u_pw = #{u_pw} WHERE u_phone = #{u_phone}
 	</update>
 	
+	<!-- 계정정보 수정용 -->
 	<update id="accountInfoModi" parameterType="Users">
 		UPDATE users 
 		SET
@@ -79,5 +87,25 @@
 		u_intro = #{u_intro}
 		WHERE u_no = #{u_no}
 	</update>
+	
+	<!-- 기본정보 수정용 -->
+	<update id="primaryInfo" parameterType="Pinfo">
+		UPDATE primaryinfo 
+		SET
+		u_loc = #{u_loc}, u_edu = #{u_edu}, u_shcool = #{u_shcool}, u_job = #{u_job},
+		u_height = #{u_height},
+		u_weight = #{u_weight}
+		WHERE u_no = #{u_no}
+	</update>
+	
+	<!-- 상대피드 계정정보용 -->
+	<select id="targetUserInfo" parameterType="String" resultType="AllUsers">
+		select * from users u
+		join addinfo a on a.u_no = u.u_no
+		join primaryinfo p on p.u_no = u.u_no
+		join style s on s.u_no = u.u_no
+		join ideal i on i.u_no = u.u_no
+		where u.u_no = #{u_no}
+	</select>
 
 </mapper>

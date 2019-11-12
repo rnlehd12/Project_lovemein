@@ -1,6 +1,5 @@
 package bclass.finalproject.lovemein.users.controller;
 
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.Date;
@@ -8,11 +7,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.nurigo.java_sdk.api.Message;
@@ -34,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import bclass.finalproject.lovemein.feed.model.service.FeedService;
 import bclass.finalproject.lovemein.feed.model.vo.Feed;
 import bclass.finalproject.lovemein.feed.model.vo.FeedReply;
-import bclass.finalproject.lovemein.likes.model.vo.Likes;
+import bclass.finalproject.lovemein.likes.model.vo.TargetLikeCheck;
 import bclass.finalproject.lovemein.users.model.service.UsersService;
 import bclass.finalproject.lovemein.users.model.vo.AddInfo;
 import bclass.finalproject.lovemein.users.model.vo.AllUsers;
@@ -72,37 +69,18 @@ public class UsersController {
 		
 		if(loginMember != null && bcryptPasswordEncoder.matches(users.getU_pw(),loginMember.getU_pw())) {
 			
-			session.setAttribute("loginMember", loginMember);
-			mv.setViewName("feed/myFeed");
-			
-			//피드 리스트 출력
-			List<Feed> feedList = new ArrayList<Feed>();
-			feedList = feedService.myFeedList(loginMember.getU_no());
-			
-			mv.addObject("feed_list", feedList);
-			
-			//피드 좋아요수 출력
-			List<Feed> feedLikeCnt = new ArrayList<Feed>();
-			feedLikeCnt = feedService.feedLikeMethod(loginMember.getU_no());
-			
-			mv.addObject("feed_like_cnt", feedLikeCnt);
-			
-			//피드 댓글수 출력
-			List<Feed> feedReplyCnt = new ArrayList<Feed>();
-			feedReplyCnt = feedService.feedReplyMethod(loginMember.getU_no());
-			
-			mv.addObject("feed_reply_cnt", feedReplyCnt);
-			
-			//피드댓글리스트 출력
-			List<FeedReply> feedReplyList = new ArrayList<FeedReply>();
-			feedReplyList = feedService.feedReplyListMethod(loginMember.getU_no());
-			
-			mv.addObject("feed_Reply_List", feedReplyList);
-			
-			/* 관리자 로그인처리
-			 * if(loginMember.getU_email().equals("admin")) viewFileName =
-			 * "redirect:mlist.do";
-			 */
+			//관리자 로그인처리
+			 if(loginMember.getU_email().equals("admin@lovemein.com")) {
+				 
+				 
+				 mv.setViewName("admin/adminMain");
+				 
+			 }else {
+				 
+				session.setAttribute("loginMember", loginMember);
+				mv.setViewName("redirect:redirectFeed.do");
+				 
+			 }
 
 		} else {
 			
@@ -140,9 +118,15 @@ public class UsersController {
 			//피드댓글리스트 출력
 			List<FeedReply> feedReplyList = new ArrayList<FeedReply>();
 			feedReplyList = feedService.feedReplyListMethod(loginMember.getU_no());
-			
+
 			mv.addObject("feed_Reply_List", feedReplyList);
-		
+			
+			//내가 좋아요한 글 처리표시
+			List<Feed> feedLikeChk = new ArrayList<Feed>();
+			feedLikeChk = feedService.feedLikeChkMethod(loginMember.getU_no());
+			
+			mv.addObject("feed_Like_Chk", feedLikeChk); 
+			
 			return mv;
 
 	}
@@ -417,24 +401,122 @@ public class UsersController {
    
    //## 계정정보수정 tab1 컨트롤러
    @RequestMapping("accountInfo.do")
-   public ModelAndView accountInfoMethod(Users users, ModelAndView mv) {
-	   
-	    String returnView = "users/myInfo";
+   public String accountInfoMethod(Users users, HttpSession session) {
 	   
 	   	String password = users.getU_pw();
 		users.setU_pw(bcryptPasswordEncoder.encode(password));	
 		 
-		 int result = userService.accountInfoModi(users);
+		userService.accountInfoModi(users);
+		
+		//변경한 값으로 세션값 세팅
+		if(users.getU_name() != null) {
 			
-			if(result < 0) {
-				
-				mv.addObject("message", "정보수정에 실패하였습니다. 다시시도해주세요.");
-				mv.setViewName(returnView);
+			loginMember.setU_name(users.getU_name());
+		}
+		
+		if(users.getU_intro() != null) {
+			
+			loginMember.setU_intro(users.getU_intro());
+		}
+		
+		
+	    return "redirect:redirectFeed.do";	//피드재호출
+   }
+   
+   //## 계정정보수정 tab2 컨트롤러
+   @RequestMapping("primaryInfo.do")
+   public String primaryInfoMethod(PrimaryInfo pinfo) {
+	   
+	   userService.primaryInfo(pinfo);
+	   
+	   //변경한 값으로 세션값 세팅
+	   if(pinfo.getU_loc() != null) {
+			
+			loginMember.setU_loc(pinfo.getU_loc());
+		}
+		
+		if(pinfo.getU_edu() != null) {
+			
+			loginMember.setU_edu(pinfo.getU_edu());
+		}
+		
+		if(pinfo.getU_shcool() != null) {
+			
+			loginMember.setU_shcool(pinfo.getU_shcool());
+		}
+		
+		if(pinfo.getU_job() != null) {
+			
+			loginMember.setU_job(pinfo.getU_job());
+		}
+		
+		if(pinfo.getU_weight() != null) {
+			
+			loginMember.setU_weight(pinfo.getU_weight());
+		}
+		
+		loginMember.setU_height(pinfo.getU_height());
+		
+	   System.out.println(pinfo.toString());
+	   return "redirect:redirectFeed.do";	//피드재호출
+   }
+   
+	//## 상대방 피드 이동용 컨트롤러
+ 	@RequestMapping("goTargetFeed.do")
+ 	public ModelAndView goTargetFeedMethod(@RequestParam("u_no") String u_no, ModelAndView mv,
+ 			AllUsers allUsers, TargetLikeCheck targetChk) {
+ 		
+ 		//이동하려는 피드 회원번호가 세션 회원번호랑 같을시 자신의 피드 재호출함.
+ 		if(loginMember.getU_no().equals(u_no)) {
+ 			
+ 			mv.setViewName("redirect:redirectFeed.do");
+ 			
+ 		}else {	//아닐시 상대 피드로 이동.
+ 			
+ 			allUsers = userService.targetUserInfo(u_no);
+ 	 		
+ 			mv.addObject("targetUser", allUsers);
+ 	 		mv.setViewName("feed/targetFeed");
+ 	 		//피드 리스트 출력
+			List<Feed> feedList = new ArrayList<Feed>();
+			feedList = feedService.myFeedList(u_no);
+			if(feedList != null) {
+				mv.addObject("feed_list", feedList);
 			}else {
 				
-				mv.setViewName(returnView);
+				mv.addObject("message", "등록된 피드가 존재하지않습니다.");
 			}
-	   
-	   return mv;	//수정페이지 재호출
-   }
+			//피드 좋아요수 출력
+			List<Feed> feedLikeCnt = new ArrayList<Feed>();
+			feedLikeCnt = feedService.feedLikeMethod(u_no);
+			
+			mv.addObject("feed_like_cnt", feedLikeCnt);
+			
+			//피드 댓글수 출력
+			List<Feed> feedReplyCnt = new ArrayList<Feed>();
+			feedReplyCnt = feedService.feedReplyMethod(u_no);
+			
+			mv.addObject("feed_reply_cnt", feedReplyCnt);
+			
+			//피드댓글리스트 출력
+			List<FeedReply> feedReplyList = new ArrayList<FeedReply>();
+			feedReplyList = feedService.feedReplyListMethod(u_no);
+
+			mv.addObject("feed_Reply_List", feedReplyList);
+			
+			//내가 좋아요한 글 처리표시
+			List<Feed> feedLikeChkTarget = new ArrayList<Feed>();
+			targetChk.setU_no(loginMember.getU_no());
+			targetChk.setTarget_no(u_no);
+			feedLikeChkTarget = feedService.feedLikeChkTarget(targetChk);
+			
+			mv.addObject("feed_Like_Chk", feedLikeChkTarget); 
+ 			
+ 		}
+ 		
+ 		
+ 		return mv;
+ 	}
+ 	
+   
 }

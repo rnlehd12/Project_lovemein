@@ -258,5 +258,6 @@
 			</tr>
 		</table>	
 	</form>
+	<c:import url="../common/footer.jsp"/>
 </body>
 </html>

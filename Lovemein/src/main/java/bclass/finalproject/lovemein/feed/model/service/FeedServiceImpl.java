@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 
 import bclass.finalproject.lovemein.feed.model.dao.FeedDao;
 import bclass.finalproject.lovemein.feed.model.vo.Feed;
+import bclass.finalproject.lovemein.feed.model.vo.FeedLike;
+import bclass.finalproject.lovemein.feed.model.vo.FeedModiReply;
 import bclass.finalproject.lovemein.feed.model.vo.FeedReply;
 import bclass.finalproject.lovemein.likes.model.vo.Likes;
+import bclass.finalproject.lovemein.likes.model.vo.TargetLikeCheck;
 
 @Service("feedService")
 public class FeedServiceImpl implements FeedService{
@@ -56,6 +59,55 @@ public class FeedServiceImpl implements FeedService{
 	public int insertReply(FeedReply feedReply) {
 		
 		return feedDao.insertReply(feedReply);
+	}
+
+	@Override
+	public int replyDel(String param) {
+		
+		return feedDao.replyDel(param);
+		
+	}
+
+	@Override
+	public int replyModi(FeedModiReply feedModiReply) {
+		
+		return feedDao.replyModi(feedModiReply);
+	}
+
+	@Override
+	public List<Feed> feedLikeChkMethod(String u_no) {
+		
+		return feedDao.feedLikeChk(u_no);
+	}
+
+	@Override
+	public int delLike(FeedLike feedLike) {
+		
+		return feedDao.delLike(feedLike);
+	}
+
+	@Override
+	public int plusLike(FeedLike feedLike) {
+		
+		return feedDao.plusLike(feedLike);
+	}
+
+	@Override
+	public int insertFeed(Feed feed) {
+		
+		return feedDao.insertFeed(feed);
+	}
+
+	@Override
+	public int feedDel(String f_no) {
+		
+		return feedDao.feedDel(f_no);
+	}
+
+	@Override
+	public List<Feed> feedLikeChkTarget(TargetLikeCheck targetChk) {
+		
+		return feedDao.feedLikeChkTarget(targetChk);
 	}
 	
 

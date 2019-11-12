@@ -13,6 +13,9 @@
 		<typeAlias type="bclass.finalproject.lovemein.feed.model.vo.Feed" alias="Feed" />
 		<typeAlias type="bclass.finalproject.lovemein.likes.model.vo.Likes" alias="Likes" />
 		<typeAlias type="bclass.finalproject.lovemein.feed.model.vo.FeedReply" alias="FeedReply" />
+		<typeAlias type="bclass.finalproject.lovemein.feed.model.vo.FeedModiReply" alias="FeedModiReply" />
+		<typeAlias type="bclass.finalproject.lovemein.feed.model.vo.FeedLike" alias="FeedLike" />
+		<typeAlias type="bclass.finalproject.lovemein.likes.model.vo.TargetLikeCheck" alias="TargetLikeCheck" />
 	</typeAliases>
 
 	<mappers>
