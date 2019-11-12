@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import bclass.finalproject.lovemein.users.model.vo.AllUsers;
 import bclass.finalproject.lovemein.users.model.vo.Ideal;
+import bclass.finalproject.lovemein.users.model.vo.PrimaryInfo;
 import bclass.finalproject.lovemein.users.model.vo.Users;
 
 //회원기능 관련 DAO by 귀정
@@ -55,6 +56,16 @@ public class UsersDao {
 	public int accountInfoModi(Users users) {
 		
 		return sqlSession.update("usersMapper.accountInfoModi", users);
+	}
+
+	public int primaryInfo(PrimaryInfo pinfo) {
+		
+		return sqlSession.update("usersMapper.primaryInfo", pinfo);
+	}
+
+	public AllUsers targetUserInfo(String u_no) {
+		
+		return sqlSession.selectOne("usersMapper.targetUserInfo",u_no);
 	}
 
 }
