@@ -13,6 +13,7 @@
 		<typeAlias type="bclass.finalproject.lovemein.feed.model.vo.Feed" alias="Feed" />
 		<typeAlias type="bclass.finalproject.lovemein.likes.model.vo.Likes" alias="Likes" />
 		<typeAlias type="bclass.finalproject.lovemein.feed.model.vo.FeedReply" alias="FeedReply" />
+		<typeAlias type="bclass.finalproject.lovemein.payment.model.vo.Payment" alias="Payment" />
 		<typeAlias type="bclass.finalproject.lovemein.feed.model.vo.FeedModiReply" alias="FeedModiReply" />
 		<typeAlias type="bclass.finalproject.lovemein.feed.model.vo.FeedLike" alias="FeedLike" />
 		<typeAlias type="bclass.finalproject.lovemein.likes.model.vo.TargetLikeCheck" alias="TargetLikeCheck" />
@@ -21,6 +22,7 @@
 	<mappers>
 		<mapper resource="mappers/users-mapper.xml" />
 		<mapper resource="mappers/feed-mapper.xml" />
+		<mapper resource="mappers/payment-mapper.xml" />
 	</mappers>
 	
 	
