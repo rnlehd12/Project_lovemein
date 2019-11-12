@@ -80,7 +80,7 @@
 		<ul>
 			<li class="myLi" id="myFeedId"><a href="redirectFeed.do">마이피드</a></li>
 			<li class="myLi"><a href="myInfo.do">내정보/이상형 수정</a></li>
-			<li class="myLi"><a href="#">나의 푸딩 <span>&nbsp;${loginMember.u_coin}</span>개</a></li>
+			<li class="myLi"><a href="payMain.do">나의 푸딩 <span>&nbsp;${loginMember.u_coin}</span>개</a></li>
 			<li class="myLi"><a href="#">신고/문의내역</a></li>
 			<li class="myLi" id="logoutId"><a href="logout.do">로그아웃</a></li>
 		</ul>
