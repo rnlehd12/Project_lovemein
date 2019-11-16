@@ -10,24 +10,23 @@
 <link href="resources/css/chat/chatListView.css" rel="stylesheet">
 </head>
 <body>
-<div id="chatListDiv">
-
-<div id="titleDiv">
+<div id="chatListDiv"> <!-- 전체div -->
+<div id="titleDiv"> <!-- 제목div -->
 <p>채팅목록</p>
 </div>
 
-<div id="contentDiv">
-<div class="oneChatDiv">
-<div class="chatDiv" id="imgDiv">
+<div id="contentDiv">  <!-- 내용전체div -->
+<div class="oneChatDiv"> <!-- 내용반복div -->
+<div class="chatDiv" id="imgDiv"> <!-- 내용이미지div -->
 <img alt="" src="resources/images/likes/images (1).jpg">
-</div
-><div class="chatDiv" id="textDiv">
+</div>
+<div class="chatDiv" id="textDiv"> <!-- 내용텍스트div -->
 <div id="textcon">
  <p id="ctext">안녕하세요~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
  <p id="cdate">19.10.31</p>
 </div>
 </div
-><div class="chatDiv" id="rcountDiv">
+><div class="chatDiv" id="rcountDiv"> <!-- 읽음표시div -->
 <div id="rcDiv" ><p>1</p>
 <!-- style="background-image:url('resources/images/p3.jpg');" -->
 </div>

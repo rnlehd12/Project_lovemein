@@ -52,7 +52,7 @@ $(function(){
 					"onmouseover='hhover(this);' onmouseout='hunhover(this);'>" +	
 					"♥" + "</p>" +
 					"</a>";
-					// 나를 찜한 사람
+					// 내가 찜한 사람
 					/* if(decodeURIComponent(jsonObj.list[i].u_type).replace(/\+/gi, " ") == 1) {
 						outValues += 
 							"<div class='matchat'>" +
@@ -61,11 +61,11 @@ $(function(){
 					if(decodeURIComponent(jsonObj.list[i].u_type).replace(/\+/gi, " ") == 1) {
 						outValues += 
 							"<div class='matchat active' id='matchat"+jsonObj.list[i].u_no_rec+"'>" +
-							"<a href='#' class='matchatbt'> 1:1 채팅</a></div>" ;
+							"<a href='talk.do?c_from_uno="+jsonObj.list[i].u_no_send+"&c_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 					} else {
 						outValues += 
 							"<div class='matchat' id='matchat"+jsonObj.list[i].u_no_rec+"'>" +
-							"<a href='#' class='matchatbt'> 1:1 채팅</a></div>" ;
+							"<a href='talk.do?c_from_uno="+jsonObj.list[i].u_no_send+"&c_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 					} 	 
 					outValues += "</div>" +
 								"</div>" +
@@ -132,11 +132,11 @@ function addBtnFunc(btnVal){
 						if(decodeURIComponent(jsonObj.list[i].u_type).replace(/\+/gi, " ") == 1) {
 							outValues += 
 								"<div class='matchat active' id='matchat"+jsonObj.list[i].u_no_rec+"'>" +
-								"<a href='#' class='matchatbt'> 1:1 채팅</a></div>" ;
+								"<a href='talk.do?c_from_uno="+jsonObj.list[i].u_no_send+"&c_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 						} else {
 							outValues += 
 								"<div class='matchat' id='matchat"+jsonObj.list[i].u_no_rec+"'>" +
-								"<a href='#' class='matchatbt'> 1:1 채팅</a></div>" ;
+								"<a href='talk.do?c_from_uno="+jsonObj.list[i].u_no_send+"&c_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 						} 	 
 						outValues += "</div>" +
 									"</div>" +
@@ -257,11 +257,11 @@ $(function(){
 					if(decodeURIComponent(jsonObj.list[i].u_type).replace(/\+/gi, " ") == 1) {
 						outValues += 
 							"<div class='matchat tactive' id='tmatchat"+jsonObj.list[i].u_no_send+"'>" +
-							"<a href='#' class='matchatbt'> 1:1 채팅</a></div>" ;
+							"<a href='talk.do?c_from_uno="+jsonObj.list[i].u_no_rec+"&c_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 					} 	else {
 						outValues += 
 							"<div class='matchat' id='tmatchat"+jsonObj.list[i].u_no_send+"'>" +
-							"<a href='#' class='matchatbt'> 1:1 채팅</a></div>" ;
+							"<a href='talk.do?c_from_uno="+jsonObj.list[i].u_no_rec+"&c_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 					} 	
 					outValues += "</div>" +
 								"</div>" +
@@ -340,11 +340,11 @@ function addTBtnFunc(btnVal){
 						if(decodeURIComponent(jsonObj.list[i].u_type).replace(/\+/gi, " ") == 1) {
 							outValues += 
 								"<div class='matchat tactive' id='tmatchat"+jsonObj.list[i].u_no_send+"'>" +
-								"<a href='#' class='matchatbt'> 1:1 채팅</a></div>" ;
+								"<a href='talk.do?c_from_uno="+jsonObj.list[i].u_no_rec+"&c_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 						} 	else {
 							outValues += 
 								"<div class='matchat' id='tmatchat"+jsonObj.list[i].u_no_send+"'>" +
-								"<a href='#' class='matchatbt'> 1:1 채팅</a></div>" ;
+								"<a href='talk.do?c_from_uno="+jsonObj.list[i].u_no_rec+"&c_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 						}  			
 						outValues += "</div>" +
 									"</div>" +

@@ -17,13 +17,19 @@
 		<typeAlias type="bclass.finalproject.lovemein.feed.model.vo.FeedModiReply" alias="FeedModiReply" />
 		<typeAlias type="bclass.finalproject.lovemein.feed.model.vo.FeedLike" alias="FeedLike" />
 		<typeAlias type="bclass.finalproject.lovemein.likes.model.vo.TargetLikeCheck" alias="TargetLikeCheck" />
+		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.Talk" alias="Talk" />
+		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.TalkChat" alias="TalkChat" />
+		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.TalkMission" alias="TalkMission" />
+		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.TalkPartner" alias="TalkPartner" />
+		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.TalkReport" alias="TalkReport" />
   </typeAliases>
 
 	<mappers>
 		<mapper resource="mappers/users-mapper.xml" />
 		<mapper resource="mappers/feed-mapper.xml" />
 		<mapper resource="mappers/payment-mapper.xml" />
-    <mapper resource="mappers/likes-mapper.xml" />
+    	<mapper resource="mappers/likes-mapper.xml" />
+    	<mapper resource="mappers/talk-mapper.xml" />
 	</mappers>
 	
 	

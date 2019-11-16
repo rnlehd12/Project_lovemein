@@ -107,4 +107,6 @@
 		join ideal i on i.u_no = u.u_no
 		where u.u_no = #{u_no}
 	</select>
+
+
 </mapper>

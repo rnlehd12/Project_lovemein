@@ -309,7 +309,7 @@
 
 .modal{
 	/* 미션모달배경 */
-/* 	display: none; */
+	display: none;
 	position: fixed;
 	z-index: 1;
 
@@ -323,7 +323,8 @@
 /*     transition: visibility 0s linear 0.25s, 
     opacity 0.25s 0s, transform 0.25s;  */
 }
-.modal #mModal_con{
+#mModal_con{
+	
 	/* 미션모달내용 */
 	position: absolute; 
     top: 20%; 
@@ -337,7 +338,7 @@
     transform: translate(-50%, -50%); 
     padding: 1rem 1.5rem;    
 }
-.modal #mModal_con #mM_con_title{
+#mModal_con #mM_con_title{
 		/* 미션모달내용_제목 */
 		width: 92%;
 		height: 14%;
@@ -346,7 +347,7 @@
 		border: 1px solid red;
 		
 }
-.modal #mModal_con #mM_con_title p{
+#mModal_con #mM_con_title p{
 		margin: 0px;
 		padding:0px;
 		text-align: center;
@@ -357,7 +358,7 @@
 		border: 1px solid black;
 		
 }
-.modal #mModal_con #mM_con_close{
+#mModal_con #mM_con_close{
 		/* 미션모달내용_닫기버튼 */
 		display: inline-block;
 		margin: 0px;
@@ -369,7 +370,7 @@
 		font-size: 2.3em;
 		font-weight: bold;
 }
-.modal #mModal_con #mM_con_close:hover{
+#mModal_con #mM_con_close:hover{
 	color: #999;
 }
 /* .modal #mModal_con #mM_con_close .close-button{
@@ -381,7 +382,7 @@
 	border: 1px solid black;
 } */
 
-.modal #mModal_con #mM_con_text{
+#mModal_con #mM_con_text{
 		/* 미션모달내용_텍스트 */
 		margin: 0px;
 		padding:0px;
@@ -391,13 +392,13 @@
 		display: inline-block;
 		border: 1px solid black;		
 }
-.modal #mModal_con #mM_con_text p{
+#mModal_con #mM_con_text p{
 		margin: 0px;
 		padding:0px;
 		text-align: center;
 		border: 1px solid green;
 }
-#mission_modal #mModal_con #mM_con_upload{
+#mModal_con #mM_con_upload{
 		/* 미션모달내용_사진업로드 전체 div*/
 		margin: 0px;
 		padding:0px;
@@ -406,7 +407,7 @@
 		position: relative;
 		border: 1px solid blue;
 }
-#mission_modal #mModal_con #mM_con_upload img{
+#mModal_con #mM_con_upload img{
 	/* 파일 이미지 미리보기 img */ 
 		width: 65%;
 		height: 80%;

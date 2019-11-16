@@ -20,20 +20,23 @@
 		$('#mission_modal').show();
 	}); */
  	$(document).ready(function(){
-/* 		$(".missbt").on("click", function(){
-			/* alert("document 작동"); */
-			$("#mission_modal").show();
+ 	
+		$(".missbt").on("click", function(){
+			alert("클릭됨");
+			$(".modal").css("display", "block");
+			/* $("#mission_modal").show(); */
 		}); 
 	 	$(".close-button").on("click", function(){
-			$("#mission_modal").hide();
+	 		$(".modal").css("display", "none");
 		}); 
-		 */
+		 
 	});
  
  // 신고이미지 변경 
 </script>
 </head>
 <body>
+<c:import url="../common/header.jsp"/>
 <div id="talkViewDiv">
 
 <div id="talkForm_Div"><!-- 1.1채팅영역 -->

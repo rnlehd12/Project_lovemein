@@ -1,6 +1,7 @@
 package bclass.finalproject.lovemein.match.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import bclass.finalproject.lovemein.match.model.service.MatchService;
+import bclass.finalproject.lovemein.match.model.vo.Match;
 import bclass.finalproject.lovemein.users.model.vo.AllUsers;
 
 @Controller
@@ -25,13 +27,18 @@ public class MatchController {
 	
 
 	/*match이동용 메소드*/
-	@RequestMapping("moveMatch.do")
-	public ModelAndView MatchMethod(ModelAndView mv, HttpSession logininfo, AllUsers loginUser) {
+	@RequestMapping("match.do")
+	public ModelAndView matchListMethod(ModelAndView mv, HttpSession logininfo, AllUsers loginUser) {
 		logger.info("MatchMethod. loginSession정보 :" + logininfo.getAttribute("loginMember"));
 		loginUser = (AllUsers)logininfo.getAttribute("loginMember");
 		/*logger.info("loginUser정보 :" + loginUser.getU_email());*/
 		
-		List<AllUsers> matchList = new ArrayList<AllUsers>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", "");
+		
+		
+		List<Match> matchList = new ArrayList<Match>();
+		matchList = matchservice.matchListMethod(map);
 		/*matchList = matchservice.matchListMethod(loginUser);
 		*/
 		
@@ -39,7 +46,8 @@ public class MatchController {
 		
 		return mv;
 	}
-	
+
+
 	
 	
 }
