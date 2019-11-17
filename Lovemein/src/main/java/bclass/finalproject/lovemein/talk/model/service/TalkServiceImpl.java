@@ -19,15 +19,18 @@ public class TalkServiceImpl implements TalkService{
 	@Autowired
 	private TalkDao talkDao;
 
+
+	@Override
+	public int insertChat(HashMap<String, Object> tcmap) {
+		// TODO Auto-generated method stub
+		return talkDao.insertChat(tcmap);
+	}
+	
 	@Override
 	public TalkChat getTalkChat(Talk talk) {
 		return talkDao.getTalkChat(talk);
 	}
 
-	@Override
-	public int insertChat(Talk talk) {
-		return talkDao.insertChat(talk);
-	}
 
 	@Override
 	public List<Talk> getTalk(Talk talk) {
@@ -68,9 +71,6 @@ public class TalkServiceImpl implements TalkService{
 	public List<TalkMission> userMissionList(HashMap<String, Object> map) {
 		return talkDao.userMissionList(map);
 	}
-
-
-
 
 
 

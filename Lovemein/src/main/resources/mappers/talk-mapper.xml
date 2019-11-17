@@ -10,7 +10,7 @@
 		or (C_FROM_UNO = #{c_to_uno} and C_TO_UNO = #{c_from_uno}))
 	</select>	
 	
-	<insert id="insertChat" parameterType="Talk">
+	<insert id="insertChat" parameterType="hashmap">
 		MERGE INTO chat
    		USING DUAL
        	ON ((C_FROM_UNO = #{c_from_uno} and C_TO_UNO = #{c_to_uno})
@@ -20,7 +20,7 @@
 		to_char(SEQ_C_NO.nextval),
 		(select u_no from users where u_no = #{c_from_uno}),
 		(select u_no from users where u_no = #{c_to_uno}),
-		null,
+		#{c_mission},
 		null,	
 		null)
 	</insert>

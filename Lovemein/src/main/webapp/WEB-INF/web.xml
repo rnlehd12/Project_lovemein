@@ -49,6 +49,8 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<!-- 비동기설정 191117 -->
+		<async-supported>true</async-supported>
 	</servlet>
 		
 <!-- 모든 요청은 do 거치라는 의미 -->

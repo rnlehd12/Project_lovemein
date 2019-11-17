@@ -1,8 +1,7 @@
 package bclass.finalproject.lovemein.talk.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,10 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 import bclass.finalproject.lovemein.talk.model.service.TalkService;
 import bclass.finalproject.lovemein.talk.model.vo.Talk;
 import bclass.finalproject.lovemein.talk.model.vo.TalkChat;
-import bclass.finalproject.lovemein.talk.model.vo.TalkMission;
-import bclass.finalproject.lovemein.talk.model.vo.TalkPartner;
-import bclass.finalproject.lovemein.talk.model.vo.TalkReport;
-import bclass.finalproject.lovemein.users.model.vo.AllUsers;
 
 @Controller
 public class TalkController {
@@ -37,53 +32,46 @@ public class TalkController {
 		receiver = talk.getC_to_uno();
 		
 		mv.setViewName("talk/talkView");
-		mv.addObject("senderNo", talk.getC_from_uno());
-//		----------------------------------------
-//		// 1. from_uno/to_uno로 chat있으면 객체가져오기 2.없으면 insert하기 3.insert성공시 가져오기 4. onechat에 넣기
-//		// 순서바꿈 : 1. 없으면 insert 하기, 2. 객체로 불러오기
-		// ////chat vo 만들기 (from_uno/to_uno )
-		//		Object oneChat = new Object();		
-		//		Obj oneChat = getOneChat(from_uno/to_uno) ;
-		// 
+		//1.chat정보 없을 경우 생성시도(미션만들고 + insert), 2. 채팅/미션정보 출력
 		
-		//1.chat정보 없을 경우 생성시도(있으면 넘어감)
-		int insertResult = talkService.insertChat(talk);
+		//1.chat정보 없을 경우 생성시도(있으면 -1 리턴)
+		//1.1 미션 랜덤 생성
+		String[] marr = {
+			"같이 한강에서 야경 사진을 찍고 업로드하세요!",
+			"같이 최근 개봉한 영화를 보고 사진을 찍어 업로드하세요!",
+			"같이 스포츠를 관람하고 사진을 찍어 업로드하세요!",
+			"같이 보드게임을 하고 사진을 찍어 업로드하세요!",
+			"같이 노래방에 가서 사진을 찍어 업로드하세요!",
+			"같이 불꽃놀이를 보고 사진을 찍어 업로드하세요!",
+			"같이 축제에 가서 사진을 찍어 업로드하세요!",
+			"같이 맛있는 식사를 하고 사진을 찍어 업로드하세요!",
+			"같이 운동을 하고 사진을 찍어 업로드하세요!",
+		};
+		
+		String randdomM = marr[new Random().nextInt(marr.length)];
+		logger.info("들어갈 미션 확인. randdomM : " + randdomM);
+		
+		//1.2 맵에 넣기
+		HashMap<String, Object> tcmap = new HashMap<>();
+		tcmap.put("c_from_uno", talk.getC_from_uno());
+		tcmap.put("c_to_uno", talk.getC_to_uno());
+		tcmap.put("c_mission", randdomM);
+		
+		int insertResult = talkService.insertChat(tcmap);
 		if(insertResult > 0) {
 			logger.info("insertChat() 수행하고 옴. insertResult : " + insertResult);
-			//chat생성 되었을 경우 mission 추가
-			String[] marr = {
-				"같이 한강에서 야경 사진을 찍고 업로드하세요!",
-				"같이 최근 개봉한 영화를 보고 사진을 찍어 업로드하세요!",
-				"같이 스포츠를 관람하고 사진을 찍어 업로드하세요!",
-				"같이 보드게임을 하고 사진을 찍어 업로드하세요!",
-				"같이 노래방에 가서 사진을 찍어 업로드하세요!",
-				"같이 불꽃놀이를 보고 사진을 찍어 업로드하세요!",
-				"같이 축제에 가서 사진을 찍어 업로드하세요!",
-				"같이 ",
-				"",
-				
-			} ;
-			
-			
 		} else {
-			logger.info("insertChat() 실패");
+			logger.info("insertChat() 실패. 이미 chat 있음");
+				
 		}
 		
 		
-		//채팅/미션정보 출력
+		//2. 채팅/미션정보 출력
 		TalkChat talkChat = talkService.getTalkChat(talk);
 		logger.info(talkChat.toString());
-
-//		(onechat == null ){
-//			int insertchat = insertOneChat(from_uno/to_uno) ;
-//			insertchat >0 {
-//				onechat  = getOneChat(from_uno/to_uno) ;
-//			} else {
-//				logger.info error
-//			}
-//		} 
-//		mv.addObject("onechat","onechat")
+		mv.addObject("talkChat",talkChat);
 //		--------------------------------------------------------
+		
 //		//대화정보 리스트
 		//from_uno/to_uno로 oneTalk 가져오기
 	/*	List<Talk> oneTalk = new ArrayList<Talk>();

@@ -10,11 +10,11 @@ import bclass.finalproject.lovemein.talk.model.vo.TalkPartner;
 import bclass.finalproject.lovemein.talk.model.vo.TalkReport;
 
 public interface TalkService {
+	
+	int insertChat(HashMap<String, Object> tcmap);
 
 	TalkChat getTalkChat(Talk talk);
-
-	int insertChat(Talk talk);
-
+	
 	List<Talk> getTalk(Talk talk);
 
 	TalkPartner getPatnerInfo(String c_to_uno);
@@ -30,6 +30,9 @@ public interface TalkService {
 	int insertReport(TalkReport talkReport);
 
 	List<TalkMission> userMissionList(HashMap<String, Object> map);
+
+
+
 
 
 

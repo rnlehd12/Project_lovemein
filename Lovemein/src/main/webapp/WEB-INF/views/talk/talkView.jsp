@@ -1,11 +1,15 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>님과의 대화</title>
 <link href="resources/css/talk/talkView.css" rel="stylesheet">
+<link href="resources/css/common/common.css" rel="stylesheet">
 <script src="resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 	
@@ -37,15 +41,16 @@
 </head>
 <body>
 <c:import url="../common/header.jsp"/>
+
 <div id="talkViewDiv">
 
 <div id="talkForm_Div"><!-- 1.1채팅영역 -->
-<div id="talkTitle"></div>
-<div id="talkText"></div>
+<div id="talkTitle">님과의 대화</div>
+<div id="talkText"><textarea id="talkTextArea"></textarea></div>
 <div id="talkInput"></div>
 <div id="talkMission">
 <div id="mission_1"><img class="missbt" src="resources/images/talk/m3.jpg"></div>
-<div id="mission_2"><p class="missbt">영화를 보고 사진을 업로드하세요</p></div>
+<div id="mission_2"><p class="missbt">${talkChat.c_mission}</p></div>
 <div id="report_1" ><img src="resources/images/talk/r3.jpg" 
 onmouseover="hover(this);" onmouseout="unhover(this);"></div>
 

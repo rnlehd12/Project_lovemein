@@ -19,14 +19,14 @@ public class TalkDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	public int insertChat(HashMap<String, Object> tcmap) {
+		return sqlSession.insert("insertChat", tcmap);
+	}
+	
 	public TalkChat getTalkChat(Talk talk) {
 		return sqlSession.selectOne("getTalkChat", talk);
 	}
 	
-	public int insertChat(Talk talk) {
-		return sqlSession.insert("insertChat", talk);
-	}
-
 	public List<Talk> getTalk(Talk talk) {
 		return sqlSession.selectList("getTalk", talk);
 	}
@@ -58,6 +58,7 @@ public class TalkDao {
 	public List<TalkMission> userMissionList(HashMap<String, Object> map) {
 		return sqlSession.selectList("userMissionList", map);
 	}
+
 
 
 
