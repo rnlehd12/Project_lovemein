@@ -4,5 +4,30 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+	
+	
+	<!-- 웹소켓설정 -->
+	<!-- 객체등록 및 맵핑설정 -->
+<!-- 	<bean id="talkHandler" 
+	class="bclass.finalproject.lovemein.talk.controller.TalkHandler"/>
+	<websocket:handlers>
+		<websocket:mapping path="/talk" handler="talkHandler"/>
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+	<bean class="org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean">
+		<property name="maxBinaryMessageBufferSize" value="1020400"/>	
+	</bean>	
+	
+	<bean id="talkController" 
+	class="bclass.finalproject.lovemein.talk.controller.TalkController"/>
+	<websocket:handlers>
+		<websocket:mapping path="/talkController" handler="talkController"/>
+	</websocket:handlers>
+	<bean class="org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean">
+		<property name="maxBinaryMessageBufferSize" value="1020400"/>	
+	</bean>		
+	
+	 -->
 </beans>

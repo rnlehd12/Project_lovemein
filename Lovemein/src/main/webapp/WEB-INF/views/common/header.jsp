@@ -42,7 +42,7 @@
 				</form>
 			</div>
 			<div id="quickMenuWrap">
-				<button id="matchingBtn" onclick="location.href='match.do'">소개팅 매칭</button>
+				<button id="matchingBtn" onclick="location.href='moveMatch.do'">소개팅 매칭</button>
 				<div id="iconWrap">
 					<button id="chatBtn" class="headerIcon" onclick="location.href='chatList.do'">
 						<img src="resources/images/common/chatIcon.png">

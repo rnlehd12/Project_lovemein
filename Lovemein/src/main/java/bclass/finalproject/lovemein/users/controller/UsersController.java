@@ -251,7 +251,7 @@ public class UsersController {
           Message coolsms = new Message(api_key, api_secret);
           Random random = new Random();
           int AuthNum = random.nextInt(999999);
-          
+          System.out.println("번호 : " +AuthNum);
           HashMap<String, String> params = new HashMap<String, String>();
           params.put("to", phone);
           params.put("from", "01022479633");

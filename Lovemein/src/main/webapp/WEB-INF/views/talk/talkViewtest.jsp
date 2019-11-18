@@ -5,8 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript"
-	src="../../../resources/js/sockjs.min.js"></script>
+
 </head>
 <body>
 
@@ -115,9 +114,6 @@
   	  message.CLASS_class_id = '${class_id}'
   	  message.message_sender = '${profile.user_id}'
   }
-
-
-
 	//메시지를 json - string 으로 보냄?
   sock.send(JSON.stringify(message));
   $("#message").val("");
@@ -165,7 +161,17 @@
 	 }else{
 
 	 var t = getTimeStamp();
-	 $("#chatMessageArea").append("<div class='col-12 row' style = 'height : auto; margin-top : 5px;'><div class='col-2' style = 'float:left; padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/displayFile?fileName=${userImage}&directory=profile' style = 'width:50px; height:50px; '><div style='font-size:9px; clear:both;'>${user_name}</div></div><div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:right;'><div class = 'col-12' style = ' background-color:#ACF3FF; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>"+msg+"</span></div><div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+t+"</span></div></div></div>")		 
+	 $("#chatMessageArea").append("<div class='col-12 row'"+
+			 "style = 'height : auto; margin-top : 5px;'>"+
+			 "<div class='col-2' style = 'float:left; padding-right:0px; "+
+			 "padding-left : 0px;'><img id='profileImg' class='img-fluid'"+
+			 "src='/displayFile?fileName=${userImage}&directory=profile'"+
+			"style = 'width:50px; height:50px; '><div style='font-size:9px;"+
+			"clear:both;'>${user_name}</div></div><div class = 'col-10' style"+
+			"= 'overflow : y ; margin-top : 7px; float:right;'>"+
+			"<div class = 'col-12' style = ' background-color:#ACF3FF; padding "+
+			": 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>"+
+			msg+"</span></div><div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+t+"</span></div></div></div>")		 
 	//채팅을 채팅내용div에 넣는 작업
 	
 	  var chatAreaHeight = $("#chatArea").height();
@@ -187,6 +193,7 @@
 //전송클릭시
   $('#sendBtn').click(function() { send(); });/* $('#enterBtn').click(function() { connect(); }); $('#exitBtn').click(function() { disconnect(); }); */
  });
+ 
 </script>
 </body>
 </html>

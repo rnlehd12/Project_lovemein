@@ -61,11 +61,11 @@ $(function(){
 					if(decodeURIComponent(jsonObj.list[i].u_type).replace(/\+/gi, " ") == 1) {
 						outValues += 
 							"<div class='matchat active' id='matchat"+jsonObj.list[i].u_no_rec+"'>" +
-							"<a href='talk.do?c_from_uno="+jsonObj.list[i].u_no_send+"&c_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
+							"<a href='talkView.do?c_from_uno="+jsonObj.list[i].u_no_send+"&c_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 					} else {
 						outValues += 
 							"<div class='matchat' id='matchat"+jsonObj.list[i].u_no_rec+"'>" +
-							"<a href='talk.do?c_from_uno="+jsonObj.list[i].u_no_send+"&c_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
+							"<a href='talkView.do?c_from_uno="+jsonObj.list[i].u_no_send+"&c_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 					} 	 
 					outValues += "</div>" +
 								"</div>" +
@@ -78,12 +78,7 @@ $(function(){
 				} //if	// 내가 찜한 사람
 			} // for// 내가 찜한 사람
 			$("#onelist_ul1").html(outValues);
-		},
-        error : function(request, status, errorData){
-           console.log("error code : " + request.status 
-                 + "\nMessage : " + request.responseText
-                 + "\nError : " + errorData);
-        }
+		}   
 	}); // 내가 찜한 사람 목록 div 추가 ajax 	
 });//document.ready
 
@@ -132,11 +127,11 @@ function addBtnFunc(btnVal){
 						if(decodeURIComponent(jsonObj.list[i].u_type).replace(/\+/gi, " ") == 1) {
 							outValues += 
 								"<div class='matchat active' id='matchat"+jsonObj.list[i].u_no_rec+"'>" +
-								"<a href='talk.do?c_from_uno="+jsonObj.list[i].u_no_send+"&c_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
+								"<a href='talkView.do?c_from_uno="+jsonObj.list[i].u_no_send+"&c_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 						} else {
 							outValues += 
 								"<div class='matchat' id='matchat"+jsonObj.list[i].u_no_rec+"'>" +
-								"<a href='talk.do?c_from_uno="+jsonObj.list[i].u_no_send+"&c_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
+								"<a href='talkView.do?c_from_uno="+jsonObj.list[i].u_no_send+"&c_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 						} 	 
 						outValues += "</div>" +
 									"</div>" +
@@ -257,11 +252,11 @@ $(function(){
 					if(decodeURIComponent(jsonObj.list[i].u_type).replace(/\+/gi, " ") == 1) {
 						outValues += 
 							"<div class='matchat tactive' id='tmatchat"+jsonObj.list[i].u_no_send+"'>" +
-							"<a href='talk.do?c_from_uno="+jsonObj.list[i].u_no_rec+"&c_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
+							"<a href='talkView.do?c_from_uno="+jsonObj.list[i].u_no_rec+"&c_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 					} 	else {
 						outValues += 
 							"<div class='matchat' id='tmatchat"+jsonObj.list[i].u_no_send+"'>" +
-							"<a href='talk.do?c_from_uno="+jsonObj.list[i].u_no_rec+"&c_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
+							"<a href='talkView.do?c_from_uno="+jsonObj.list[i].u_no_rec+"&c_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 					} 	
 					outValues += "</div>" +
 								"</div>" +
@@ -340,11 +335,11 @@ function addTBtnFunc(btnVal){
 						if(decodeURIComponent(jsonObj.list[i].u_type).replace(/\+/gi, " ") == 1) {
 							outValues += 
 								"<div class='matchat tactive' id='tmatchat"+jsonObj.list[i].u_no_send+"'>" +
-								"<a href='talk.do?c_from_uno="+jsonObj.list[i].u_no_rec+"&c_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
+								"<a href='talkView.do?c_from_uno="+jsonObj.list[i].u_no_rec+"&c_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 						} 	else {
 							outValues += 
 								"<div class='matchat' id='tmatchat"+jsonObj.list[i].u_no_send+"'>" +
-								"<a href='talk.do?c_from_uno="+jsonObj.list[i].u_no_rec+"&c_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
+								"<a href='talkView.do?c_from_uno="+jsonObj.list[i].u_no_rec+"&c_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 						}  			
 						outValues += "</div>" +
 									"</div>" +

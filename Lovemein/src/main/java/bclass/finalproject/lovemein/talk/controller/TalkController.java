@@ -25,9 +25,9 @@ public class TalkController {
 	private String sender = null;
 	private String receiver = null;
 	
-	@RequestMapping("talk.do")
+	@RequestMapping("talkView.do")
 	public ModelAndView talkViewMethod(Talk talk, ModelAndView mv) {
-		logger.info("talk.do 실행. talk : " +  talk.getC_from_uno()+"," +talk.getC_to_uno());
+		logger.info("talkView.do 실행. talk : " +  talk.getC_from_uno()+"," +talk.getC_to_uno());
 		sender = talk.getC_from_uno();
 		receiver = talk.getC_to_uno();
 		
