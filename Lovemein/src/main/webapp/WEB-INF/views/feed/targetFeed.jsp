@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <!DOCTYPE html>
+<!-- 상대피드 by 귀정 -->
 <html>
 <head>
 <meta charset="UTF-8">
@@ -16,7 +17,7 @@
 <script type="text/javascript" src="resources/js/feed/swiper.min.js"></script>
 </head>
 <body>
-	<div id="mask"></div> 
+	<div id="mask" onclick="closeMaskFun();"></div> 
 	<input type="hidden" id="hiddenSessionU_no" name="my_no" value="${loginMember.u_no}">
 	<input type="hidden" id="hieddenU_no" name="u_no" value="${u_no}">
 	<c:import url="../common/header.jsp" />
@@ -25,6 +26,11 @@
 		<div id="feedArea">
 				<div id="feedcontentsArea">
 					<!-- 피드영역 -->
+					<c:if test="${message != null}">
+						<div id="notFeedArea">
+							<p id="notFeed">${targetUser.u_name}${message}</p>
+						</div>
+					</c:if><!-- 피드가없을시 피드없다는 메시지 노출 -->
 					<c:forEach var="feed" items="${feed_list}">
 					<div id="feedContainer">
 						<!-- 피드 글영역 시작 -->
@@ -235,10 +241,6 @@
 			</div>
 			<div id="accountPrimaryInfo">
 				<div id="accountName">${targetUser.u_name}
-					 <span>
-					 	<!-- 정보수정 이동 링크 -->
-					 	<a href="myInfo.do"><img src="resources/images/feed/settingIcon.png" width="17"></a>
-					 </span>
 				 </div>
 				<div id="accountEmail">${targetUser.u_email}</div>
 			</div>
@@ -253,6 +255,14 @@
 			<!-- 정보영역 -->
 			<div id="divStyle">
 				<div id="tarPinfoArea">
+					<p id="gender" class="pinfoAreas">
+						<c:if test="${targetUser.u_gender eq 'M'}">
+							남성
+						</c:if>
+						<c:if test="${targetUser.u_gender eq 'F'}">
+							여성
+						</c:if>
+					</p>
 					<p id="spec" class="pinfoAreas">${targetUser.u_height} / ${targetUser.u_weight}</p>
 					<p id="loc" class="pinfoAreas">${targetUser.u_loc} 거주</p><br>
 					<p id="edu" class="pinfoAreas">${targetUser.u_shcool}</p>
@@ -283,11 +293,64 @@
 					</c:forTokens>
 				</div>
 			</div>
-			<!-- 찜하기ㄴ 영역 -->
-			<div id="writeArea">
-				<button type="button" id="goLikeTargetBtn" onclick="goLikeTargetFunc();">
-					<img id="goLikeTargetImg" src="resources/images/common/heartIcon3.png" width="50"> 찜하기
-				</button>
+			<!-- 찜하기 영역 -->
+			<!-- 찜을 하지 않았을경우 -->
+			<c:if test="${userLikeChk.count == 0}">
+				<div id="writeArea">
+					<button type="button" class="goLikeTargetBtn" id="unlikeBtn" onclick="goLikeTargetFunc();">
+						<img id="goLikeTargetImg" src="resources/images/common/heartIcon2.png" width="50">
+						${targetUser.u_name}님을 찜하기
+					</button>
+				</div>
+			</c:if>
+			<!-- 찜하고 있을경우 -->
+			<c:if test="${userLikeChk.count == 1}">
+				<div id="writeArea">
+					<button type="button" class="goLikeTargetBtn" onclick="ullikeBtnFunc('${targetUser.u_no}','${loginMember.u_no}');">
+						<img id="goLikeTargetImg" src="resources/images/common/heartIcon3.png" width="50">
+						${targetUser.u_name}님을 찜하는중
+					</button>
+				</div>
+			</c:if>
+			<!-- 찜하기 모달 팝업 -->
+			<div id="golike">
+				<button id="findClose" onclick="findCloseFnc();">X</button>
+				<form id="golikeForm" method="post" action="golikeTarget.do">
+					<div id="heartIconArea">
+						<img id="goLikeTargetImages" src="resources/images/common/heartIcon2.png" width="50">
+					</div>
+					<p id="golikeTitle">
+					찜하기
+					</p>
+					<div id="golikeimgArea">
+						<c:if test="${targetUser.u_profile == null}">
+							<img id="profileImg" src="resources/images/common/nullProfile.png">
+						</c:if>
+						<c:if test="${targetUser.u_profile != null}">
+							<img id="profileImg" src="resources/images/profile/${targetUser.u_profile}">
+						</c:if>
+					</div>
+					<p id="likeMessage1"><span>${targetUser.u_name}</span>님을 찜하시겠습니까?</p>
+					<p id="likeMessage2"><span>푸딩1개</span>가 소진됩니다.</p>
+					<input type="hidden" name="loginUno" value="${loginMember.u_no}">
+					<input type="hidden" name="targetUno" value="${targetUser.u_no}">
+						<c:choose>
+							<c:when test="${loginMember.u_coin > 0}">
+								<div id="likeAreaBtns">
+									<input type="submit" value="찜하기" class="likesBtns" id="goTargetLikeBtn" />
+									<button type="button" class="likesBtns" id="resetLikeBtn" onclick="findCloseFnc();">취소</button>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div id="likeAreaBtns">
+									<button type="button" class="likesBtns" id="goTargetLikeBtn" onclick="goPayFunc();">충전페이지로 이동</button>
+									<button type="button" class="likesBtns" id="resetLikeBtn" onclick="findCloseFnc();">취소</button>
+								</div>	
+								<p id="noCoin">잔여푸딩이 부족합니다. 충전 후 이용해주세요.</p>
+							</c:otherwise>
+						</c:choose>		
+				</form>
+				
 			</div>
 		</div><!-- 계정영역 끝 -->
 	</div>

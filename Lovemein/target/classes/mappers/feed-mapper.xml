@@ -123,4 +123,64 @@
 	  	where feed_like.u_no = #{u_no} and f.u_no = #{target_no}
 	</select>
 	
+	<!-- 피드 글 수정 -->
+	<update id="feedModi" parameterType="Feed">
+		UPDATE feed
+		SET
+		f_tag = #{f_tag},
+		f_text = #{f_text}
+		WHERE f_no = #{f_no}
+	</update>
+	
+	<!-- 전체 피드글 조회 -->
+	<select id="allFeed" resultType="Feed">
+		  select * 
+		  from feed f
+		  join users u on u.u_no = f.u_no
+		  order by f_date desc
+	</select>
+
+	<!-- 전체 피드글 내가 좋아요한 여부 조회 -->
+	<select id="allFeedHeartChk" resultType="FeedLike">
+		select feed_like.f_no, feed_like.u_no
+		from feed_like 
+		left join feed f on feed_like.f_NO = f.f_NO
+		where feed_like.u_no = #{u_no}
+	</select>
+	
+	<!-- 상대방 찜 추가하기 -->
+	<insert id="golikeTarget" parameterType="TargetLikeCheck">
+		INSERT INTO LIKES
+		  VALUES (
+		  	#{u_no},#{target_no}
+		   )
+	</insert>
+
+	<!-- 상대 좋아요 여부 확인 -->
+	<select id="targetLikeCheck" parameterType="TargetLikeCheck" resultType="TargetLikeCheck">
+		select count(*) as count
+ 		from likes
+		where U_NO_REC = #{target_no} and U_NO_SEND = #{u_no}
+	</select>
+
+	<!-- 상대방 찜 취소하기 -->
+	<delete id="unLikeTarget" parameterType="TargetLikeCheck">
+		delete from likes where u_no_send = #{u_no} and u_no_rec = #{target_no}
+	</delete>
+	
+	<!-- 좋아요 후 푸딩 1개 차감 -->
+	<update id="outCoin" parameterType="String">
+		UPDATE users 
+		SET
+		u_coin = u_coin-1
+		WHERE u_no = #{u_no}
+	</update>
+
+	<!-- 차감한 푸딩 조회 -->
+	<select id="selectCoin" parameterType="String" resultType="int">
+		select u_coin
+		from users
+		where u_no = #{u_no}
+	</select>
+
 </mapper>

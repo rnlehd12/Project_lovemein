@@ -34,7 +34,7 @@
 	<div id="headerWrap">
 		<div id="headerContentWrap">
 			<div id="logoArea">
-				<p id="mainlogo"><a href="#">LOVE ME IN</a></p>
+				<p id="mainlogo"><a href="allFeed.do">LOVE ME IN</a></p>
 			</div>
 			<div id="headerSearchWrap">
 				<form id="headerSearch">

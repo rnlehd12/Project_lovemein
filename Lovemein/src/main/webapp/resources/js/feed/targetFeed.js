@@ -198,6 +198,11 @@ function feedDelFunc(f_no){
 	}
 }
 
+//충전페이지 이동용 스크립트
+function goPayFunc(){
+	
+	location.href = "payMain.do";
+}
 
 //피드슬라이드 api  시작
 $(document).ready(function () {
@@ -263,3 +268,46 @@ function targetFeedFunc(u_no){
 	
 }
 
+
+//mask영역 클릭시 모달창 닫힘
+function closeMaskFun(){
+	
+	$("#mask").css("display","none");
+	$("#golike").css("display","none");
+	
+}
+
+//찜하기 모달팝업 노출
+function goLikeTargetFunc(){
+	
+	var maskHeight = $(document).height();  
+	var maskWidth = $(window).width();
+	
+	$('#golike').css("display","block");
+	$('#mask').css({'width':maskWidth,'height':maskHeight});
+	$('#mask').css("background","#000");
+	$('#mask').css("z-index","999");
+	$('#mask').fadeTo(500,0.8);
+	
+}
+
+//찜하기 창닫기 스크립트
+function findCloseFnc(){
+	
+	var maskHeight = $(document).height();  
+	var maskWidth = $(window).width();
+	
+	$('#golike').css("display","none");
+	$('#golike').css("display","none");
+	$('#mask').css({'width':maskWidth,'height':maskHeight});
+	$('#mask').css("z-index","-1");
+	$('#mask').fadeTo(800,0);
+
+}
+
+//찜취소이동 스크립트
+function ullikeBtnFunc(t_no, u_no){
+	
+	location.href= 'unLikeTarget.do?t_no=' + t_no + "&u_no=" + u_no;
+	
+}

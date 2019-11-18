@@ -8,12 +8,13 @@ public class TargetLikeCheck implements Serializable{
 	
 	private String u_no;
 	private String target_no;
+	private int count;
 	
 	public TargetLikeCheck(){}
 
 	@Override
 	public String toString() {
-		return "TargetLikeCheck [u_no=" + u_no + ", target_no=" + target_no + "]";
+		return "TargetLikeCheck [u_no=" + u_no + ", target_no=" + target_no + ", count=" + count + "]";
 	}
 
 	public String getU_no() {
@@ -32,10 +33,20 @@ public class TargetLikeCheck implements Serializable{
 		this.target_no = target_no;
 	}
 
-	public TargetLikeCheck(String u_no, String target_no) {
+	
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public TargetLikeCheck(String u_no, String target_no, int count) {
 		super();
 		this.u_no = u_no;
 		this.target_no = target_no;
+		this.count = count;
 	};
 	
 	

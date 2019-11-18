@@ -41,4 +41,20 @@ public interface FeedService {
 
 	List<Feed> feedLikeChkTarget(TargetLikeCheck targetChk);
 
+	int updateFeed(Feed feed);
+
+	List<Feed> allFeed();
+
+	List<FeedLike> allFeedHeartChk(String u_no);
+
+	void golikeTarget(TargetLikeCheck targetchk);
+
+	TargetLikeCheck targetLikeCheck(TargetLikeCheck target);
+
+	void unLikeTarget(TargetLikeCheck targetchk);
+
+	void outCoin(String loginUno);
+
+	int selectCoin(String loginUno);
+
 }

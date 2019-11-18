@@ -108,5 +108,16 @@
 		where u.u_no = #{u_no}
 	</select>
 
+	<!-- 추가정보 수정용 -->
+	<update id="addInfo" parameterType="Ainfo">
+		UPDATE addinfo 
+		SET
+		u_blood = #{u_blood},
+		u_char = #{u_char},
+		u_rei = #{u_rei},
+		u_smoking = #{u_smoking},
+		U_DRINKING = #{u_drinking}
+		WHERE u_no = #{u_no}
+	</update>
 
 </mapper>

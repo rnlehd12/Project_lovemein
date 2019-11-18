@@ -95,4 +95,45 @@ public class FeedDao {
 		
 		return sqlSession.selectList("feedMapper.feedLikeChkTarget", targetChk);
 	}
+
+	public int updateFeed(Feed feed) {
+		
+		return sqlSession.update("feedMapper.feedModi", feed);
+	}
+
+	public List<Feed> allFeed() {
+		
+		return sqlSession.selectList("feedMapper.allFeed");
+	}
+
+	public List<FeedLike> allFeedHeartChk(String u_no) {
+		
+		return sqlSession.selectList("feedMapper.allFeedHeartChk", u_no);
+	}
+
+	public void golikeTarget(TargetLikeCheck targetchk) {
+		
+		sqlSession.selectList("feedMapper.golikeTarget", targetchk);
+	}
+
+	public TargetLikeCheck targetLikeCheck(TargetLikeCheck target) {
+		
+		return sqlSession.selectOne("feedMapper.targetLikeCheck", target);
+	}
+
+	public void unLikeTarget(TargetLikeCheck targetchk) {
+		
+		sqlSession.selectList("feedMapper.unLikeTarget", targetchk);
+	}
+
+	public void outCoin(String loginUno) {
+		
+		sqlSession.update("feedMapper.outCoin",loginUno);
+	}
+
+	public int selectCoin(String loginUno) {
+		
+		return sqlSession.selectOne("feedMapper.selectCoin",loginUno);
+	}
+
 }

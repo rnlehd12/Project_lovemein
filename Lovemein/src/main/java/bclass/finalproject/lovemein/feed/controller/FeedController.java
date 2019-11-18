@@ -35,6 +35,7 @@ import bclass.finalproject.lovemein.feed.model.vo.FeedLike;
 import bclass.finalproject.lovemein.feed.model.vo.FeedModiReply;
 import bclass.finalproject.lovemein.feed.model.vo.FeedReply;
 import bclass.finalproject.lovemein.likes.model.vo.Likes;
+import bclass.finalproject.lovemein.likes.model.vo.TargetLikeCheck;
 
 //피드 Controller by 귀정
 @Controller
@@ -283,6 +284,32 @@ public class FeedController {
 		 
 		
 		return mv;
+	}
+	
+	//## 피드글 수정 컨트롤러
+	@RequestMapping(value="updateFeed.do", method=RequestMethod.POST)
+	public String updateFeedMethod(Feed feed) {
+		
+		int result = feedService.updateFeed(feed);
+		
+		return "redirect:redirectFeed.do";
+	
+	}
+	
+	// ## user찜 취소
+	@RequestMapping(value="unLikeTarget.do")
+	public ModelAndView unLikeTargetMethod(ModelAndView mv, @RequestParam("t_no") String t_no, @RequestParam("u_no") String u_no,
+			 String targetUno, TargetLikeCheck targetchk) {
+		
+		if(t_no != null && u_no != null) {
+			
+			targetchk.setU_no(u_no);
+			targetchk.setTarget_no(t_no);
+			feedService.unLikeTarget(targetchk);
+			mv.setViewName("redirect:goTargetFeed.do?u_no="+ t_no);
+		}
+		return mv;
+
 	}
 	
 }

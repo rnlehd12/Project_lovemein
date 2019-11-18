@@ -71,7 +71,7 @@
 </script>
 </head>
 <body>
-	<div id="mask"></div> 
+	<div id="mask" onclick="closeMaskFun();"></div> 
 	<div id="loginWrap">
 		<table>
 			<tr>

@@ -112,8 +112,73 @@
 .pinfoAreas{color:#353535; padding:3px 10px; background:#E7E7E7; border-radius:20px; font-size:12px; display:inline-block; margin-bottom:5px;}
 #tarPinfoArea{margin:10px 0; margin-top:25px;}
 #tarTitle{font-size:14px; font-weight:bold; margin-bottom:5px; margin-top:10px;}
-#goLikeTargetBtn{ background-color:#e64c7f; color:#fff; font-size:18px; border:none; 
+.goLikeTargetBtn{ background-color:#e64c7f; color:#fff; font-size:18px; border:none; 
 			   border-radius:3px;  font-weight:600; width:100%; height:48px; margin-top:20px; cursor:pointer;}
 #goLikeTargetImg{width:22px; position: relative; top: 3px;}	
 #goLikeTargetBtn:hover{background-color:#e42e5f; color:#fff; font-size:18px; 
-					border-radius:3px;}														
+					border-radius:3px;}	
+					
+/*글수정 폼*/
+.feedModiForm{width: 800px; height: 550px; background: #fff; margin: 0 auto; z-index: 99999; position: fixed; top: 150px; 
+				left: 27%; display:none;}
+#insertFeedModiForm{display:block; width:700px; margin:40px auto; font-size: 14px; font-weight: bold;}
+#insertFeedModiForm textarea{ border-radius: 3px; width:100%; border: 1px solid #cccccc; height:200px; padding:5px; }	
+#insertFeedModiForm input[type='text']{ width:100%; border:1px solid #cccc; height:32px; border-radius: 3px;}
+#insertFeedModiForm p{ margin-top: 20px; margin-bottom: 5px;}	
+#insertFeedModiForm p span{color:#8c8c8c; font-weight:normal;}
+#insertFeedModiForm input[type='submit']{ background: #e42e5f; color: #fff; border: none; width:100%; font-size: 18px; 
+											font-weight: bold; border-radius: 3px; height:43px; margin-top:20px}		
+#notFeedArea{ margin: 0 auto; width: 90%; text-align: center; margin-top: 70px; color: #5D5D5D; font-weight: bold;}	
+#subTitle{font-weight:normal; text-align: center; margin-top: 0px !important; color:#5d5d5d}
+#modiTitle{font-size: 34px; display: block; margin: 0 auto; width: 27%; text-align: center; margin-bottom: 5px !important;}	
+
+/*찜 관리*/
+#heartSettingArea{display:inline-block; float:right; margin-right: 8px; font-weight: normal; font-size: 13px; 
+				  text-decoration: underline;}
+#heartSetting{color:#8c8c8c;}
+
+/*전체 피드*/
+#allFeedWrap{ width:1200px; margin:50px auto;}			
+.feedOneArea{ width:280px; height: 280px; background: #fafbfc; display: inline-block; margin:5px; background-size: cover;}		
+#firstImage{ width:280px; height:280px; overflow:hidden;}
+#imgCountArea{ text-align: right; position: relative; top: 170px; left: 0;  
+				background-image:linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,1)); height: 110px;}
+#imgCountP{ color: #fff; font-size: 14px; font-weight: bold; position: relative; top: 40px; left: -20px; display:inline-block;}
+#countImg{ position: relative; top: 4px; left: -6px;}
+#profileP{ color: #fff; font-size: 14px; font-weight: bold; position: relative; top: 40px; left: -100px; display: inline-block; 
+			width: 45%; text-align: left;}		
+#allprofileImgs{ width:30px; height:30px; border-radius:50%;}
+#profileImagesAll{}
+.allFeedmenu{display:none; position: absolute; top: -170px; left: 0px; width: 100%; text-align: center; background: rgba(0,0,0,0.5); 
+			height: 280px;}	
+#goTargetFeed{border-radius: 3px; background: #fff; color: #353535; border: none; padding: 5px 8px; margin-right: 5px; font-weight: bold; margin-top: 125px;}
+#showFeedOne{border-radius:3px; background:#fff; color:#353535; border:none; padding:5px 8px; margin-left:3px; font-weight:bold;  margin-top: 125px;}
+#goTargetFeed:hover{background:#e42e5f; color:#fff;}
+#showFeedOne:hover{background:#e42e5f; color:#fff;}
+#onDiv{display:inline-block;}
+.showFeedOneArea{width: 800px; height: 500px; background: #fff; margin: 0 auto; position: fixed; top: 180px; 
+				left: 27%; display:none;}
+.allfeedSlideDiv{ width: 400px; height: 400px; background: #EAEAEA; display: inline-block; 
+				position: absolute; top:50px; left: 25px;}	
+.allfeedSlideDiv img{ width:400px; height:400px;}	
+.allHeartArea img{ width:22px;}
+.allHeartArea{ position: relative; top: 112px;}	
+
+/*상대피드 찜하기 모달*/
+#golike{ width: 500px; height: 530px; background: #fff; margin: 0 auto; z-index: 99999; position: fixed; top: 150px; 
+				left: 34%; display:none;}
+#golikeTitle{text-align: center; font-size: 40px; font-weight: bold; color:#e42e5f}
+#goLikeTargetImages{width: 38px; position: relative; top: 3px; }		
+#golikeimgArea{width:150px; margin:20px auto;}		
+#golikeimgArea #profileImg{ width:150px; height:150px; border-radius:50%;}	
+#heartIconArea{width:38px; margin:0 auto; margin-top:25px}		
+#likeMessage1{ text-align: center; font-size: 23px;}		
+#likeMessage1 span{font-weight:bold; color:#e42e5f;}	
+#likeMessage2{ text-align: center; font-size:22px; padding-top:5px;}	
+#likeMessage2 span{font-weight:bold; color:#e42e5f;}	
+#likeAreaBtns{ width:50%; text-align:center; margin:0 auto; margin-top:20px;}
+.likesBtns{ border: none; padding: 7px 15px; font-size: 16px; font-weight: bold; margin: 0 5px; border-radius: 3px; }			
+#goTargetLikeBtn{ background:#e42e5f; color:#fff; cursor:pointer;}
+#resetLikeBtn{ background:#5d5d5d; color:#fff}
+#noCoin{text-align:center; margin-top:5px; font-size:14px; color:#CC3D3D}
+#unlikeBtn{ background: #fff; color: #e64c74; border: 1px solid #e64c74;}																		

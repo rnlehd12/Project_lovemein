@@ -2,6 +2,7 @@ package bclass.finalproject.lovemein.users.model.service;
 
 import java.util.HashMap;
 
+import bclass.finalproject.lovemein.users.model.vo.AddInfo;
 import bclass.finalproject.lovemein.users.model.vo.AllUsers;
 import bclass.finalproject.lovemein.users.model.vo.Ideal;
 import bclass.finalproject.lovemein.users.model.vo.PrimaryInfo;
@@ -29,6 +30,8 @@ public interface UsersService {
 	int primaryInfo(PrimaryInfo pinfos);
 
 	AllUsers targetUserInfo(String u_no);
+
+	void addInfo(AddInfo ainfo);
 
 
 

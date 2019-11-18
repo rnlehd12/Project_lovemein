@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bclass.finalproject.lovemein.users.model.dao.UsersDao;
+import bclass.finalproject.lovemein.users.model.vo.AddInfo;
 import bclass.finalproject.lovemein.users.model.vo.AllUsers;
 import bclass.finalproject.lovemein.users.model.vo.Ideal;
 import bclass.finalproject.lovemein.users.model.vo.PrimaryInfo;
@@ -86,6 +87,14 @@ public class UsersServiceImpl implements UsersService {
 	public AllUsers targetUserInfo(String u_no) {
 		
 		return usersDao.targetUserInfo(u_no);
+	}
+
+
+	@Override
+	public void addInfo(AddInfo ainfo) {
+		
+		usersDao.addInfo(ainfo);
+		
 	}
 
 

@@ -14,7 +14,8 @@ $(function(){
         	if(data.likecount != 0){	 
 	             $("#accountLikeCountArea").html
 	             ("<img src='resources/images/common/heartIcon2.png'>" +
-	             	"내가 찜한 사람 <span>"+ data.likecount + "</span> 명");
+	             	"내가 찜한 사람 <span>"+ data.likecount + "</span> 명" + 
+	             	"<div id='heartSettingArea'><a href='moveLikesList.do' id='heartSetting'>관리</a></div>");
         	}else{
         		
         		$("#accountLikeList").html("<div class='noLikesMent'>내가 찜하고 있는 사람이 없습니다." + 
@@ -158,6 +159,7 @@ function findCloseFnc(){
 	var maskWidth = $(window).width();
 	
 	$('#feedWriteForm').css("display","none");
+	$('#feedModiForm').css("display","none");
 	$('#mask').css({'width':maskWidth,'height':maskHeight});
 	$('#mask').css("z-index","-1");
 	$('#mask').fadeTo(800,0);
@@ -303,6 +305,32 @@ function feedDelFunc(f_no){
 	}
 }
 
+//피드글 수정 자바스크립트
+function feedModiFunc(f_no){
+	
+	var maskHeight = $(document).height();  
+	var maskWidth = $(window).width();
+	
+	$('#feedModiForm'+ f_no).css("display","block");
+	$('#mask').css({'width':maskWidth,'height':maskHeight});
+	$('#mask').css("background","#000");
+	$('#mask').css("z-index","999");
+	$('#mask').fadeTo(500,0.8);
+	
+}
+
+//피드 글 수정 창 닫기 자바스크립트
+function findCloseModiFnc(f_no){
+	
+	
+	var maskHeight = $(document).height();  
+	var maskWidth = $(window).width();
+	
+	$('#feedModiForm'+ f_no).css("display","none");
+	$('#mask').css({'width':maskWidth,'height':maskHeight});
+	$('#mask').css("z-index","-1");
+	$('#mask').fadeTo(800,0);
+}
 
 //피드슬라이드 api  시작
 $(document).ready(function () {
@@ -366,4 +394,13 @@ function targetFeedFunc(u_no){
 	
 	location.href='goTargetFeed.do?u_no=' + u_no;
 	
+}
+
+//mask를 누르면 글쓰기 div창 닫힘
+function closeMaskFun(){
+	
+	$("#mask").css("display","none");
+	$("#feedWriteForm").css("display","none");
+	$(".feedModiForm").css("display","none");
+	$(".feedCategory").css("display","none");
 }

@@ -18,11 +18,12 @@ public class Feed implements Serializable{
 	private String u_name;
 	private String u_profile;
 	private String count;
+	private String f_allImg;
 	
 	public Feed() {}
 
 	public Feed(String f_no, String f_text, String f_img, String f_tag, Date f_date, String u_no, String u_email,
-			String u_name, String u_profile, String count) {
+			String u_name, String u_profile, String count, String f_allImg) {
 		super();
 		this.f_no = f_no;
 		this.f_text = f_text;
@@ -34,6 +35,7 @@ public class Feed implements Serializable{
 		this.u_name = u_name;
 		this.u_profile = u_profile;
 		this.count = count;
+		this.f_allImg = f_allImg;
 	}
 
 	public String getF_no() {
@@ -116,14 +118,20 @@ public class Feed implements Serializable{
 		this.count = count;
 	}
 
+	public String getF_allImg() {
+		return f_allImg;
+	}
+
+	public void setF_allImg(String f_allImg) {
+		this.f_allImg = f_allImg;
+	}
+
 	@Override
 	public String toString() {
 		return "Feed [f_no=" + f_no + ", f_text=" + f_text + ", f_img=" + f_img + ", f_tag=" + f_tag + ", f_date="
 				+ f_date + ", u_no=" + u_no + ", u_email=" + u_email + ", u_name=" + u_name + ", u_profile=" + u_profile
-				+ ", count=" + count + "]";
+				+ ", count=" + count + ", f_allImg=" + f_allImg + "]";
 	}
-
-	
 
 
 }

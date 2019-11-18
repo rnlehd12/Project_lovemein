@@ -15,9 +15,12 @@
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="resources/js/feed/feed.js"></script>
 <script type="text/javascript" src="resources/js/feed/swiper.min.js"></script>
+<script>
+
+</script>
 </head>
 <body>
-	<div id="mask"></div> 
+	<div id="mask" onclick="closeMaskFun();"></div> 
 	<input type="hidden" id="hiddenU_no" value="${loginMember.u_no}">
 	<c:import url="../common/header.jsp"/>
 	<div id="feedWrap">
@@ -25,6 +28,11 @@
 		<div id="feedArea">
 			<div id="feedcontentsArea">
 				<!-- 피드영역 -->
+				<c:if test="${nullMessage != null}">
+					<div id="notFeedArea">
+						<p id="notFeed">${nullMessage}</p>
+					</div>
+				</c:if><!-- 피드가없을시 피드없다는 메시지 노출 -->
 				<c:forEach var="feed" items="${feed_list}">
 				<div id="feedContainer">
 					<!-- 피드 글영역 시작 -->
@@ -53,9 +61,24 @@
 						<!-- 버튼누르면 나오는 메뉴 -->
 						<div id="feedCategory${feed.f_no}" class="feedCategory">
 							<ul>
-								<li><a href="">게시글 수정</a></li>
+								<li><a href="#" onclick="feedModiFunc('${feed.f_no}')">게시글 수정</a></li>
 								<li><a href="#" onclick="feedDelFunc('${feed.f_no}');">게시글 삭제</a></li>
 							</ul>
+						</div>
+						<!-- 수정을 누르면 글수정 form 실행 -->
+						<div id="feedModiForm${feed.f_no}" class="feedModiForm">
+							<button id="findClose" onclick="findCloseModiFnc('${feed.f_no}');">X</button>
+							<form id="insertFeedModiForm" method="post" action="updateFeed.do">
+								<p id="modiTitle">피드 글 수정</p>
+								<p id="subTitle">내용과 해시태그만 수정이 가능합니다.</p>
+								<p>내용</p>
+								<textarea id="f_text" name="f_text">${feed.f_text}</textarea>
+								<p>#해시태그 <span>(','(쉼표)로 해시태그를 구분해주세요.)</span></p>
+								<input type="text" name="f_tag" id="f_tag" value="${feed.f_tag}">
+								<input type="hidden" name="u_no" value="${loginMember.u_no}">
+								<input type="hidden" name="f_no" value="${feed.f_no}">
+								<input type="submit" id="writeSubmitBtn" value="작성완료">
+							</form>
 						</div>
 						<div id="feed_date"><fmt:formatDate value="${feed.f_date}" pattern="M월 dd일"/></div>
     					<div id="textArea">${feed.f_text}</div>

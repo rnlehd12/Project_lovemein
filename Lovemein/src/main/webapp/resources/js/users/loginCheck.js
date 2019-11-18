@@ -121,4 +121,11 @@
 		$('#mask').fadeTo(800,0);
 
 	}
+
+	//mask를 누르면 창닫기
+	function closeMaskFun(){
+		
+		$("#mask").css("display","none");
+		$(".findWrap").css("display","none");
+	}
 	

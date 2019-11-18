@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import bclass.finalproject.lovemein.users.model.vo.AddInfo;
 import bclass.finalproject.lovemein.users.model.vo.AllUsers;
 import bclass.finalproject.lovemein.users.model.vo.Ideal;
 import bclass.finalproject.lovemein.users.model.vo.PrimaryInfo;
@@ -66,6 +67,12 @@ public class UsersDao {
 	public AllUsers targetUserInfo(String u_no) {
 		
 		return sqlSession.selectOne("usersMapper.targetUserInfo",u_no);
+	}
+
+	public void addInfo(AddInfo ainfo) {
+		
+		sqlSession.update("usersMapper.addInfo", ainfo);
+		
 	}
 
 }
