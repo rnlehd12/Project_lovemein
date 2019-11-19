@@ -1,48 +1,129 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>님과의 대화</title>
 <link href="resources/css/talk/talkView.css" rel="stylesheet">
-<script src="resources/js/jquery-3.4.1.min.js"></script>
+<link href="resources/css/common/common.css" rel="stylesheet">
+<script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="resources/js/sockjs.min.js"></script>
+<!-- <script src="http://cdn.jsdeliver.net/sockjs/1/sockjs.min.js"></script> -->
 <script type="text/javascript">
-	
-	function hover(e){
+/* 이미지변환 */
+
+var sock;
+function hover(e){
 		e.setAttribute('src','resources/images/talk/r2.jpg');
-	}
-	function unhover(e){
+}
+function unhover(e){
 		e.setAttribute('src','resources/images/talk/r3.jpg');
-	}
-	
-/* 	$(document).ready(function(){
-		$('#mission_modal').show();
-	}); */
- 	$(document).ready(function(){
-/* 		$(".missbt").on("click", function(){
-			/* alert("document 작동"); */
-			$("#mission_modal").show();
+}
+/* 모달	 */
+$(document).ready(function(){
+		$(".missbt").on("click", function(){
+			alert("클릭됨");
+			$(".modal").css("display", "block");
+			/* $("#mission_modal").show(); */
 		}); 
 	 	$(".close-button").on("click", function(){
-			$("#mission_modal").hide();
-		}); 
-		 */
+	 		$(".modal").css("display", "none");
+		}); 		 
+});//모달docu
+
+/* 소켓 */
+$(document).ready(function(){
+	//연결
+	connect();
+	//전송클릭시
+	$("#inputBtn").click(function(){
+		send();
 	});
- 
- // 신고이미지 변경 
+	//keypress, 엔터처리
+	 $('#textInput').keypress(function(event){
+  	 	var keycode = (event.keyCode ? event.keyCode : event.which);
+   		if(keycode == '13'){
+    		send();
+   		}
+   		event.stopPropagation();
+  	});
+});// inputbtn click
+
+//연결
+function connect(){
+	sock = new SockJS('<c:url value="/talk"/>');
+	sock.onopen = function(){ //열림메시지
+		alert("open");
+		console.log('talk.jsp socket opne');
+	};
+	
+	sock.onmessage = function(msg) { 	//받은메시지 처리
+	 	var msgdata =  msg.data;
+		alert("onmessage() msgdata : " + msgdata);
+		var msgJson = JSON.parse(msgdata);	 
+		alert("onmessage() msgJson : " + msgJson);
+		//alert(msg);
+		appendMessage(msgJson);
+	}
+	sock.onclose = function() { //닫음메시지
+		//appendMessage("서버종료");
+		console.log("talk.jsp socket close.");
+		
+	}
+}// socket connect
+
+function send(){
+	console.log($("#textInput").val());
+	alert("send() : " + $("#textInput").val());
+	sock.send(JSON.stringify($("#textInput").val()));
+	//sock.send("test");
+	//var msg = $("#textInput").val();
+	/* if(msg != "") {
+	talk = {};
+	message.message_
+	}
+	 */
+	$("#textInput").val("");
+	$("#textInput").focus();
+} // send func 
+
+function appendMessage(msg){
+	if(msg ==''){
+		return false;
+	} else {
+		console.log("append: " + msg);
+	}
+	$("#talkTextArea").append(msg);
+	
+}   // 받은 메시지처리 메소드
+
+
+
 </script>
+
+
 </head>
 <body>
+<c:import url="../common/header.jsp"/>
+
 <div id="talkViewDiv">
 
 <div id="talkForm_Div"><!-- 1.1채팅영역 -->
-<div id="talkTitle"></div>
-<div id="talkText"></div>
-<div id="talkInput"></div>
+<div id="talkTitle">님과의 대화</div>
+<!-- 채팅내용 -->
+<div id="talkText"><textarea id="talkTextArea"></textarea></div>
+<!-- 채팅입력 -->
+<div id="talkInput">
+<textarea id="textInput"></textarea>
+<button id=inputBtn>보내기</button>
+</div>
 <div id="talkMission">
 <div id="mission_1"><img class="missbt" src="resources/images/talk/m3.jpg"></div>
-<div id="mission_2"><p class="missbt">영화를 보고 사진을 업로드하세요</p></div>
+<div id="mission_2"><p class="missbt">${talkChat.c_mission}</p></div>
 <div id="report_1" ><img src="resources/images/talk/r3.jpg" 
 onmouseover="hover(this);" onmouseout="unhover(this);"></div>
 

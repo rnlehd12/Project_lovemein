@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="usersMapper">
+<!-- 찜 Mapper -->
+	<select id="getTalkChat" parameterType="Talk" resultType="TalkChat">
+		select * from chat
+		where ((C_FROM_UNO = #{c_from_uno} and C_TO_UNO = #{c_to_uno})
+		or (C_FROM_UNO = #{c_to_uno} and C_TO_UNO = #{c_from_uno}))
+	</select>	
+	
+	<insert id="insertChat" parameterType="hashmap">
+		MERGE INTO chat
+   		USING DUAL
+       	ON ((C_FROM_UNO = #{c_from_uno} and C_TO_UNO = #{c_to_uno})
+		or (C_FROM_UNO = #{c_to_uno} and C_TO_UNO = #{c_from_uno}))
+    	WHEN NOT MATCHED THEN
+       	insert (C_NO, C_FROM_UNO, C_TO_UNO, C_MISSION, C_READC, C_NREADC) values(
+		to_char(SEQ_C_NO.nextval),
+		(select u_no from users where u_no = #{c_from_uno}),
+		(select u_no from users where u_no = #{c_to_uno}),
+		#{c_mission},
+		null,	
+		null)
+	</insert>
+
+</mapper>

@@ -4,17 +4,17 @@
 #talkViewDiv{
 	/* 전체영역 */
 	width:1300px;
-	height: 1000px;
+	height: 770px;
 	margin-top:15px;
 	margin-left: auto;
-	margin-right: auto;
-
+	margin-right: auto;/* 
+	border: 1px solid black; */
 }
 
 #talkForm_Div{
 	/* 왼쪽 채팅영역 */
 	width: 73%;
-	height: 1000px;
+	height: 100%;
 	display: inline-block;
 	background-color:rgb(250, 248, 249);
 	border: 1px solid rgb(250, 220, 220);
@@ -23,7 +23,7 @@
 #talkForm_Div #talkTitle{
 	/* 	채팅타이틀 div */
 	width: 100%;
-	height: 35px;
+	height: 5%;
 	background-color:#fff;
 	border: 1px solid rgb(250, 220, 220);
 }
@@ -31,24 +31,51 @@
 #talkForm_Div #talkText{
 	/* 	채팅내용 보이는 div */
 	width: 100%;
-	height: 795px;
+	height: 76%;
 	background-color:rgb(250, 248, 249);
 		border: 1px solid rgb(250, 220, 220);
 
 }
 
+#talkForm_Div #talkText #talkTextArea{
+	margin:0px;
+	padding:0px;
+	width: 100%;
+	height: 100%;
+	display : block;
+	overflow:scroll;
+	
+	background-color:rgb(250, 248, 249);
+		border: 1px solid rgb(250, 220, 220);
+}
 #talkForm_Div #talkInput{
 /* 	채팅입력 div */
 	width: 100%;
-	height: 120px;
+	height: 12%;
 	background-color:#fff;
 		border: 1px solid rgb(250, 220, 220);
 	
 }
+
+#talkForm_Div #talkInput #textInput{
+	width: 80%;
+	height: 100%;
+		border: 1px solid blue;
+	
+}
+
+#talkForm_Div #talkInput #inputBtn{
+	width: 15%;
+	height: 90%;
+	border: 1px solid red;
+	position: relative;
+	top: -40%;
+}
+
 #talkForm_Div #talkMission{
 	/* 	미션이미지, 미션글자, 신고이미지 div */
 	width: 100%;
-	height: 50px;
+	height: 6%;
 	background-color:rgb(250, 248, 249);
 		border: 1px solid rgb(250, 220, 220);
 
@@ -56,13 +83,13 @@
 
 #talkForm_Div #talkMission #mission_1{
 	/* 	미션 이미지 div */
-	width: 40px;
-	height: 38px;
+	width: 36px;
+	height: 32px;
 	display: inline-block;
 	position: relative;
-	top: 5px;
+	top: 2px;
 
-	left:5px;
+	left:6px;
 	padding:0px;
 }
 #talkForm_Div #talkMission #mission_1 img{
@@ -77,16 +104,17 @@
 	}	
 #talkForm_Div #talkMission #mission_2{
 			/* 	미션 글자 div-네모모양 */
-	width: 830px;
-	height: 38px;
+	width: 89%;
+	height: 32px;
 	display: inline-block;
 	position: relative;
-	top: 0px;
+	top:-5px;
 	left:5px;
     border-radius: 5px;
     padding: 0;
     background-color: rgb(250, 220, 220);
         margin:0px;
+
 /*      	   border: 1px solid black;  */
 }
 #talkForm_Div #talkMission #mission_2:hover{
@@ -97,7 +125,7 @@
 		/* 	미션 글자 div -화살표모양 */
 	    content: "";
     position: absolute;
-    top: 25%;
+    top: 28%;
     right: 100%;/* 
     margin-top: -5px;
  */    border-width: 5px;
@@ -108,23 +136,23 @@
 
 #talkForm_Div #talkMission #mission_2 p{
 	/* 	미션 글자 div p */
-	margin:8px;
-	padding: 5px;
+	margin:0px;
+	padding: 2px;
 	    text-align: center;
 	/*     border: 1px solid black; */
 }	
 #talkForm_Div #talkMission	#report_1{
 /* 	신고 이미지 div */
-	width: 40px;
-	height: 38px;
+	width: 36px;
+	height: 32px;
 	display: inline-block;
 	position: relative;
-	top: 5px;
+	top: 2px;
 	left:15px;
 	padding:0px;
 }
 #talkForm_Div #talkMission	#report_1 img{
-		신고 이미지 크기 채우기
+		/* //신고 이미지 크기 채우기 */
 	margin: 0px;
 	padding: 0px;
 	position: absolute;
@@ -135,35 +163,40 @@
 	border-radius: 2px;
 
 }
+
+
+/* 오른쪽 프로필div css */
+
 #profile_Div{
 	/* 프로필영역 */
 	width: 26%;
-	height: 1000px;
+	height: 100%;
 	display: inline-block;
 	position: relative;
-	top: -50px;
+	/* top: -50px; */
 	background-color:rgb(250, 243, 244);
 	border: 1px solid rgb(250, 220, 220);
+	top: -3.5%;
 }
 
 #profile_Div #profile_img{
 	/* 프로필영역 _이미지div */
 	width: 100%;
-	height: 27%;
+	height: 31%;
 	position: relative;
 	/* border: 1px solid red; */
 }
 #profile_Div #profile_img img{
-		margin-top: 10%;
-		margin-bottom: 15%;
-		margin-right: 15%;
-		margin-left: 15%;
+		margin-top: 5%;
+		margin-bottom: 0%;
+		margin-right: 10%;
+		margin-left: 10%;
 	padding: 0px;
 	position: absolute;
 	top:0;
 	left:0;
-	width:70%;
-	height:210px;
+	width:80%;
+	height:90%;
 	border-radius:50%;
 /* 
 	border: 1px solid black; 	 */
@@ -183,10 +216,12 @@
 	/*  display: inline-block; */
 	text-align: center;
 	font-size: 2em;
-	margin-top: 5px;
-	margin-bottom: 15px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding:0px;
 	position: relative;
 /* 	top: 15px; */
+
 }
 #page{
 	display: inline-block;
@@ -196,15 +231,15 @@
 	left: 30px; */
 	margin-right:24%;
 	margin-left:22%;
-	margin-top:  5%;
-	margin-bottom:  5%;
+	margin-top:  3%;
+	margin-bottom:  1%;
 	/* top: 15px; */
 	/* width: 73%; */
 }
 #pjob{
 	display: inline-block;
-	margin-top:  5%;
-	margin-bottom:  5%;
+	margin-top:  3%;
+	margin-bottom:  1%;
 	font-size: 1.3em;
 	padding: 0px;
 	/* top: 22px; */
@@ -214,8 +249,8 @@
 	font-size: 1.3em;
 	margin-right:24%;
 	margin-left:22%;
-	margin-top:  5%;
-	margin-bottom:  5%;
+	margin-top:  1%;
+	margin-bottom:  1%;
 	/* top: 22px; */
 	padding: 0px;
 }
@@ -225,20 +260,22 @@
 	padding: 0px;
 	margin-right:24%;
 	margin-left:22%;
-	margin-top: 5%;
-	margin-bottom: 5%;
+	margin-top:  1%;
+	margin-bottom:  1%;
 	 	/* position: relative; */
 	/* top: 29px  */
 }
 #profile_Div #profile_feed{
 	/* 프로필영역_ 피드div */
 	width: 90%;
-	height: 36%;
+	height: 35%;
 	position: relative;
 	border: 1px solid rgb(250, 220, 220);
 	border-radius: 3px;
 	background-color: rgb(250, 248, 249);
-	margin: 5%
+	margin: 5%;
+		margin-top:  2%;
+		margin-bottom:  0%;
 }
 
 #profile_Div #profile_feed:hover{
@@ -248,8 +285,8 @@
 #profile_Div #profile_feed #profile_feed_title{
 	/* 프로필영역_ 피드div_피드제목div */
 	width: 80%;
-	height: 30px;
-/* 	border: 1px solid green; */
+	height: 11%;
+	/* border: 1px solid green; */
 		margin: 10%;
 		margin-top: 5%;
 		margin-bottom: 5%;
@@ -263,12 +300,13 @@
 #profile_Div #profile_feed #profile_feed_img{
 		/* 프로필영역_ 피드div_피드사진div */
 	width: 90%;
-	height: 250px;
-	/* border: 1px solid black; */
+	height: 70%;
+/* 	border: 1px solid black; */
 	margin: 5%;
 	display: inline-block;
 	position: relative;
-	/* margin-top: 5%; */
+	margin-top: 2%;
+	margin-bottom: 2%;
 }
 #profile_Div #profile_feed #profile_feed_img img{
 /* 	이미지 채우기 */
@@ -283,8 +321,9 @@
 #profile_Div #profile_mList{
 	/* 프로필영역 _미션리스트버튼 div*/
 	width: 100%;
-	height: 6%;
-/* 	border: 1px solid green;
+	height: 8%;
+	/* margin-top : -5%; */
+	/* border: 1px solid green;
  */
 }
 
@@ -309,7 +348,7 @@
 
 .modal{
 	/* 미션모달배경 */
-/* 	display: none; */
+	display: none;
 	position: fixed;
 	z-index: 1;
 
@@ -323,7 +362,8 @@
 /*     transition: visibility 0s linear 0.25s, 
     opacity 0.25s 0s, transform 0.25s;  */
 }
-.modal #mModal_con{
+#mModal_con{
+	
 	/* 미션모달내용 */
 	position: absolute; 
     top: 20%; 
@@ -337,7 +377,7 @@
     transform: translate(-50%, -50%); 
     padding: 1rem 1.5rem;    
 }
-.modal #mModal_con #mM_con_title{
+#mModal_con #mM_con_title{
 		/* 미션모달내용_제목 */
 		width: 92%;
 		height: 14%;
@@ -346,7 +386,7 @@
 		border: 1px solid red;
 		
 }
-.modal #mModal_con #mM_con_title p{
+#mModal_con #mM_con_title p{
 		margin: 0px;
 		padding:0px;
 		text-align: center;
@@ -357,7 +397,7 @@
 		border: 1px solid black;
 		
 }
-.modal #mModal_con #mM_con_close{
+#mModal_con #mM_con_close{
 		/* 미션모달내용_닫기버튼 */
 		display: inline-block;
 		margin: 0px;
@@ -369,7 +409,7 @@
 		font-size: 2.3em;
 		font-weight: bold;
 }
-.modal #mModal_con #mM_con_close:hover{
+#mModal_con #mM_con_close:hover{
 	color: #999;
 }
 /* .modal #mModal_con #mM_con_close .close-button{
@@ -381,7 +421,7 @@
 	border: 1px solid black;
 } */
 
-.modal #mModal_con #mM_con_text{
+#mModal_con #mM_con_text{
 		/* 미션모달내용_텍스트 */
 		margin: 0px;
 		padding:0px;
@@ -391,13 +431,13 @@
 		display: inline-block;
 		border: 1px solid black;		
 }
-.modal #mModal_con #mM_con_text p{
+#mModal_con #mM_con_text p{
 		margin: 0px;
 		padding:0px;
 		text-align: center;
 		border: 1px solid green;
 }
-#mission_modal #mModal_con #mM_con_upload{
+#mModal_con #mM_con_upload{
 		/* 미션모달내용_사진업로드 전체 div*/
 		margin: 0px;
 		padding:0px;
@@ -406,7 +446,7 @@
 		position: relative;
 		border: 1px solid blue;
 }
-#mission_modal #mModal_con #mM_con_upload img{
+#mModal_con #mM_con_upload img{
 	/* 파일 이미지 미리보기 img */ 
 		width: 65%;
 		height: 80%;
