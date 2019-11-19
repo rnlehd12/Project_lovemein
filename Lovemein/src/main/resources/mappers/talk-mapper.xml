@@ -9,7 +9,7 @@
 		where ((C_FROM_UNO = #{c_from_uno} and C_TO_UNO = #{c_to_uno})
 		or (C_FROM_UNO = #{c_to_uno} and C_TO_UNO = #{c_from_uno}))
 	</select>	
-	
+	  
 	<insert id="insertChat" parameterType="hashmap">
 		MERGE INTO chat
    		USING DUAL
