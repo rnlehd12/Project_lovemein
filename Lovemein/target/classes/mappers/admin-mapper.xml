@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminMapper">
+<!-- 관리자(admin) Mapper by 선혜 -->
+
+<!-- 회원관리 -->
+<select id="memberListCount" resultType="int">
+select count(*) as count from users where u_no not like '1'
+</select>
+
+<select id="memberList" parameterType="Hashmap" resultType="AllUsers">
+<![CDATA[
+select * 
+			from (select u_no, u_email,
+					   u_name, join_date 					   
+				  from (select * from users where u_no not like '1' order by u_no asc))
+			where u_no not like '1' and u_no >= #{startRow} and u_no <= #{endRow} ORDER BY TO_NUMBER(U_NO)
+]]>
+
+
+</select>
+<select id="memberSearchListCount" parameterType="string" resultType="int">
+  <![CDATA[
+select count(*) as count from users where u_no not like '1' and
+				  								u_name like '%'|| #{search} || '%' or
+				  								join_date like '%' || #{search} || '%' or
+				  								u_email like '%' || #{search} || '%'
+]]>
+</select>
+<select id="memberSearcchList" parameterType="Hashmap" resultType="Allusers">
+  <![CDATA[
+select * 
+			from (select u_no, u_email,
+					   u_name, join_date 					   
+				  from (select * from users where u_no not like '1' and
+				  								u_name like '%' || #{search} || '%' or
+				  								join_date like '%' || #{search} || '%' or
+				  								u_email like '%'|| #{search} || '%'
+				  						 order by u_no asc))
+			where u_no not like '1' and u_no >= #{startRow} and u_no <= #{endRow}
+			 ORDER BY U_NO asc
+]]>
+
+</select>
+
+<!-- 공지사항 -->
+	
+<!-- 신고관리 -->
+</mapper>

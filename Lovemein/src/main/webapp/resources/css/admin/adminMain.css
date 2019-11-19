@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+/*body*/
+.main{width:50%; margin: 0 auto;}
+table{margin: 0 auto;border-collapse: collapse;color:#2c3e50}
+.tduser{border-bottom: 1px solid; border-right: 1px solid;}
+.tdnotice{ border-bottom: 1px solid;}
+.tdmission{border-right:1px solid}
+img{width: 60%;}
+td{text-align: center;font-size: 25px; font-weight: bold;}
+.table_div{margin-top: 150px;}
+.tdmission > .mission_div > img {    margin-top: 15px;}
+.tdmission> .mission_div > p {    margin-top: 15px;}
+.user_div, .notice_div, .mission_div, .report_div{cursor:pointer;}
