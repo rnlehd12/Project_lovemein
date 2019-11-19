@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" /> 
+		<beans:property name="order" value="1" /> 
+		<!-- 순서 1번으로 추가 -->
+	</beans:bean>
+	
+	<!-- 컨트롤러가 리턴하는 json 객체 출력용 뷰 클래스 등록 : 메이븐 등록으로 다운받은 라이브러리가 제공-->
+	
+	
+	<beans:bean class="net.sf.json.spring.web.servlet.view.JsonView"
+		id="JsonView">
+	</beans:bean>
+
+	<!-- 파일 다운을 위한 뷰리졸버는 따로 존재해야 함 -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+	<beans:property name="order" value="0"/>
+	<!--ViewResolver 중에서 제일 먼저 실행되도록 순서 지정해야함
+		-리턴된 이름을 클래스들 중에서 찾음. 일치하는 게 없으면 internalResourceViewResolver 이쪽으로 넘어감
+		주의사항 : id 속성을 지정하지 않는다.
+		여러 개의 뷰리졸버를 지정할 때는 실행 순서를 정해야 함.
+		파일 다운 뷰리졸버가 반드시 맨 처음 실행되게 순위를 지정해야하 함.
+		컨트롤러 메소드가 리턴하느 뷰이름과 동일한 이름의 뷰클래스(bean)가 있으면 
+		자동으로 해당 뷰클래스(파일 다운로드 처리용 뷰클래스)를 실행함-->
+	</beans:bean>
+	
+	<!-- 파일업로드용 클래스 등록 :파일 용량 지정-->
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<beans:property name="maxUploadSize" value="10000000"></beans:property>
+	</beans:bean>
+	
+		<!-- 채팅 웹소켓 설정 -->
+ 	<websocket:handlers>
+  	 <websocket:mapping handler="talkHandler" path="/talk" />
+		<websocket:handshake-interceptors>
+   			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+      	</websocket:handshake-interceptors>
+	 <websocket:sockjs/>
+	</websocket:handlers>
+	 <beans:bean id="talkHandler" 
+ 	class="bclass.finalproject.lovemein.talk.controller.TalkHandler" />
+	
+	
+	<context:component-scan base-package="bclass.finalproject.lovemein" />
+	
+	
+
+	
+	
+	
+</beans:beans>

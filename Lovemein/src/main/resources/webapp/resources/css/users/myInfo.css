@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+/*회원정보 수정 css by 귀정*/
+#myInfoWrap{width:1300px; background:#fff; margin:20px auto; margin-bottom:50px;}
+.tabs{margin: 0px; padding: 0px; list-style: none; text-align: center;}
+.tabs li{background: none; display: inline-block; padding: 10px 15px; cursor: pointer; font-size:18px; font-weight: bold; color:#5d5d5d}
+.tabs .current{ font-size:18px; color:#353535; border-bottom: 4px solid #e42e5f;}
+.tab-content{ display: none; padding: 15px; font-size:18px; }
+.tab-content.current{ display: inherit;width:350px; background:#fff; margin:0 auto; margin-top:20px;}
+
+/*계정정보설정 css*/
+#accountInfo input{width:96.5%; height:48px; margin-bottom:5px; border-radius:3px; border:1px solid #d5d5d5;}
+#accountInfo input[type='submit']{margin-top:20px; background-color:#e64c7f; color:#fff; font-size:18px; border:none; 
+								 border-radius:3px;  font-weight:600; width:100%; height:48px; margin-top:20px; padding:0 5px;}
+#accountInfo input[type='text']{padding-left:10px;}	
+#accountInfo input[type='password']{padding-left:10px;}								 
+#accountInfo p{ display:inline-block; font-size: 14px; width: 100%; margin-bottom:7px; color:#747474;}
+#chkInfo{ display:inline-block;  font-size: 14px; width: 80% !important; margin:0; color:#F15F5F !important;}
+#emailLabel{ display:inline-block; width: 13% !important; margin-bottom:10px !important;}
+#phoneLabel{ display:inline-block; width: 20% !important; margin-bottom:10px !important; margin-top: 20px !important;}
+#pwLabel{ display:inline-block;}
+#chkInfoPw{ width:100%; color:#F15F5F !important; font-size: 13px !important;}
+
+/*기본정보설정 css*/
+#primaryInfo input{width:100%; height:48px; margin-bottom:5px; border-radius:3px; border:1px solid #d5d5d5;}
+#primaryInfo input[type='submit']{margin-top:20px; background-color:#e64c7f; color:#fff; font-size:18px; border:none; 
+								 border-radius:3px;  font-weight:600; width:100%; height:48px; margin-top:20px; padding:0 5px;}
+#primaryInfo input[type='text']{padding-left:10px;}	
+#primaryInfo p{ display:inline-block; font-size: 14px; width: 100%; margin-bottom:7px; color:#747474;}
+#birthLabel{ display:inline-block; width: 100% !important;}
+#ageLabel{width: 100% !important;}
+.contents{color: #353535 !important; font-size: 14px !important; margin-bottom: 9px !important; font-weight:bold;}
+#primaryInfo select{width:103%; height:48px; margin-bottom:5px; border-radius:3px; border:1px solid #d5d5d5;}
+.inlineDiv{display:inline-block; margin-bottom:10px}
+.chks{display:none;}
+.wlabel{font-size:14px; border:1px solid rgb(234, 76, 118); border-radius:20px; padding: 5px 14px; cursor:pointer}
+.wlines{clear:both; height: 36px; width: 370px; margin-top:5px}
+#wcheck{background-color:rgb(234, 76, 118); color:#fff}
+.weightDiv{ width:95%; margin:0 auto;}

@@ -1,0 +1,128 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,900&display=swap');
+
+/*회원가입 step1~step5 css  by 귀정*/
+
+/*step1*/
+.joinWrap{ width:500px; margin:80px auto;}
+.radius{width:65%;height:50px; background:#eee;border-radius:50%; display:inline-block; z-index:999;
+		margin-left: 10px;}
+#chkRadius{background:#e64c7f;}
+#logop {font-family: 'Roboto', sans-serif; font-size:50px; color:#e64c7f; font-weight:600; letter-spacing:2px;
+		text-align:center; margin-bottom:30px;}
+#step{width:100%; margin:0 auto;}
+#line{z-index:-99999; height:2px; background:#BDBDBD; position: relative; top:25px;}
+.radiusdiv{display:inline-block; z-index:999; width:75px; margin:0 10px}
+.rcon{ font-weight:bold; text-align:center;}
+.rconK{ color:#8C8C8C; font-weight:normal; font-size:15px; text-align:center;}	
+#step1Form{width:380px; margin:50px auto; margin-bottom:10px;}
+#u_phone{width:74%; border-radius:3px; border:1px solid #d5d5d5; height:48px;}
+#u_phone::placeholder{font-size:14px; color:#8c8c8c; padding-left:5px; display:inline-block;}	
+#sendMessageBtn{width:24%; height:48px; background:#474747; border:none; color:#fff; border-radius:3px;}
+#chkNum{ width:100%; border-radius:3px; border:1px solid #d5d5d5; height:48px; margin-top:10px; margin-bottom:15px;}	
+#chkNum::placeholder{font-size:14px; color:#8c8c8c; padding-left:5px; display:inline-block;}
+#nextBtn{ margin-top:15px; width:100%; border-radius:3px; border:none; height:48px; margin-top:7px; background:#e64c7f;
+			font-weight:600; font-size:18px; color:#fff}
+#nextBtn:hover{background-color:#e42e5f; color:#fff}
+#nextBtn a { width:380px; height:48px; color:#fff; padding: 10px 150px; line-height: 48px;}	
+.coment{color:#DE4F4F; font-size:14px; padding-bottom: 5px;}
+#step1AuthForm {width: 380px; margin: 10px auto; margin-bottom: 10px;}
+#auth{width:74%; border-radius:3px; border:1px solid #d5d5d5; height:48px;}
+#authBtn{width:24%; height:48px; background:#474747; border:none; color:#fff; border-radius:3px;}
+#step1AuthForm2 {width: 380px; margin: 10px auto; margin-bottom: 10px;}
+
+/*step2*/	
+#step2Form{width:380px; margin:50px auto;}
+#u_email{width:74%; border-radius:3px; border:1px solid #d5d5d5; height:48px;}
+#u_email::placeholder{font-size:14px; color:#8c8c8c; padding-left:5px; display:inline-block;}	
+#chkemail{width:24%; height:48px; background:#474747; border:none; color:#fff; border-radius:3px;}
+#u_name{width:74%; border-radius:3px; border:1px solid #d5d5d5; height:48px;}
+#u_name::placeholder{ margin-top:10px; font-size:14px; color:#8c8c8c; padding-left:5px; display:inline-block;}	
+#chkname{ margin-top:10px; width:24.3%; height:48px; background:#474747; border:none; color:#fff; 
+			border-radius:3px;}	
+
+#step2Form input[type='password']{width:100%; height:48px; margin-top:7px; border-radius:3px; border:1px solid #d5d5d5;}	
+#step2Form input[type="password"]::placeholder { font-size:14px; color:#8c8c8c; padding-left:5px;}	
+.pw_con{font-size:14px; color:#F15F5F; padding-left:5px; padding-top:3px;}
+#step2Form input[type='submit']{background-color:#e64c7f; color:#fff; font-size:18px; border:none; 
+								border-radius:3px;  font-weight:600; width:100%; height:48px; margin-top:20px}
+#step2Form input[type='submit']:hover{background-color:#e42e5f; color:#fff; font-size:18px;; 
+								border-radius:3px;}
+#step2Form #u_intro{width:100%; height:48px; margin-top:7px; border-radius:3px; border:1px solid #d5d5d5;}	
+#step2Form #u_intro::placeholder { font-size:14px; color:#8c8c8c; padding-left:5px;}	
+
+
+/*step3*/
+.joinWrap3	{ width:500px; margin:80px auto; margin-bottom:10px;}
+.chks{display:none;}
+.priStyleTitle {font-size:16px; width:60px; font-weight:bold; color:#353535; display:inline-block; margin:0; margin-top:25px; margin-right:10px;}
+.label{border:1px solid rgb(234, 76, 118); border-radius:20px; padding: 5px 7px; font-size:14px; cursor:pointer}
+.subCo{ color:#5D5D5D; margin: -3px 0 16px 0; font-size:12px;}
+#priForm{width:800px; margin:30px auto;}
+.lines{clear:both; height: 36px; width: 370px;}
+#priForm #styleTable{margin:0 auto; padding:0}
+#priForm #styleTable td{margin:0; padding:0}
+#dateText{ margin-top:10px;}
+#priForm input[type='submit']{background-color:#e64c7f; color:#fff; font-size:18px; border:none; 
+								border-radius:3px;  font-weight:600; width:100%; height:48px; margin-top:50px}
+#priForm input[type='submit']:hover{background-color:#e42e5f; color:#fff}								
+#submitTable{width:100%}
+.titles{font-size:28px; font-weight:bold; color:#353535; margin:0; display:block}
+.birth{padding:0 20.5px; margin-right:5px; border:1px solid #d5d5d5}
+.genlabel{ color: #fff; padding: 8px 70px; position: relative; top: 15px; background: #6F6F6F;}
+.ckgen{ display:none}
+#maleid{ background-color: rgb(234, 76, 118); color:#fff}
+#u_loc, #u_edu{ width:270px; height:30px; border:1px solid #d5d5d5}	
+.leftWrap{ width:395px;}
+.rightWrap{ width:360px; margin-left:45px}
+.priStyleTitle1	{font-size:16px; width:60px; font-weight:bold; color:#353535; display:inline-block; margin:0; margin-top:13px; margin-right:10px;}						
+#titles1{ margin-top:30px;}
+#u_shcool{ width:268px; height:30px; border:1px solid #d5d5d5}
+#u_job{ width:268px; height:30px; border:1px solid #d5d5d5}
+#u_height{ width:268px; height:30px; border:1px solid #d5d5d5; color:#5d5d5d}
+.wlabel{font-size:14px; border:1px solid rgb(234, 76, 118); border-radius:20px; padding: 5px 14px; cursor:pointer}
+.wlines{clear:both; height: 36px; width: 370px; margin-top:15px}
+#wcheck{background-color:rgb(234, 76, 118); color:#fff}
+#bcheck{background-color:rgb(234, 76, 118); color:#fff}
+.blabel{border:1px solid rgb(234, 76, 118); border-radius:20px; padding: 5px 14px; font-size:14px; cursor:pointer}
+.priStyleTitle2	{font-size:16px; width:30px; font-weight:bold; color:#353535; display:inline-block; margin:0; margin-top:5px; margin-right:7px;}
+.charsub {display:inline-block; color:#9E9E9E; font-size:12px;}
+.priStyleTitle3	{font-size:16px; width:50px; font-weight:bold; color:#353535; display:inline-block; margin:0; margin-top:10px; margin-right:10px;}
+.rlabel{border:1px solid rgb(234, 76, 118); border-radius:20px; padding: 5px 9px; font-size:14px; cursor:pointer}
+#priForm input[type='range']{width:280px; margin-top: 12px;}
+input[type=range]::-webkit-slider-thumb {  background: #ffffff; cursor: pointer;}
+input[type=range]::-webkit-slider-runnable-track { cursor: pointer; background: #1abc9c; border-radius:10px; height:12px;}
+.centerLine{width: 1px; height: 480px; background: #BDBDBD; position: relative;} 
+.priStyleTitle4{ font-size: 16px; width: 50px; font-weight: bold; color: #353535; display: inline-block; margin: 0; position: relative; top: 0px; }
+input[type=range]::-webkit-slider-thumb {border: 1px solid #2497E3; height: 15px; width: 10px; background: #ffffff;
+    cursor: pointer; -webkit-appearance: none; margin-top: -5px;  }	
+.c_chked{background-color:rgb(234, 76, 118); color:#fff}    
+    
+/*step4*/
+.styleTitle {font-size:24px; font-weight:bold; color:#353535; display:inline-block; margin:0; margin-top:25px; padding-right:7px;}
+.rstyleTitle {font-size:24px; font-weight:bold; color:#353535; display:inline-block; margin:0; margin-top:25px; padding-right:7px; margin-left:70px}
+.stylesubTitle{ font-size:14px; color:#8c8c8c; display:inline-block; margin:0;}
+#styleTable .subCo{ color:#6f6f6f; margin: 0 0 16px 0; font-size:14px; font-weight:bold;}
+#styleTable .rsubCo{ color:#6f6f6f; margin: 0 0 16px 0; font-size:14px; font-weight:bold; padding-left:70px;}
+#styleForm{width:900px; margin:30px auto;}
+#styleForm .lines{clear:both; height: 36px; width: 435px;}
+#styleForm .rlines{clear:both; height: 36px; width: 390px; margin-left:70px;}
+#styleForm #styleTable{margin:0 auto; padding:0; width:100%;}
+#styleForm #styleTable td{margin:0; padding:0}
+#dateText{ margin-top:10px;}
+#styleForm input[type='submit']{background-color:#e64c7f; color:#fff; font-size:18px; border:none; 
+								border-radius:3px;  font-weight:600; width:100%; height:48px; margin-top:50px}
+#styleForm .centerLine{width: 1px; height: 540px; background: #BDBDBD; position: relative;} 					
+#styleForm input[type='submit']:hover{background-color:#e42e5f; color:#fff}		
+#submitTable{width:100%}	
+
+
+/*step5*/
+#step5Form{width:380px; margin:30px auto;}
+#step5Form #age{width: 268px; height: 30px; border: 1px solid #d5d5d5;}	
+#i_loc, #i_edu{width: 270px; height: 30px; border: 1px solid #d5d5d5;}	
+#step5Form #i_height{width: 268px; height: 30px; border: 1px solid #d5d5d5;}
+#step5Form #titles1	{margin-top: 15px;}
+#laterBtn, #idealBtn{width:45%; height:48px; font-size:17px; margin-top:30px;}
+#laterBtn{background:#474747; border:none; color:#fff; border-radius:3px;}	
+#idealBtn{background-color:#e64c7f; color:#fff; border:none; border-radius:3px;}					

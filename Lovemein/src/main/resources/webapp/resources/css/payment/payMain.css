@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+.main {width: 40%;margin: 0 auto;}
+.title_div{text-align:center;margin-top: 80px;}
+.listfont{ display: inline-block;font-size: 35px;color: #333333;}
+.title_pudding{width:10%;display: inline-block;vertical-align: top;}
+.paylist{display: inline-block;text-decoration: none;color: white;
+    background: #e64c75; padding: 12px 35px; border-radius: 4px; font-weight: bold;}
+.coinbox{margin-top: 30px;}
+.havecoin{width:5%; vertical-align: bottom; }
+.havecoins{display:contents;font-weight: bold;font-size: 25px;color: #333333;}
+.paylistbox{text-align: right;}
+.line{   width: 230px; height: 1px; border-bottom: 1px solid black;float: right;
+    	display: inline-block; margin-top: 20px;}
+.listbox{margin-top: 50px;}
+.img1{width:18%; vertical-align: bottom;}
+.p1{ font-size: 40px;	font-weight: bold; display: inline-block;color:#8244ad; margin:0px;}
+.p2{ font-size: 30px;  font-weight: bold; display: inline-block; color:#e64c75; margin:0px;vertical-align: text-bottom;}
+.p3{display: inline-block;font-size: 30px;  font-weight: bold; color:#e64c75;}
+.box1{    display: flex;border: 2px solid rgb(190, 190, 190);;border-radius: 10px;    margin-bottom: 20px;}
+.li2 {width:50%; height:115px; background:#ffe4eb;    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;}
+.li1{width: 50%;}
+.nbox{    margin: 20px 0px 20px 30px;}
+.chargebt{    padding: 5px 15px;font-size: x-large; font-weight: bold; color: #404040;
+    border-radius: 4px; background: rgb(224, 224, 224);border: 1px;}
+.charge_box{    text-align: center;margin-top: 30px;}
+.hitimg{width: 10%; z-index: 2; position: absolute; display: flex;top: 0px; left: -138px; color:#e64c75;}
+.hit{z-index: 1; left: 100px; top: -30px; position: relative;}

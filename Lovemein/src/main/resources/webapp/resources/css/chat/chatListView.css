@@ -1,0 +1,228 @@
+@charset "UTF-8";
+
+#chatListDiv{
+	/* 전체div */
+	width: 100%;
+	position: relative;
+	border: 1px solid green;
+
+	padding: 10px;
+}
+
+#chatListDiv #titleDiv{
+	/* 제목 div */
+	width: 60%;
+	height: 50px;
+	position: relative;
+	border: 1px solid red;
+	/* left: 20%; */
+	margin-right:auto;
+	margin-left:auto;
+}
+#chatListDiv #titleDiv p{
+	/* 내용 div 의 글자*/
+	text-align: center;
+	font-size: 1.6em;
+
+	padding:1%;
+	color: pink;
+	
+}
+#chatListDiv #contentDiv{
+	/* 내용 div */
+	width: 60%;
+
+	position: relative;
+	border: 1px solid rgb(250, 220, 220);
+/* 	left: 20%; */
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right:auto;
+	margin-left:auto;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	
+
+}
+#chatListDiv #contentDiv .oneChatDiv {
+	/* 반복되는 div */
+	width: 80%;
+	height: 100px;
+	position: relative;
+	margin-right:auto;
+	margin-left:auto;
+	/* left: 10%; */
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+		margin-top:2px;
+		
+}
+#chatListDiv #contentDiv .oneChatDiv .chatDiv{
+		/* 반복되는 div 안의 div들 공통 부분*/
+		display: inline-block;		
+}
+#imgDiv{
+/* 이미지부분	 */
+	border-radius: 50%;
+	border: 1px solid pink;
+	height: 90%;
+	width: 15%;
+	position: relative;
+	top: 5%;
+	margin:0;
+	padding:0px;
+}
+#imgDiv img{ /* 이미지 div크기에 맞추기 */
+	margin: 0px;
+	padding: 0px;
+	position: absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	border-radius: 50%;
+}
+#textDiv{
+	/* 내용부분 바깥영역 */
+	border: 1px solid yellow;
+	height: 90%;
+	width: 75%;
+	position: relative;
+	top: -32%;
+		margin:0;
+}
+#textcon{
+	border: 1px solid #ccc;
+	border-radius: 10px;
+		/* 내용부분 안쪽영역 보이는 부분 */
+	height: 70%;
+	width: 90%;
+	position: relative;
+	top: 5%;
+	left:5%;
+	padding-top:10px;
+	margin:0px;
+	
+}
+#textcon:hover {
+	box-shadow: 3px 3px 5px 1px #999;
+}
+
+#textcon p{
+
+	margin:0px;
+	border: 1px solid black;
+	position: relative;
+	
+} 
+#ctext{
+	display: inline-block;
+ 	white-space: nowrap;
+	width: 400px;
+	border: 1px solid gray;
+	padding-left:5%;
+	position: relative;
+	font-size: 1.1em;
+	text-overflow: ellipsis;
+	    overflow: hidden;
+	}
+#cdate{
+	width: 98%;
+	padding-left:85%;
+	position: relative;
+	top: 23%;
+	font-size: 0.8em;
+}
+
+#rcountDiv{
+	/* 읽음표시부분 */
+	border: 1px solid red;
+	height: 90%;
+	width: 9%;
+	position: relative;
+	top: -45%;
+		margin:0;
+		/* padding-top:5px; */
+}
+#rcountDiv #rcDiv{
+	width:35px;
+	height:35px;
+	display: inline-block;
+	border: 1px solid red;
+	background-color: red;
+	margin-top:25px;
+	/* background-image: url('resources/images/p3.jpg'); */
+	background-repeat: no-repeat; 
+	background-size: cover;
+	align: center;
+	border-radius: 20px;
+	box-shadow: 3px 0px 6px 0px #999;
+
+}
+/* 
+#rcountDiv #rcDiv:after {
+    content: '';
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 25px;
+    z-index: -1;
+    background: #fff;
+    top: 42px;
+    right: 54px;
+    
+}
+#rcountDiv #rcDiv:before {
+    content: '';
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 25px;
+    z-index: -1;
+    background: yellow;
+    top: 43px;
+    right: 45px;
+    box-shadow: 3px 3px 5px 1px #999;
+} */
+
+#rcountDiv #rcDiv p{
+	margin:0px;
+	padding-top:3px;
+	padding-left:9px;
+		align: center;
+		font-size: 1.3em;
+		font-weight: bold;
+		font-style: italic ;
+		color: #fff;
+}
+
+#butDiv {
+		/* 버튼 div */
+	width: 80%;
+	height: 30px;
+	position: relative;
+	text-align: conter;
+	left: 10%;
+	top: 10px;
+	align: center;
+	border: 1px solid red;
+		margin-top:2px;
+		margin-bottom:5px;
+}
+#butDiv #addlist{
+	/* 버튼 */
+	width: 500px;
+	height:30px;
+	border: 0px;
+	color: #fff;
+	background-color: #ccc;
+	border-radius: 5px;
+/* 	box-shadow: 3px 3px 10px 0px #999; */
+	display: inline-block;
+	position:relative;
+	left:14%;
+	/* padding-bottom:px; */
+}
+#butDiv #addlist:hover{
+		box-shadow: 3px 3px 10px 0px #999;
+}
