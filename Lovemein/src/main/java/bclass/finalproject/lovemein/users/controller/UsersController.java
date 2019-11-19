@@ -79,8 +79,12 @@ public class UsersController {
 			 if(loginMember.getU_email().equals("admin@lovemein.com")) {
 				 
 				 
-				 mv.setViewName("admin/adminMain");
+				 session.setAttribute("loginMember", loginMember);
+				 	 mv.setViewName("admin/adminMain");
+
 				 
+				 
+				 //lmbtp463382
 			 }else {
 				 
 				session.setAttribute("loginMember", loginMember);
@@ -542,7 +546,7 @@ public class UsersController {
  			System.out.println(result);
  			
  			//user테이블에 coin 정보 추가하는 서비스
- 			int result2 = paymentService.paySuccess2(payment);
+ 			int result2 = paymentService.Insertcoin(payment);
  		
  			//usercoin 값 받아오는 서비스
  			loginMember.setU_Coin(paymentService.userCoin(u_no));

@@ -17,13 +17,17 @@
 		<typeAlias type="bclass.finalproject.lovemein.feed.model.vo.FeedModiReply" alias="FeedModiReply" />
 		<typeAlias type="bclass.finalproject.lovemein.feed.model.vo.FeedLike" alias="FeedLike" />
 		<typeAlias type="bclass.finalproject.lovemein.likes.model.vo.TargetLikeCheck" alias="TargetLikeCheck" />
-	</typeAliases>
+		<typeAlias type="bclass.finalproject.lovemein.admin.model.vo.Notice" alias="Notice"/>
+		<typeAlias type="bclass.finalproject.lovemein.admin.model.vo.Report" alias="Report"/>
+  </typeAliases>
 
 	<mappers>
 		<mapper resource="mappers/users-mapper.xml" />
 		<mapper resource="mappers/feed-mapper.xml" />
 		<mapper resource="mappers/payment-mapper.xml" />
-    <mapper resource="mappers/likes-mapper.xml" />
+	    <mapper resource="mappers/likes-mapper.xml" />
+	    <mapper resource="mappers/admin-mapper.xml" />
+	
 	</mappers>
 	
 	

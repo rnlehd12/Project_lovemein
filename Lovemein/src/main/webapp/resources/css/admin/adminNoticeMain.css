@@ -1,0 +1,17 @@
+@charset "UTF-8";
+/*관리자 공지사항 메인페이지*/
+
+.main {width: 50%;margin: 0 auto;}
+.listfont{text-align: center;}
+.nt{  text-align:center;}
+.ntimg{width:80%;border: 1px solid;margin: 20px;}
+.nt_box{background-color: rgb(244, 144, 174);width:30%; margin-right: 5%;} 
+.text, .heart, .datep {margin:0px;}
+.textbox{padding: 0px 20px 20px 20px;}
+.datep{font-weight: bold; display: inline-block; }
+.heart{ display: inline-block; float: right; color:#e91e63; margin-right: 15px;}
+.ntbox_list{ display: inline-flex;}
+.btbox{ text-align: center; margin-top: 50px;}
+.bt{ padding: 10px 45px; background: #FFC107;
+    border: 1px; border-radius: 3px; font-weight: bold;}
+.insertbt{    padding: 10px 15px; border: 1px;border-radius: 3px; margin: 0px 40px 20px 0px; float: right;}
