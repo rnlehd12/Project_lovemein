@@ -36,12 +36,12 @@ public class LikesController {
 
 	
 	/*찜목록뷰로 이동*/
-	@RequestMapping("moveLikesList.do")
-	public String MoveLikesListMethod() {
+	@RequestMapping("likesList.do")
+	public String LikesListMethod() {
 		return "likes/likeListView";
 	}
 	
-	/*fromMediv용*/
+	/*내가 찜한 찜리스트 fromMediv용*/
 	@RequestMapping(value="addFromMeList.do", method=RequestMethod.POST)
 	public void addFromMeListMethod(@RequestParam("u_no_send") String senderNo, 
 			@RequestParam(name="btn_val", required=false) String btn_val, HttpServletResponse response) throws IOException {
@@ -104,7 +104,7 @@ public class LikesController {
 		
 	}  // fromMe찜리스트 추가 출력
 	
-	/*toMediv용*/
+	/*나를 찜한 찜리스트 toMediv용*/
 	@RequestMapping(value="addToMeList.do", method=RequestMethod.POST)
 	public void addToMeListMethod(@RequestParam("u_no_rec") String receiverNo, 
 			@RequestParam(name="btn_val", required=false) String btn_val, HttpServletResponse response) throws IOException {
@@ -115,9 +115,7 @@ public class LikesController {
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 		map.put("receiverNo", receiverNo);
-		
-		
-		
+
 //		logger.info("addToMe메소드 실행 receiverNo: " +receiverNo +", endRow" + endRow );
 		List<Likes> likeslist = new ArrayList<Likes>();
 		likeslist = likesService.addToMeListMethod(map);
@@ -172,6 +170,7 @@ public class LikesController {
 		
 	}   // toMe찜리스트 처음 출력
 		
+	/*찜추가*/
 	@RequestMapping(value="insertLikes.do", method=RequestMethod.POST)
 	public ModelAndView insertLikesMethod(Likes likes, ModelAndView mv){
 //		logger.info("insertLikes controller옴"+ likes.getU_no_rec()+ likes.getU_no_send());
@@ -189,6 +188,7 @@ public class LikesController {
 		return mv;
 	}
 
+	/*찜삭제*/
 	@RequestMapping(value="deleteLikes.do", method=RequestMethod.POST)
 	public ModelAndView deleteLikesMethod(Likes likes, ModelAndView mv) {
 		logger.info("deleteLikes controller옴"+ likes.getU_no_rec()+ likes.getU_no_send());

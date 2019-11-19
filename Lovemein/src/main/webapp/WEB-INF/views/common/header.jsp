@@ -47,7 +47,7 @@
 					<button id="chatBtn" class="headerIcon">
 						<img src="resources/images/common/chatIcon.png">
 					</button>
-					<button id="likeBtn" class="headerIcon" onclick="location.href='moveLikesList.do'">
+					<button id="likeBtn" class="headerIcon" onclick="location.href='likesList.do'">
 						<img src="resources/images/common/heartIcon2.png">
 					</button>
 					<button id="alBtn" class="headerIcon" type="button" onclick="alOpenFunc();">

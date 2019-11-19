@@ -24,6 +24,8 @@
 		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.TalkMission" alias="TalkMission" />
 		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.TalkPartner" alias="TalkPartner" />
 		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.TalkReport" alias="TalkReport" />
+		<typeAlias type="bclass.finalproject.lovemein.match.model.vo.Match" alias="Match" />	
+		
   </typeAliases>
 
 	<mappers>
@@ -33,6 +35,8 @@
    		 <mapper resource="mappers/likes-mapper.xml" />
      	<mapper resource="mappers/admin-mapper.xml" />
      	<mapper resource="mappers/talk-mapper.xml" />
+     	<mapper resource="mappers/match-mapper.xml" />
+     	
 	</mappers>
 	
 	

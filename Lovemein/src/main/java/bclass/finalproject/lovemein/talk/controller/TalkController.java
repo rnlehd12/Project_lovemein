@@ -172,4 +172,55 @@ public class TalkController {
 
 		*/
 	
+	////////////////////////////chat
+	
+/*	@RequestMapping("chatList.do")
+	public ModelAndView chatListMethod(ModelAndView mv, HttpSession session,
+			AllUsers allUsers) {
+		allUsers = (AllUsers)session.getAttribute("loginMember");
+		int startNo = 1;
+		logger.info("chatList 실행, allUser(로그인객체) : " + allUsers.getU_no()+", startNo : " +startNo);
+		
+		HashMap<String, Object> map= new HashMap<String, Object>();
+		map.put("startNo", startNo);
+		
+		List<Chat> chatList = new ArrayList<Chat>();
+		chatList = chatService.chatListMethod(map);
+				
+		mv.addObject("chatList", "chatList");
+		mv.setViewName("JsonView");
+		mv.setViewName("chat/chatListView");
+		
+		return mv;
+	};*/
+	
+/*	@RequestMapping("chatList.do")
+	public ModelAndView chatListMethod(ModelAndView mv, HttpSession session,
+			AllUsers allUsers) {
+		allUsers = (AllUsers)session.getAttribute("loginMember");
+		int startNo = 1;
+		logger.info("chatList 실행, allUser(로그인객체) : " + allUsers.getU_no()+", startNo : " +startNo);
+		
+		HashMap<String, Object> map= new HashMap<String, Object>();
+		map.put("startNo", startNo);
+		
+		List<Chat> chatList = new ArrayList<Chat>();
+		chatList = chatService.chatListMethod(map);
+				
+		mv.addObject("chatList", "chatList");
+		mv.setViewName("JsonView");
+		mv.setViewName("chat/chatListView");
+		
+		return mv;
+	};*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

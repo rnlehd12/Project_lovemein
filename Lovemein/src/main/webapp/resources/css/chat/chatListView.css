@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 #chatListDiv{
-	/* 제목 div */
+	/* 전체div */
 	width: 100%;
 	position: relative;
 	border: 1px solid green;
@@ -14,14 +14,16 @@
 	width: 60%;
 	height: 50px;
 	position: relative;
-/* 	border: 1px solid red; */
-	left: 20%;
+	border: 1px solid red;
+	/* left: 20%; */
+	margin-right:auto;
+	margin-left:auto;
 }
 #chatListDiv #titleDiv p{
 	/* 내용 div 의 글자*/
 	text-align: center;
 	font-size: 1.6em;
-	margin:0px;
+
 	padding:1%;
 	color: pink;
 	
@@ -32,11 +34,14 @@
 
 	position: relative;
 	border: 1px solid rgb(250, 220, 220);
-	left: 20%;
+/* 	left: 20%; */
 	margin-top: 10px;
 	margin-bottom: 10px;
+	margin-right:auto;
+	margin-left:auto;
 	padding-top: 10px;
 	padding-bottom: 10px;
+	
 
 }
 #chatListDiv #contentDiv .oneChatDiv {
@@ -44,8 +49,9 @@
 	width: 80%;
 	height: 100px;
 	position: relative;
-	align: conter;
-	left: 10%;
+	margin-right:auto;
+	margin-left:auto;
+	/* left: 10%; */
 	border-top: 1px solid gray;
 	border-bottom: 1px solid gray;
 		margin-top:2px;
@@ -58,7 +64,7 @@
 #imgDiv{
 /* 이미지부분	 */
 	border-radius: 50%;
-/* 	border: 1px solid pink; */
+	border: 1px solid pink;
 	height: 90%;
 	width: 15%;
 	position: relative;
@@ -78,7 +84,7 @@
 }
 #textDiv{
 	/* 내용부분 바깥영역 */
-	/* border: 1px solid yellow; */
+	border: 1px solid yellow;
 	height: 90%;
 	width: 75%;
 	position: relative;
@@ -105,7 +111,7 @@
 #textcon p{
 
 	margin:0px;
-	/* border: 1px solid black; */
+	border: 1px solid black;
 	position: relative;
 	
 } 
@@ -113,7 +119,7 @@
 	display: inline-block;
  	white-space: nowrap;
 	width: 400px;
-	/* border: 1px solid gray; */
+	border: 1px solid gray;
 	padding-left:5%;
 	position: relative;
 	font-size: 1.1em;
@@ -130,7 +136,7 @@
 
 #rcountDiv{
 	/* 읽음표시부분 */
-/* 	border: 1px solid red; */
+	border: 1px solid red;
 	height: 90%;
 	width: 9%;
 	position: relative;
@@ -199,7 +205,7 @@
 	left: 10%;
 	top: 10px;
 	align: center;
-/* 	border: 1px solid red; */
+	border: 1px solid red;
 		margin-top:2px;
 		margin-bottom:5px;
 }
