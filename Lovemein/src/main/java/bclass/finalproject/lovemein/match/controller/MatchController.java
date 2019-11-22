@@ -40,7 +40,7 @@ public class MatchController {
 	@RequestMapping("Match.do")
 	public void matchListMethod(
 			@RequestParam("login_no") String loginNo, 
-			@RequestParam("btnNum") String plusNum,
+			@RequestParam("btNum") String plusNum,
 			HttpServletResponse response) throws IOException {
 		//유저정보
 		logger.info("MatchMethod. loginSession정보 :" + loginNo);
@@ -61,7 +61,7 @@ public class MatchController {
 		JSONArray jarr = new JSONArray();
 		
 		for(Match match : matchList) {
-			logger.info(matchList.toString());
+			logger.info(match.toString());
 			JSONObject job = new JSONObject();
 			/*String my_no, String mat_no, String mat_name, 
 			String mat_prof, int mat_age, String mat_job,
@@ -72,7 +72,7 @@ public class MatchController {
 			
 			//프로필이미지
 			if(match.getMat_prof() == null) {	
-				job.put("mat_prof", URLEncoder.encode("nullProfile.png", "utf-8"));
+				job.put("mat_prof", URLEncoder.encode("nullprofile2.png", "utf-8"));
 			}else {	
 				job.put("mat_prof", URLEncoder.encode(match.getMat_prof(), "utf-8"));
 			}
@@ -82,6 +82,7 @@ public class MatchController {
 			job.put("mat_loc", URLEncoder.encode(match.getMat_loc(), "utf-8"));
 			job.put("mat_height", match.getMat_height());
 			job.put("mat_sch", URLEncoder.encode(match.getMat_sch(), "utf-8"));
+			job.put("listcount", match.getListcount());
 			logger.info(job.toString());
 			//JSONObject들(vo 하나)을 JSONArray 안에 넣기
 			jarr.add(job);

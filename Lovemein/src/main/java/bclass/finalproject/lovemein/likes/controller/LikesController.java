@@ -66,7 +66,7 @@ public class LikesController {
 /*			u_no_send,  u_no_rec,  u_rec_name, 
 			u_rec_profileImg, u_rec_age, u_rec_job, 
 			u_rec_sch, u_rec_loc;*/
-			
+			//logger.info(likes.toString());
 			JSONObject job = new JSONObject();
 			
 			job.put("u_no_send", likes.getU_no_send());
@@ -83,7 +83,7 @@ public class LikesController {
 			
 			//프로필이미지
 			if(likes.getU_rec_profileImg() == null) {	
-				job.put("u_rec_profile", URLEncoder.encode("nullProfile.png", "utf-8"));
+				job.put("u_rec_profile", URLEncoder.encode("nullprofile2.png", "utf-8"));
 			}else {	
 				job.put("u_rec_profile", URLEncoder.encode(likes.getU_rec_profileImg(), "utf-8"));
 			}

@@ -35,8 +35,7 @@ $(function(){
 					"<li class='oneImg_li'>" +
 					"<div class='oneImg_div'>" +
 					"<div class='imgPart'>" +
-					"<img src='resources/images/profile/" +
-					decodeURIComponent(jsonObj.list[i].u_rec_profile).replace(/\+/gi, " ") +"'>" +
+ 					"<img src='resources/images/profile/"+decodeURIComponent(jsonObj.list[i].u_rec_profile).replace(/\+/gi, " ") +"'>" +
 					"</div>" +
 					"<div class='profilePart'>" +
 					"<div class='matp'>" +
@@ -51,7 +50,7 @@ $(function(){
 					"onclick='changeLikes(this, "+ jsonObj.list[i].u_no_rec +"," +decodeURIComponent(jsonObj.list[i].u_type).replace(/\+/gi, " ")+");' "+
 					"onmouseover='hhover(this);' onmouseout='hunhover(this);'>" +	
 					"♥" + "</p>" +
-					"</a>";
+					"</a>";   
 					// 내가 찜한 사람
 					/* if(decodeURIComponent(jsonObj.list[i].u_type).replace(/\+/gi, " ") == 1) {
 						outValues += 
@@ -61,11 +60,11 @@ $(function(){
 					if(decodeURIComponent(jsonObj.list[i].u_type).replace(/\+/gi, " ") == 1) {
 						outValues += 
 							"<div class='matchat active' id='matchat"+jsonObj.list[i].u_no_rec+"'>" +
-							"<a href='talkView.do?c_from_uno="+jsonObj.list[i].u_no_send+"&c_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
+							"<a href='talkView.do?t_from_uno="+jsonObj.list[i].u_no_send+"&t_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 					} else {
 						outValues += 
 							"<div class='matchat' id='matchat"+jsonObj.list[i].u_no_rec+"'>" +
-							"<a href='talkView.do?c_from_uno="+jsonObj.list[i].u_no_send+"&c_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
+							"<a href='talkView.do?t_from_uno="+jsonObj.list[i].u_no_send+"&t_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 					} 	 
 					outValues += "</div>" +
 								"</div>" +
@@ -78,7 +77,12 @@ $(function(){
 				} //if	// 내가 찜한 사람
 			} // for// 내가 찜한 사람
 			$("#onelist_ul1").html(outValues);
-		}   
+		},
+        error : function(request, status, errorData){
+            console.log("error code : " + request.status 
+                  + "\nMessage : " + request.responseText
+                  + "\nError : " + errorData);
+        }  
 	}); // 내가 찜한 사람 목록 div 추가 ajax 	
 });//document.ready
 
@@ -127,11 +131,11 @@ function addBtnFunc(btnVal){
 						if(decodeURIComponent(jsonObj.list[i].u_type).replace(/\+/gi, " ") == 1) {
 							outValues += 
 								"<div class='matchat active' id='matchat"+jsonObj.list[i].u_no_rec+"'>" +
-								"<a href='talkView.do?c_from_uno="+jsonObj.list[i].u_no_send+"&c_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
+								"<a href='talkView.do?t_from_uno="+jsonObj.list[i].u_no_send+"&t_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 						} else {
 							outValues += 
 								"<div class='matchat' id='matchat"+jsonObj.list[i].u_no_rec+"'>" +
-								"<a href='talkView.do?c_from_uno="+jsonObj.list[i].u_no_send+"&c_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
+								"<a href='talkView.do?t_from_uno="+jsonObj.list[i].u_no_send+"&t_to_uno="+jsonObj.list[i].u_no_rec+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 						} 	 
 						outValues += "</div>" +
 									"</div>" +
@@ -252,11 +256,11 @@ $(function(){
 					if(decodeURIComponent(jsonObj.list[i].u_type).replace(/\+/gi, " ") == 1) {
 						outValues += 
 							"<div class='matchat tactive' id='tmatchat"+jsonObj.list[i].u_no_send+"'>" +
-							"<a href='talkView.do?c_from_uno="+jsonObj.list[i].u_no_rec+"&c_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
+							"<a href='talkView.do?t_from_uno="+jsonObj.list[i].u_no_rec+"&t_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 					} 	else {
 						outValues += 
 							"<div class='matchat' id='tmatchat"+jsonObj.list[i].u_no_send+"'>" +
-							"<a href='talkView.do?c_from_uno="+jsonObj.list[i].u_no_rec+"&c_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
+							"<a href='talkView.do?t_from_uno="+jsonObj.list[i].u_no_rec+"&t_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 					} 	
 					outValues += "</div>" +
 								"</div>" +
@@ -335,11 +339,11 @@ function addTBtnFunc(btnVal){
 						if(decodeURIComponent(jsonObj.list[i].u_type).replace(/\+/gi, " ") == 1) {
 							outValues += 
 								"<div class='matchat tactive' id='tmatchat"+jsonObj.list[i].u_no_send+"'>" +
-								"<a href='talkView.do?c_from_uno="+jsonObj.list[i].u_no_rec+"&c_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
+								"<a href='talkView.do?t_from_uno="+jsonObj.list[i].u_no_rec+"&t_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 						} 	else {
 							outValues += 
 								"<div class='matchat' id='tmatchat"+jsonObj.list[i].u_no_send+"'>" +
-								"<a href='talkView.do?c_from_uno="+jsonObj.list[i].u_no_rec+"&c_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
+								"<a href='talkView.do?t_from_uno="+jsonObj.list[i].u_no_rec+"&t_to_uno="+jsonObj.list[i].u_no_send+"' class='matchatbt'> 1:1 채팅</a></div>" ;
 						}  			
 						outValues += "</div>" +
 									"</div>" +
@@ -482,7 +486,7 @@ function changeLikes2(e,rNo, utype){
 <br>
 <div id="likesDiv">
 <!-- 탭으로 바뀌는 첫번째 div(1.1 나를 찜한 리스트 toMEList_div) 시작 -->
-<div id="all_div" class="myLikesList_div">
+<!-- <div id="all_div" class="myLikesList_div"> -->
 
 <div class="tab_alldiv">
 <div class="tab_link active" id="tab1" data-toggle="likesBody_div1"><a href="#reloadTab1" class="tab_a" >내가 찜한 친구들</a></div
@@ -500,10 +504,10 @@ function changeLikes2(e,rNo, utype){
 </div><!-- likesBody_div2 끝 --><!-- 탭내용div2 -->
 <br>
 <br>
-</div> <!-- 1.1 all_div 끝 -->
+<!-- </div> --> <!-- 1.1 all_div 끝 -->
 </div> <!-- 1. likesDiv끝 -->
 <br>
 <br>
-<br>
+<c:import url="../common/footer.jsp"/>
 </body>
 </html>

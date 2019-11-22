@@ -3,6 +3,7 @@ package bclass.finalproject.lovemein.talk.model.service;
 import java.util.HashMap;
 import java.util.List;
 
+import bclass.finalproject.lovemein.talk.model.vo.Chat;
 import bclass.finalproject.lovemein.talk.model.vo.Talk;
 import bclass.finalproject.lovemein.talk.model.vo.TalkChat;
 import bclass.finalproject.lovemein.talk.model.vo.TalkMission;
@@ -13,13 +14,12 @@ public interface TalkService {
 	
 	int insertChat(HashMap<String, Object> tcmap);
 
-	TalkChat getTalkChat(Talk talk);
+	Chat getTalkChat(Talk talk);
 	
 	List<Talk> getTalk(Talk talk);
 
-	TalkPartner getPatnerInfo(String c_to_uno);
+	TalkPartner getPatnerInfo(String receiver);
 	
-	TalkPartner getPartnerFeed(String c_to_uno);
 
 	int insetTalk(Talk talk);
 
@@ -30,6 +30,8 @@ public interface TalkService {
 	int insertReport(TalkReport talkReport);
 
 	List<TalkMission> userMissionList(HashMap<String, Object> map);
+
+	List<TalkChat> chatListMethod(HashMap<String, Object> cmap);
 
 
 

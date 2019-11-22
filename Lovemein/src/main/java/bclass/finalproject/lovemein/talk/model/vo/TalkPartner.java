@@ -15,8 +15,10 @@ public class TalkPartner {
 	
 	public TalkPartner() {}
 
+	
+
 	public TalkPartner(String p_no, String p_name, String p_profileImg, String p_age, String p_job, String p_sch,
-			String p_loc) {
+			String p_loc, String p_feed) {
 		super();
 		this.p_no = p_no;
 		this.p_name = p_name;
@@ -25,7 +27,10 @@ public class TalkPartner {
 		this.p_job = p_job;
 		this.p_sch = p_sch;
 		this.p_loc = p_loc;
+		this.p_feed = p_feed;
 	}
+
+
 
 	public String getP_no() {
 		return p_no;
@@ -82,11 +87,29 @@ public class TalkPartner {
 	public void setP_loc(String p_loc) {
 		this.p_loc = p_loc;
 	}
+	
+	
+
+	public String getP_feed() {
+		return p_feed;
+	}
+
+
+
+	public void setP_feed(String p_feed) {
+		this.p_feed = p_feed;
+	}
+
+
 
 	@Override
 	public String toString() {
 		return "TalkPartner [p_no=" + p_no + ", p_name=" + p_name + ", p_profileImg=" + p_profileImg + ", p_age="
-				+ p_age + ", p_job=" + p_job + ", p_sch=" + p_sch + ", p_loc=" + p_loc + "]";
+				+ p_age + ", p_job=" + p_job + ", p_sch=" + p_sch + ", p_loc=" + p_loc + ", p_feed=" + p_feed + "]";
 	}
+
+
+
+	
 	
 }

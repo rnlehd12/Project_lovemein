@@ -21,6 +21,7 @@
 		<typeAlias type="bclass.finalproject.lovemein.admin.model.vo.Report" alias="Report"/>
 		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.Talk" alias="Talk" />
 		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.TalkChat" alias="TalkChat" />
+		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.Chat" alias="Chat" />
 		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.TalkMission" alias="TalkMission" />
 		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.TalkPartner" alias="TalkPartner" />
 		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.TalkReport" alias="TalkReport" />

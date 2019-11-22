@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>님과의 대화</title>
+<title>${talkPartner.p_name}님과의 대화</title>
 <link href="resources/css/talk/talkView.css" rel="stylesheet">
 <link href="resources/css/common/common.css" rel="stylesheet">
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
@@ -113,7 +113,7 @@ function appendMessage(msg){
 <div id="talkViewDiv">
 
 <div id="talkForm_Div"><!-- 1.1채팅영역 -->
-<div id="talkTitle">님과의 대화</div>
+<div id="talkTitle"><p>${talkPartner.p_name} 님과의 대화</p></div>
 <!-- 채팅내용 -->
 <div id="talkText"><textarea id="talkTextArea"></textarea></div>
 <!-- 채팅입력 -->
@@ -123,7 +123,7 @@ function appendMessage(msg){
 </div>
 <div id="talkMission">
 <div id="mission_1"><img class="missbt" src="resources/images/talk/m3.jpg"></div>
-<div id="mission_2"><p class="missbt">${talkChat.c_mission}</p></div>
+<div id="mission_2"><p class="missbt">${chat.c_mission}</p></div>
 <div id="report_1" ><img src="resources/images/talk/r3.jpg" 
 onmouseover="hover(this);" onmouseout="unhover(this);"></div>
 
@@ -131,15 +131,19 @@ onmouseover="hover(this);" onmouseout="unhover(this);"></div>
 
 </div><!-- 1.1채팅영역div talkform_Div 끝 -->
 
-<div id="profile_Div">
+
 <!-- 1.2프로필영역 -->
-<div id="profile_img"><img src="resources/images/likes/images (1).jpg"></div>
+
+<div id="profile_Div">
+
+<div id="profile_img"><img src="resources/images/profile/${talkPartner.p_profileImg}" /></div>
+
 <div id="profile_text">
-<p id="pname">김이름</p>
-<p id="page">25세</p>
-<p id="pjob">회사원</p>
-<p id="psch">한국대학교</p>
-<p id="pad">서울시 강남구</p>
+<p id="pname">${talkPartner.p_name} 님</p>
+<p id="pjob">-${talkPartner.p_job}</p>
+<p id="page">-${talkPartner.p_age}세</p>
+<p id="psch">-${talkPartner.p_sch}</p>
+<p id="pad">-${talkPartner.p_loc}</p>
 <!-- <p id="pname">김이름</p>
 <p id="page">25</p>
 <p id="pjob">회사원</p>
@@ -148,12 +152,26 @@ onmouseover="hover(this);" onmouseout="unhover(this);"></div>
 </div>
 <div id="profile_feed">
 <div id="profile_feed_title">
-<p id="proFeP"> 이름 님의 최근 피드</p>
+<p id="proFeP"> ${talkPartner.p_name} 님의 최근 피드</p>
 </div>
 <div id="profile_feed_img">
-<img  src="resources/images/talk/hotcake1.jpg">
+
+<c:set var="p_fimg" value="${talkPartner.p_feed}"/>
+
+<c:if test="${p_fimg != null}">
+<img src="resources/images/feed/${p_fimg}">
+</c:if>
+<c:if test="${p_fimg == null}">
+<br>
+<br>
+<br>
+<p> ${talkPartner.p_name} 님의 </p>
+<p> 최근 피드 이미지가 없습니다 </p>
+</c:if>
+<!-- 
+<img  src="resources/images/talk/hotcake1.jpg"> -->
 </div>
-</div>
+</div> <!-- profile_feed div끝 -->
 <div id="profile_mList">
 <button id="mListBt">미션 내역 확인</button></div>
 
@@ -177,7 +195,7 @@ onmouseover="hover(this);" onmouseout="unhover(this);"></div>
 </div> <!-- <mission_modalAll 끝. 미션모달 전체, 배경> -->
 
 
-
-
+<br>
+<c:import url="../common/footer.jsp"/>
 </body>
 </html>

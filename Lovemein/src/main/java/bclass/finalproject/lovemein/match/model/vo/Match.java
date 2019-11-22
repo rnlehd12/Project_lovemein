@@ -20,11 +20,13 @@ public class Match {
 	private String mat_loc; // 상대지역
 	private int mat_height; // 상대키
 	private String mat_sch; // 상대학교
+	private String listcount; // list수
 
 	public Match() {}
 
+
 	public Match(String my_no, String mat_no, String mat_name, String mat_prof, int mat_age, String mat_job,
-			String mat_loc, int mat_height, String mat_sch) {
+			String mat_loc, int mat_height, String mat_sch, String listcount) {
 		super();
 		this.my_no = my_no;
 		this.mat_no = mat_no;
@@ -35,7 +37,20 @@ public class Match {
 		this.mat_loc = mat_loc;
 		this.mat_height = mat_height;
 		this.mat_sch = mat_sch;
+		this.listcount = listcount;
 	}
+
+	
+
+	public String getListcount() {
+		return listcount;
+	}
+
+
+	public void setListcount(String listcount) {
+		this.listcount = listcount;
+	}
+
 
 	public String getMy_no() {
 		return my_no;
@@ -109,11 +124,14 @@ public class Match {
 		this.mat_sch = mat_sch;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Match [my_no=" + my_no + ", mat_no=" + mat_no + ", mat_name=" + mat_name + ", mat_prof=" + mat_prof
 				+ ", mat_age=" + mat_age + ", mat_job=" + mat_job + ", mat_loc=" + mat_loc + ", mat_height="
-				+ mat_height + ", mat_sch=" + mat_sch + "]";
+				+ mat_height + ", mat_sch=" + mat_sch + ", listcount=" + listcount + "]";
 	}
 	
+	
+
 }

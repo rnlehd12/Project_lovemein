@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bclass.finalproject.lovemein.talk.model.dao.TalkDao;
+import bclass.finalproject.lovemein.talk.model.vo.Chat;
 import bclass.finalproject.lovemein.talk.model.vo.Talk;
 import bclass.finalproject.lovemein.talk.model.vo.TalkChat;
 import bclass.finalproject.lovemein.talk.model.vo.TalkMission;
@@ -22,12 +23,11 @@ public class TalkServiceImpl implements TalkService{
 
 	@Override
 	public int insertChat(HashMap<String, Object> tcmap) {
-		// TODO Auto-generated method stub
 		return talkDao.insertChat(tcmap);
 	}
 	
 	@Override
-	public TalkChat getTalkChat(Talk talk) {
+	public Chat getTalkChat(Talk talk) {
 		return talkDao.getTalkChat(talk);
 	}
 
@@ -38,14 +38,11 @@ public class TalkServiceImpl implements TalkService{
 	}
 
 	@Override
-	public TalkPartner getPatnerInfo(String c_to_uno) {
-		return talkDao.getPatnerInfo(c_to_uno);
+	public TalkPartner getPatnerInfo(String receiver) {
+		return talkDao.getPatnerInfo(receiver);
 	}
 
-	@Override
-	public TalkPartner getPartnerFeed(String c_to_uno) {
-		return talkDao.getPartnerFeed(c_to_uno);
-	}
+
 
 	@Override
 	public int insetTalk(Talk talk) {
@@ -70,6 +67,11 @@ public class TalkServiceImpl implements TalkService{
 	@Override
 	public List<TalkMission> userMissionList(HashMap<String, Object> map) {
 		return talkDao.userMissionList(map);
+	}
+
+	@Override
+	public List<TalkChat> chatListMethod(HashMap<String, Object> cmap) {
+		return talkDao.chatListMethod(cmap);
 	}
 
 

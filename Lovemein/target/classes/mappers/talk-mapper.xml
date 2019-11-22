@@ -2,27 +2,56 @@
 <!DOCTYPE mapper PUBLIC
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="usersMapper">
+<mapper namespace="talkMapper">
 <!-- 찜 Mapper -->
-	<select id="getTalkChat" parameterType="Talk" resultType="TalkChat">
+	
+	<select id="getTalkChat" parameterType="Talk" resultType="Chat">
 		select * from chat
-		where ((C_FROM_UNO = #{c_from_uno} and C_TO_UNO = #{c_to_uno})
-		or (C_FROM_UNO = #{c_to_uno} and C_TO_UNO = #{c_from_uno}))
+		where ((C_FROM_UNO = #{t_from_uno} and C_TO_UNO = #{t_to_uno})
+		or (C_FROM_UNO = #{t_to_uno} and C_TO_UNO = #{t_from_uno}))
 	</select>	
 	
 	<insert id="insertChat" parameterType="hashmap">
 		MERGE INTO chat
    		USING DUAL
-       	ON ((C_FROM_UNO = #{c_from_uno} and C_TO_UNO = #{c_to_uno})
-		or (C_FROM_UNO = #{c_to_uno} and C_TO_UNO = #{c_from_uno}))
+       	ON ((C_FROM_UNO = #{t_from_uno} and C_TO_UNO = #{t_to_uno})
+		or (C_FROM_UNO = #{t_to_uno} and C_TO_UNO = #{t_from_uno}))
     	WHEN NOT MATCHED THEN
-       	insert (C_NO, C_FROM_UNO, C_TO_UNO, C_MISSION, C_READC, C_NREADC) values(
+       	insert (C_NO, C_FROM_UNO, C_TO_UNO, C_MISSION, C_READC, C_NREADC) 
+       	values(
 		to_char(SEQ_C_NO.nextval),
-		(select u_no from users where u_no = #{c_from_uno}),
-		(select u_no from users where u_no = #{c_to_uno}),
+		(select u_no from users where u_no = #{t_from_uno}),
+		(select u_no from users where u_no = #{t_to_uno}),
 		#{c_mission},
 		null,	
 		null)
 	</insert>
+
+	<select id="getPatnerInfo" parameterType="String" resultType="TalkPartner">
+		select u.u_no as p_no, u.u_name as p_name, u.u_profile as p_profileImg,
+			TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(p.u_birth, 'RR/MM/DD'))/12) as p_age,
+			p.u_job as p_job, p.u_shcool as p_sch, p.u_loc as p_loc, f.f_img as p_feed
+		from users u
+		join primaryinfo p on (u.u_no = p.u_no)
+		join (select *
+			from feed 
+			where f_no = (select max(f_no) from feed where u_no = #{receiver})) f 
+			on (u.u_no = f.u_no)
+	</select>
+
+	<select id="chatListMethod" parameterType="hashMap" resultType="TalkChat">
+		select *
+		from (select c.c_no, t.t_no as t_no,
+					t.t_con as t_con, t.t_date as t_date , t.t_read as t_read,
+					t.t_from_uno as t_from_uno,	 t.t_to_uno as t_to_uno,
+					c.c_from_uno as c_from_uno,	 c.c_to_uno as c_to_uno, c.c_mission as c_mission,
+					c.c_readc as c_readc, c.c_nreadc as c_nreadc
+			from talk t
+			join chat c on c.c_no = t.c_no
+			where (t.t_from_uno =2) or (t.t_to_uno =2)) al
+		where (t_no in (select max(t_no) as max_t
+						from talk 
+						group by c_no))
+	</select>
 
 </mapper>

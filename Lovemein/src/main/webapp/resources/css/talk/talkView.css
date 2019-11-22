@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+*{ margin:0; padding:0; font-family:'Noto Sans KR', sans-serif;}
+
 
 #talkViewDiv{
 	/* 전체영역 */
@@ -16,8 +19,10 @@
 	width: 73%;
 	height: 100%;
 	display: inline-block;
-	background-color:rgb(250, 248, 249);
-	border: 1px solid rgb(250, 220, 220);
+/* 	background-color:rgb(250, 248, 249); */
+	 		background-color:rgb(250, 248, 249);
+	 border: 1px solid pink;
+	/* border: 1px solid rgb(250, 220, 220); */
 	
 }
 #talkForm_Div #talkTitle{
@@ -25,16 +30,32 @@
 	width: 100%;
 	height: 5%;
 	background-color:#fff;
-	border: 1px solid rgb(250, 220, 220);
+	/* border: 1px solid rgb(250, 220, 220); */
+	text-align: center;
+	align: center;
+ 	 border: 0px solid pink;
+ 	 border-bottom: 1px solid pink;
+	padding:0px;
+	position: relative;
+}
+#talkForm_Div #talkTitle p{
+	font-size: 1.2em;
+	font-weight: bold;
+	align: center;
+	color: #656565;
+	text-align: center;
+	margin-top:7px;	
 }
 
 #talkForm_Div #talkText{
 	/* 	채팅내용 보이는 div */
 	width: 100%;
 	height: 76%;
-	background-color:rgb(250, 248, 249);
-		border: 1px solid rgb(250, 220, 220);
-
+	/* background-color:rgb(250, 248, 249); */
+	/* background-color:#F8F8F8;
+		border: 1px solid rgb(250, 220, 220); */
+	 		background-color:rgb(250, 248, 249);
+	 border: 0px solid pink;
 }
 
 #talkForm_Div #talkText #talkTextArea{
@@ -44,32 +65,41 @@
 	height: 100%;
 	display : block;
 	overflow:scroll;
-	
-	background-color:rgb(250, 248, 249);
-		border: 1px solid rgb(250, 220, 220);
+	 		background-color:rgb(250, 248, 249);
+	 border: 0px solid pink;
+ 	/* background-color:rgb(250, 248, 249); 
+	background-color:#F8F8F8 ;
+		border: 1px solid rgb(250, 220, 220); */
 }
 #talkForm_Div #talkInput{
 /* 	채팅입력 div */
 	width: 100%;
 	height: 12%;
 	background-color:#fff;
-		border: 1px solid rgb(250, 220, 220);
-	
+
+
+	/* border: 1px solid rgb(250, 220, 220); */
+		margin: 0px;
+	padding: 0px;
 }
 
 #talkForm_Div #talkInput #textInput{
-	width: 80%;
+	width: 85%;
 	height: 100%;
 		border: 1px solid blue;
-	
+		margin: 0px;
+	padding: 0px;
 }
 
 #talkForm_Div #talkInput #inputBtn{
-	width: 15%;
-	height: 90%;
+	width: 14.4%;
+	height: 100%;
 	border: 1px solid red;
 	position: relative;
-	top: -40%;
+	top: -42px;
+	left: -0px;
+	margin: 0px;
+	padding: 0px;
 }
 
 #talkForm_Div #talkMission{
@@ -101,6 +131,7 @@
 	left:0;
 	width:100%;
 	height:100%;
+	cursor:pointer;
 	}	
 #talkForm_Div #talkMission #mission_2{
 			/* 	미션 글자 div-네모모양 */
@@ -114,7 +145,7 @@
     padding: 0;
     background-color: rgb(250, 220, 220);
         margin:0px;
-
+	cursor:pointer;
 /*      	   border: 1px solid black;  */
 }
 #talkForm_Div #talkMission #mission_2:hover{
@@ -125,6 +156,7 @@
 		/* 	미션 글자 div -화살표모양 */
 	    content: "";
     position: absolute;
+    cursor:pointer;
     top: 28%;
     right: 100%;/* 
     margin-top: -5px;
@@ -148,6 +180,7 @@
 	display: inline-block;
 	position: relative;
 	top: 2px;
+	cursor:pointer;
 	left:15px;
 	padding:0px;
 }
@@ -174,30 +207,34 @@
 	display: inline-block;
 	position: relative;
 	/* top: -50px; */
-	background-color:rgb(250, 243, 244);
-	border: 1px solid rgb(250, 220, 220);
+	/* background-color:#F8F8F8;
+ 	background-color:rgb(250, 220, 220); */
+ 		background-color:rgb(250, 248, 249);
+	 border: 1px solid pink;
+	/* border: 1px solid rgb(250, 220, 220); */
+
 	top: -3.5%;
 }
 
 #profile_Div #profile_img{
 	/* 프로필영역 _이미지div */
 	width: 100%;
-	height: 31%;
+	height: 28%;
 	position: relative;
 	/* border: 1px solid red; */
 }
 #profile_Div #profile_img img{
-		margin-top: 5%;
+		margin-top: 6%;
 		margin-bottom: 0%;
-		margin-right: 10%;
+		margin-right: 8%;
 		margin-left: 10%;
 	padding: 0px;
 	position: absolute;
 	top:0;
 	left:0;
 	width:80%;
-	height:90%;
-	border-radius:50%;
+	height:97%;
+	border-radius:3px;
 /* 
 	border: 1px solid black; 	 */
 }
@@ -209,15 +246,17 @@
 	position: relative;
 }
 #profile_Div #profile_text p{ 
+	color: #757575;
 	/* border: 1px solid red; */
 }
 /* 글자 이동 */
 #pname{
 	/*  display: inline-block; */
 	text-align: center;
-	font-size: 2em;
-	margin-top: 0px;
-	margin-bottom: 0px;
+	font-size: 1.8em;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-bottom: 5px;
 	padding:0px;
 	position: relative;
 /* 	top: 15px; */
@@ -229,17 +268,18 @@
 	padding: 0px;
 /* 	position: relative;
 	left: 30px; */
-	margin-right:24%;
-	margin-left:22%;
-	margin-top:  3%;
-	margin-bottom:  1%;
 	/* top: 15px; */
 	/* width: 73%; */
+		margin-top:  3%;
+	margin-bottom:  1%;
 }
 #pjob{
 	display: inline-block;
+		margin-right:5%;
+	margin-left:22%;
 	margin-top:  3%;
 	margin-bottom:  1%;
+
 	font-size: 1.3em;
 	padding: 0px;
 	/* top: 22px; */
@@ -261,12 +301,13 @@
 	margin-right:24%;
 	margin-left:22%;
 	margin-top:  1%;
-	margin-bottom:  1%;
+	margin-bottom:  3%;
 	 	/* position: relative; */
 	/* top: 29px  */
 }
 #profile_Div #profile_feed{
 	/* 프로필영역_ 피드div */
+	cursor:pointer;
 	width: 90%;
 	height: 35%;
 	position: relative;
@@ -275,7 +316,7 @@
 	background-color: rgb(250, 248, 249);
 	margin: 5%;
 		margin-top:  2%;
-		margin-bottom:  0%;
+		margin-bottom:  2%;
 }
 
 #profile_Div #profile_feed:hover{
@@ -290,9 +331,15 @@
 		margin: 10%;
 		margin-top: 5%;
 		margin-bottom: 5%;
+		text-align: center;
+		align: center;
+		padding: auto;
 }
 #profile_Div #profile_feed #profile_feed_title p{
 	font-size: 1.3em;
+	font-weight : bold;
+	color: #858585;
+	align: center;
 	text-align: center;
 /* 	border: 1px solid red; */
 	margin: 0px;
@@ -308,6 +355,16 @@
 	margin-top: 2%;
 	margin-bottom: 2%;
 }
+
+#profile_Div #profile_feed #profile_feed_img p{
+	/* 프로필영역_ 피드div_피드사진div */
+	text-align: center;
+	font-size : 1.0em;
+
+	color: #656565;	
+}
+		
+
 #profile_Div #profile_feed #profile_feed_img img{
 /* 	이미지 채우기 */
 	margin: 0px;
