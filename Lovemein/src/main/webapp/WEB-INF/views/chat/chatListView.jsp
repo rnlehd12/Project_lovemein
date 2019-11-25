@@ -21,7 +21,7 @@ $(function(){
 		type: "post",
 		dataType: "json",
 		success: function(obj){
-			alert("chatList ajax 돌아옴");
+			//alert("chatList ajax 돌아옴");
 			var objStr = JSON.stringify(obj);
 			var jsonObj = JSON.parse(objStr);
 			var outValues = $("#contentDiv").html();
@@ -35,7 +35,7 @@ $(function(){
 					"</div><div class='chatDiv' id='textDiv'> "+
 					"<div id='textcon'>"+
 					"<p id='ctext'>"+decodeURIComponent(jsonObj.list[i].t_con).replace(/\+/gi, " ") +
-					"</p><p id='cdate'>"+ jsonObj.list[i].t_profile +
+					"</p><p id='cdate'>"+ jsonObj.list[i].t_date +
 					"</p></div></div><div class='chatDiv' id='rcountDiv'> "+
 					"<div id='rcDiv' ><p>"+ jsonObj.list[i].t_read +
 					"</p></div></div></div>";

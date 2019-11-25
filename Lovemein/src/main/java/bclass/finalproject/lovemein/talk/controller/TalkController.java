@@ -200,14 +200,33 @@ public class TalkController {
 		String t_to_uno, String c_from_uno, String c_to_uno, 
 		String c_mission, String c_readc, String c_nreadc*/
 		for(TalkChat talkChat : chatList) {
-			
-			// chat from/to uno 중에서 loginUser 뺀 나머지 유저의 프로필이미지 넣기
-			if(talkChat.getC_from_uno() == loginNo) {
-				TalkPartner partner = talkService.getPatnerInfo(talkChat.getC_no());
-				talkChat.setT_profile(partner.getP_profileImg());
+			logger.info("talkChat.getT_profile 확인 " + talkChat.getT_profile() );
+			logger.info("loginNo 확인 : " + loginNo );
+			logger.info("talkChat.getC_from_uno 확인 : " + talkChat.getC_from_uno() );
+			// chat from/to uno 중에서 loginUser가 아닌 상대유저의 프로필이미지 가져와 talkChat에 넣기
+			if(talkChat.getC_from_uno().equals(loginNo)) {
+				// from이 loginUser인 경우
+				TalkPartner partner = talkService.getPatnerInfo(talkChat.getC_to_uno());
+				//가져온 프로필이 null인지 확인
+				if(partner.getP_profileImg().equals(null)) {
+					logger.info("1. 프로필없는 경우 ");
+					talkChat.setT_profile("nullProfile.png");
+				} else {
+					logger.info("2. 프로필있는 경우 :   " + partner.getP_profileImg() );
+					talkChat.setT_profile(partner.getP_profileImg());
+				}
 			} else {
+				// to이 loginUser인 경우
 				TalkPartner partner = talkService.getPatnerInfo(talkChat.getC_from_uno());
-				talkChat.setT_profile(partner.getP_profileImg());
+				if(partner.getP_profileImg().equals(null)) {
+					logger.info("3. 프로필없는 경우 ");
+					talkChat.setT_profile("nullProfile.png");
+				} else {
+					logger.info("4 . 프로필있는 경우 :   " + partner.getP_profileImg() );
+					talkChat.setT_profile(partner.getP_profileImg());
+				}
+				/*talkChat.setT_profile(partner.getP_profileImg());
+				logger.info("프로필 확인3 " + partner.getP_profileImg() );*/
 			}
 
 			logger.info(talkChat.toString());
@@ -217,19 +236,23 @@ public class TalkController {
 			/*c_no t_no  t_con t_date t_read t_from_uno t_to_uno t_profile*/
 			job.put("t_no", talkChat.getT_no());
 			job.put("t_con", URLEncoder.encode(talkChat.getT_con(), "utf-8"));
-			job.put("t_date", talkChat.getT_date());
-			if(talkChat.getT_profile() == null) {
+			job.put("t_date", talkChat.getT_date().toString());
+			if(talkChat.getT_read() == null) {
 				job.put("t_read", "0");
 			} else {
 				job.put("t_read", talkChat.getT_read());
 			}
 			job.put("t_from_uno", talkChat.getT_from_uno());
 			job.put("t_to_uno", talkChat.getT_to_uno());
-			if(talkChat.getT_profile() == null) {
+			//프로필
+			
+			job.put("t_profile", URLEncoder.encode(talkChat.getT_profile(), "utf-8"));
+			
+			/*if(talkChat.getT_profile() == null) {
 				job.put("u_rec_profile", URLEncoder.encode("nullProfile.png", "utf-8"));
 			} else {
 				job.put("t_profile", URLEncoder.encode(talkChat.getT_profile(), "utf-8"));
-			}
+			}*/
 //			job.put("c_from_uno", talkChat.getC_from_uno());
 //			job.put("c_to_uno", talkChat.getC_to_uno());
 //			job.put("c_mission", URLEncoder.encode(talkChat.getC_mission(), "utf-8"));
@@ -238,7 +261,7 @@ public class TalkController {
 			jarr.add(job);
 		}
 		jsonO.put("list", jarr);
-		
+		logger.info("jarr 들어간 jsonO 객체 확인 : " + jsonO.toJSONString());
 		response.setContentType("application/json; charset=utf-8"); 
 		PrintWriter out = response.getWriter();
 		
@@ -247,6 +270,9 @@ public class TalkController {
 		out.close();
 		//mv.addObject("chatList", chatList);		
 	}
+	
+	
+	
 /*	@RequestMapping("chatList.do")
 	public ModelAndView chatListMethod(ModelAndView mv, HttpSession session,
 			AllUsers allUsers) {

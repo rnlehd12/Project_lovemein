@@ -44,7 +44,8 @@ public class LikesController {
 	/*내가 찜한 찜리스트 fromMediv용*/
 	@RequestMapping(value="addFromMeList.do", method=RequestMethod.POST)
 	public void addFromMeListMethod(@RequestParam("u_no_send") String senderNo, 
-			@RequestParam(name="btn_val", required=false) String btn_val, HttpServletResponse response) throws IOException {
+			@RequestParam(name="btn_val", required=false) String btn_val, 
+			HttpServletResponse response) throws IOException {
 		int startRow = 1 + Integer.parseInt(btn_val);
 		int endRow = startRow + 8;
 		

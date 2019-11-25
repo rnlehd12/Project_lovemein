@@ -30,13 +30,25 @@
 	<select id="getPatnerInfo" parameterType="String" resultType="TalkPartner">
 		select u.u_no as p_no, u.u_name as p_name, u.u_profile as p_profileImg,
 			TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(p.u_birth, 'RR/MM/DD'))/12) as p_age,
+			p.u_job as p_job, p.u_shcool as p_sch, p.u_loc as p_loc , f.f_img as p_feed
+		from users u
+		join primaryinfo p on (u.u_no = p.u_no)
+		left join (select *
+			from feed 
+			where f_no = (select max(f_no) from feed where u_no = #{receiver})) f 
+			on (u.u_no = f.u_no)
+		where u.u_no = #{receiver}
+		
+		
+		<!-- select u.u_no as p_no, u.u_name as p_name, u.u_profile as p_profileImg,
+			TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(p.u_birth, 'RR/MM/DD'))/12) as p_age,
 			p.u_job as p_job, p.u_shcool as p_sch, p.u_loc as p_loc, f.f_img as p_feed
 		from users u
 		join primaryinfo p on (u.u_no = p.u_no)
 		join (select *
 			from feed 
 			where f_no = (select max(f_no) from feed where u_no = #{receiver})) f 
-			on (u.u_no = f.u_no)
+			on (u.u_no = f.u_no) -->
 	</select>
 
 	<select id="chatListMethod" parameterType="hashMap" resultType="TalkChat">
