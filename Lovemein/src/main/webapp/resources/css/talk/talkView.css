@@ -404,8 +404,8 @@
 /* 모달 div css */
 
 .modal{
-	/* 미션모달배경 */
-	display: none;
+	/* 미션모달배경 임시변경*/
+	/* display: none; */ 
 	position: fixed;
 	z-index: 1;
 
@@ -425,8 +425,8 @@
 	position: absolute; 
     top: 20%; 
     left: 50%;  
-    width: 30%; 
-    height: 45%; 
+    width: 28%; 
+/*     height: 45%; */ 
     border: 1px solid #888;
     border-radius: 0.5rem; 
  	background-color: rgb(250, 220, 220);
@@ -440,7 +440,7 @@
 		height: 14%;
 		position: relative;
 		display: inline-block;
-		border: 1px solid red;
+		/* border: 1px solid red; */
 		
 }
 #mModal_con #mM_con_title p{
@@ -451,7 +451,7 @@
 		font-size: 2em;
 		font-weight: bold;
 		color: rgb(230, 76, 117);
-		border: 1px solid black;
+		/* border: 1px solid black; */
 		
 }
 #mModal_con #mM_con_close{
@@ -462,7 +462,7 @@
 		width: 5%;
 		height: 10%;
 		position: relative;
-		border: 1px solid blue;
+		/* border: 1px solid blue; */
 		font-size: 2.3em;
 		font-weight: bold;
 }
@@ -486,16 +486,17 @@
 		height: 10%;
 		position: relative;
 		display: inline-block;
-		border: 1px solid black;		
+		/* border: 1px solid black;		 */
 }
 #mModal_con #mM_con_text p{
 		margin: 0px;
 		padding:0px;
 		text-align: center;
-		border: 1px solid green;
+		font-weight: bold;
+		/* border: 1px solid green; */
 }
-#mModal_con #mM_con_upload{
-		/* 미션모달내용_사진업로드 전체 div*/
+/* #mModal_con #mM_con_upload{
+		미션모달내용_사진업로드 전체 div
 		margin: 0px;
 		padding:0px;
 		width: 100%;
@@ -504,13 +505,129 @@
 		border: 1px solid blue;
 }
 #mModal_con #mM_con_upload img{
-	/* 파일 이미지 미리보기 img */ 
+	파일 이미지 미리보기 img 
 		width: 65%;
 		height: 80%;
 		margin-top:5%;
 		margin-left:30%;
+} */
+
+/* filebox(미션파일업로드 div) */
+
+
+.filebox label { 
+	display: inline-block; 
+	padding: .4em .75em; 
+	color: #999; 
+	font-size: inherit; 
+	line-height: normal; 
+	vertical-align: middle; 
+	background-color: #fdfdfd; 
+	cursor: pointer; 
+	border: 1px solid #ebebeb; 
+	border-bottom-color: #e2e2e2; 
+	border-radius: .25em; 
+	/* margin-left: 20%; */
+	margin-top: 2%; 
+	margin-bottom: 2%; 
+} 
+	
+.filebox input[type="file"] { 
+/* 파일업로드 필드 숨기기 */
+ position: absolute; 
+ width: 1px; 
+ height: 1px; 
+ padding: 0; 
+ margin: -1px; 
+ overflow: hidden; 
+ clip:rect(0,0,0,0); 
+ border: 0; }
+
+.filebox .msupload_name { 
+	display: inline-block; 
+	padding: .4em .75em; /* label의 패딩값과 일치 */ 
+	font-size: inherit; 
+	font-family: inherit; 
+	line-height: normal; 
+	vertical-align: middle; 
+	background-color: #f5f5f5; 
+	border: 1px solid #ebebeb; 
+	border-bottom-color: #e2e2e2; 
+	border-radius: .25em; 
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+	-moz-appearance: none; 
+	appearance: none; 
+	margin-left: 20%; 
+	margin-top: 2%; 
+	margin-bottom: 2%; 
+}
+/* 파일이미지 */
+/* imaged preview */ 
+.filebox .upload-display { 
+	/* 이미지가 표시될 지역 */ 
+	margin-bottom: 3px; 
+} 
+@media(min-width: 768px) { 
+	.filebox .upload-display 
+		{ 
+		display: block; 
+		margin-right: 5px; 
+		margin-bottom: 0; 
+		margin-left:21%;
+		} 
+} 
+.filebox .upload-thumb-wrap { 
+	/* 추가될 이미지를 감싸는 요소 */ 
+	display: block; 
+	width: 280px; 
+	height: 280px;
+	padding: 1px; 
+	vertical-align: middle; 
+	border: 1px solid #ddd; 
+	border-radius: 5px; 
+	background-color: #fff; 
+} 
+.filebox .upload-display img { 
+/* 추가될 이미지 */ 
+display: block; 
+position: absolute;
+/* 	top:0;
+	left:0; */
+/* max-width: 100%;  */
+width:280px;
+	/* height:100%; */
+/* width: 100% \9;  */
+height: 280px;
+margin: 0px;
+padding: 0px;
 }
 
-.filebox label { display: inline-block; padding: .5em .75em; color: #999; font-size: inherit; line-height: normal; vertical-align: middle; background-color: #fdfdfd; cursor: pointer; border: 1px solid #ebebeb; border-bottom-color: #e2e2e2; border-radius: .25em; } .filebox input[type="file"] { /* 파일 필드 숨기기 */ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
-
-
+.filebox input[type="submit"] { 
+/* 파일 필드 숨기기 */
+display: block; 
+	padding: .4em 3.5em; 
+	color: #fdfdfd;
+	/* #999;  */
+	font-size: inherit; 
+	line-height: normal; 
+	vertical-align: middle; 
+	background-color: rgb(230, 76, 117);
+	/* #fdfdfd;  */
+	cursor: pointer; 
+	border: 1px solid #ebebeb; 
+	border-bottom-color: #e2e2e2; 
+	border-radius: .25em; 
+	margin-left: 35%; 
+	margin-top: 1%; 
+	margin-bottom: 2%; 
+	
+/*  position: absolute; 
+ width: 1px; 
+ height: 1px; 
+ padding: 0; 
+ margin: -1px; 
+ overflow: hidden; 
+ clip:rect(0,0,0,0); 
+ border: 0;  */
+ }	
+ 

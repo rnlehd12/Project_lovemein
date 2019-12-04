@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.Response;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -26,6 +25,7 @@ import bclass.finalproject.lovemein.talk.model.service.TalkService;
 import bclass.finalproject.lovemein.talk.model.vo.Chat;
 import bclass.finalproject.lovemein.talk.model.vo.Talk;
 import bclass.finalproject.lovemein.talk.model.vo.TalkChat;
+import bclass.finalproject.lovemein.talk.model.vo.TalkMission;
 import bclass.finalproject.lovemein.talk.model.vo.TalkPartner;
 
 @Controller
@@ -36,6 +36,7 @@ public class TalkController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TalkController.class);
 
+/*talkView관련 -----------------------------------------------------------------*/
 	@RequestMapping("talkView.do")
 	public ModelAndView talkViewMethod(Talk talk, ModelAndView mv) {
 		logger.info("talkView.do 실행. talk : " +  talk.getT_from_uno()+"," +talk.getT_to_uno());
@@ -60,7 +61,7 @@ public class TalkController {
 		String randdomM = marr[new Random().nextInt(marr.length)];
 		logger.info("들어갈 미션 확인. randdomM : " + randdomM);
 		//1.2 맵에 넣기
-		HashMap<String, Object> tcmap = new HashMap<>();
+		HashMap<String, Object> tcmap = new HashMap<String, Object>();
 		tcmap.put("t_from_uno", sender);
 		tcmap.put("t_to_uno", receiver);
 		tcmap.put("c_mission", randdomM);		
@@ -107,7 +108,6 @@ public class TalkController {
 		mv.addObject("talkPartner", talkPartner);
 		logger.info(talkPartner.toString());
 //		-----------------------------------------------------------
-	
 		//채팅입력
 		//int result = talkService.insetTalk(talk);
 		
@@ -116,11 +116,9 @@ public class TalkController {
 		//	readTalkList = talkService.readTalk(talk);
 		//	mv.addObject("readTalkList",readTalkList);
 		//}
-	
 		
 		return mv;
 	}
-
 	/*
 	@RequestMapping("insertMission.do")
 	public ModelAndView insertUserMission(TalkMission talkMission, ModelAndView mv) {
@@ -152,26 +150,10 @@ public class TalkController {
 		
 		return mv;
 	}
-		
-	public ModelAndView userMissionList(TalkMission talkMission, ModelAndView mv) {
-		//회원미션내역 리스트
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("startRow", "");
-		
-		List<TalkMission> MissionList = new ArrayList<TalkMission>();
-		MissionList = talkService.userMissionList(map);
-		
-		mv.addObject("MissionList", MissionList);
-		
-		mv.setViewName("mission/myMissionListView");
-		
-		return mv;
-	}
-
 		*/
-	
-	////////////////////////////chat
+
 		
+/*chatView관련 -----------------------------------------------------------------*/		
 	@RequestMapping("moveChat.do")
 	public String moveChatMethod() {
 		return "chat/chatListView";
@@ -182,9 +164,9 @@ public class TalkController {
 			@RequestParam("loginNo") String loginNo, 
 			@RequestParam("btNum") String btNum) throws IOException {
 		logger.info("chatList.do 실행. loginNo : " +  loginNo, ", btNum : " + btNum);
-		int startRow = 1 + (Integer.parseInt(btNum)*10);
-		int endRow = startRow + 9;
-		HashMap<String, Object> cmap = new HashMap<>();
+		int startRow = 1 + (Integer.parseInt(btNum)*6);
+		int endRow = startRow + 5;
+		HashMap<String, Object> cmap = new HashMap<String, Object>();
 		cmap.put("loginNo", loginNo);
 		cmap.put("startRow", startRow);
 		cmap.put("endRow", endRow);
@@ -293,9 +275,83 @@ public class TalkController {
 		return mv;
 	};*/
 	
+/*myMissionListView관련 -----------------------------------------------------------------*/	
+	@RequestMapping(value="userMission.do")
+	public ModelAndView userMissionMetion(ModelAndView mv,
+			@RequestParam("login_no") String loginNo,
+			@RequestParam("page") String page) {
+		logger.info("userMission.do 실행. loginNo값 : " + loginNo, ", page : " + page);
+		
+		//페이징
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int limit = 10; //한 페이지 목록 수 
+		
+		int startRow = (currentPage -1) * limit + 1;
+		int endRow = startRow + limit -1;
+		
+		//회원미션내역 리스트
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("loginNo", loginNo);
+		
+		logger.info("startRow : " + startRow, ", endRow : " + endRow);
+				
+				
+		List<TalkMission> MissionList = new ArrayList<TalkMission>();
+		MissionList = talkService.userMissionList(map);		
+		int listCount = 0; // 총 목록 수
+		
+		//총 목록 수 구하기
+		if (MissionList != null ) {
+			listCount = Integer.parseInt(MissionList.get(0).getListcount());
+			
+			logger.info("MissionList : " + MissionList.toString());
+		} else {
+			logger.info("MissionList 를 받아오지 못함");
+		}
 	
+		//m_con 찾기
+		for(TalkMission talkMission : MissionList) {
+			logger.info("TalkMission.m_con 확인 " + talkMission.getM_con() );
+			// 없으면 기본이미지 넣기
+			if(talkMission.getM_con() == null) {
+				logger.info("userMission list 이미지없음");
+				talkMission.setM_con("noImage.jpg");
+			} 
+		}	
+		
+		
+		logger.info("listCount : " + listCount);
+		int maxPage = (int)((double)listCount/limit + 0.9);
+		int startPage = (int)((double)currentPage/limit + 0.9);
+		int endPage = startPage + limit -1;
+		
+		if(maxPage <endPage) {
+			endPage = maxPage;
+		}
+		logger.info("maxPage : " + maxPage + ", currentPage :" + currentPage 
+				+", startPage : " +startPage +", endPage : " +endPage);
+		if(MissionList != null && MissionList.size() >0) {
+			mv.addObject("list", MissionList);
+			mv.addObject("listCount", listCount);
+			mv.addObject("maxPage", maxPage);
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("startPage", startPage);
+			mv.addObject("endPage", endPage);
+			mv.addObject("limit", limit);
+
+		} else {
+			mv.addObject("message", currentPage + "페이지 조회가 실패했습니다. 새로고침해주십시오.");
+		}
 	
-	
+		/*mv.addObject("MissionList", MissionList);*/
+		mv.setViewName("mission/myMissionListView");
+		return mv;
+	} 
 	
 }	
 	

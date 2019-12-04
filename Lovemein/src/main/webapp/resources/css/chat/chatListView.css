@@ -4,7 +4,7 @@
 	/* 전체div */
 	width: 100%;
 	position: relative;
-	border: 1px solid green;
+	/* border: 1px solid green; */
 
 	padding: 10px;
 }
@@ -14,13 +14,13 @@
 	width: 60%;
 	height: 50px;
 	position: relative;
-	border: 1px solid red;
+	/* border: 1px solid red; */
 	/* left: 20%; */
 	margin-right:auto;
 	margin-left:auto;
 }
 #chatListDiv #titleDiv p{
-	/* 내용 div 의 글자*/
+	/* 제목 div 의 글자*/
 	text-align: center;
 	font-size: 1.6em;
 	font-weight: bold;
@@ -34,7 +34,7 @@
 	width: 50%;
 
 	position: relative;
-	border: 1px solid #959595;
+	/* border: 1px solid #959595; */
 /* 	left: 20%; */
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -65,13 +65,15 @@
 #imgDiv{
 /* 이미지부분	 */
 	border-radius: 50%;
-	border: 1px solid pink;
+	/* border: 1px solid pink; */
 	height: 90%;
 	width: 15%;
 	position: relative;
 	top: 5%;
 	margin:0;
+	margin-left: 2%;
 	padding:0px;
+
 }
 #imgDiv img{ /* 이미지 div크기에 맞추기 */
 	margin: 0px;
@@ -85,14 +87,15 @@
 }
 #textDiv{
 	/* 내용부분 바깥영역 */
-	border: 1px solid yellow;
-	height: 90%;
+	/*  border: 1px solid yellow;  */
+	height: 95%;
 	width: 75%;
 	position: relative;
-	top: -32%;
+	top: -20%;
 		margin:0;
 }
 #textcon{
+	cursor: pointer;
 	border: 1px solid #ccc;
 	border-radius: 10px;
 		/* 내용부분 안쪽영역 보이는 부분 */
@@ -106,22 +109,25 @@
 	
 }
 #textcon:hover {
-	box-shadow: 3px 3px 5px 1px #999;
+	/* box-shadow: 3px 3px 5px 1px #999; */
+	background-color : #eee;
 }
 
-#textcon p{
+#textcon a{
 
 	margin:0px;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 	position: relative;
 	
 } 
 #ctext{
+	/* 메시지 글자 */
 	display: inline-block;
  	white-space: nowrap;
 	width: 470px;
-	border: 1px solid gray;
+	/* border: 1px solid gray; */
 	padding-left:5%;
+	padding-top:0.5%;
 	position: relative;
 	font-size: 1.1em;
 	text-overflow: ellipsis;
@@ -131,17 +137,18 @@
 	/* width: 98%; */
 	padding-left:85%;
 	position: relative;
-	top: 23%;
+	top: 0%;
 	font-size: 0.8em;
 }
 
 #rcountDiv{
 	/* 읽음표시부분 */
-	border: 1px solid red;
+	/* border: 1px solid red; */
 	height: 90%;
-	width: 8.5%;
+	width: 5.5%;
 	position: relative;
-	top: -45%;
+	top: -25%;
+	left: 1%;
 		margin:0;
 		/* padding-top:5px; */
 }
@@ -149,15 +156,15 @@
 	width:35px;
 	height:35px;
 	display: inline-block;
-	border: 1px solid red;
-	background-color: red;
+	/* border: 1px solid red; */
+	background-color: #e64c7f;
 	margin-top:25px;
 	/* background-image: url('resources/images/p3.jpg'); */
 	background-repeat: no-repeat; 
 	background-size: cover;
 	align: center;
 	border-radius: 20px;
-	box-shadow: 3px 0px 6px 0px #999;
+	box-shadow: 2px 0px 6px 0px #999;
 
 }
 /* 
@@ -186,7 +193,7 @@
     box-shadow: 3px 3px 5px 1px #999;
 } */
 
-#rcountDiv #rcDiv p{
+#rcountDiv #rcDiv a{
 	margin:0px;
 	padding-top:3px;
 	padding-left:9px;
@@ -206,9 +213,9 @@
 	left: 10%;
 	top: 10px;
 	align: center;
-	border: 1px solid red;
-		margin-top:2px;
-		margin-bottom:15px;
+	/* border: 1px solid red; */
+		margin-top:3%;
+		margin-bottom:7%;
 }
 #butDiv #addlist{
 	/* 버튼 */

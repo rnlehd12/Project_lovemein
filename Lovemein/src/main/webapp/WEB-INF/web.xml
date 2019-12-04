@@ -65,6 +65,6 @@
 	</servlet-mapping>
 
 <!-- 191118 추가 -->
-<mvc:default-servlet-handler />
+
 
 </web-app>	

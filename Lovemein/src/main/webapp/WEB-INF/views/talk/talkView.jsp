@@ -25,6 +25,8 @@ function unhover(e){
 }
 /* 모달	 */
 $(document).ready(function(){
+	
+		//미션틀릭시 모달팝업동작
 		$(".missbt").on("click", function(){
 			alert("클릭됨");
 			$(".modal").css("display", "block");
@@ -32,7 +34,74 @@ $(document).ready(function(){
 		}); 
 	 	$(".close-button").on("click", function(){
 	 		$(".modal").css("display", "none");
-		}); 		 
+		}); //미션틀릭시 모달팝업동작 닫기		
+	 	
+	 	//모달파일 업로드시 파일이름 출력
+	 	var fileTarget = $(".filebox .msupload_hidden");
+	 	fileTarget.on("change", function(){
+	 		if(window.FileReader){
+	 			var filename = $(this)[0].files[0].name;
+	 		} else {
+	 			var filename = $(this).val().split("/").pop().split("\\").pop(); //파일명만추출 
+	 		}
+			
+	 		$(this).siblings(".msupload_name").val(filename);
+	 	}); //모달파일 업로드시 파일이름 출력 닫기
+	 	
+	 	//모달파일 preview image 보이기
+	 	var imgTarget = $(".preview-image .msupload_hidden")
+	 	imgTarget.on('change', function(){ 
+	 		var parent = $(this).parent(); 
+	 		parent.children('.upload-display').remove(); 
+	 		if(window.FileReader){ 
+	 			//image 파일만 
+	 			if (!$(this)[0].files[0].type.match(/image\//)) return; 
+	 			var reader = new FileReader(); 
+	 			reader.onload = function(e){ 
+	 				var src = e.target.result; 
+	 				parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+
+	 					src+'" class="upload-thumb"></div></div>'); 
+	 			} 
+	 			reader.readAsDataURL($(this)[0].files[0]); 
+	 		} else {
+	 				$(this)[0].select(); 
+	 				$(this)[0].blur(); 
+	 				var imgSrc = document.selection.createRange().text; 
+	 				parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>'); 
+	 				var img = $(this).siblings('.upload-display').find('img'); 
+	 				img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")"; 
+	 				}
+	 	});
+
+	 	/* imgTarget.on("change", function(){
+	 		var parent =$(this).parent();
+	 		if(window.FileReader){
+	 			//이미지파일만
+	 			if(!$(this)[0].files[0].type.match(/image\//)) return;
+	 			var reader = new FileReader();
+	 			reader.onload = function(e){
+	 				var src = e.target.result;
+	 				alert(src);
+	 				parent.prepend("<div class='upload-display'>"+
+	 						"<div class='upload-thumb-wrap'<img src='"+src+"'"+
+	 						"class='upload-thumb'></div></div>");
+	 			}
+	 			reader.readAsDataURL($(this)[0].files[0]);
+	 		} else {
+	 			$(this)[0].select();
+	 			$(this)[0].blur();
+	 			var imgSrc = document.selection.creatRange().text;
+	 			parent.prepend("<div class='upload-display'><div class='upload-thumb-wrap'>"+
+	 					"<img class='upload-thumb'></div></div>");  
+	 			
+	 			var img = $(this).siblings(".upload-display").find("img");
+	 			img[0].style.filter = "progid:DXImageTransfrom.Microsoft.AlphaImageLoader"+
+	 			"(enable='true', sizingMethod='scale', src=\""+imgSrc+"\")";
+	 			
+	 		}
+	 		
+	 	}) */// 모달파일 preview image 보이기 끝
+	 	
 });//모달docu
 
 /* 소켓 */
@@ -57,7 +126,7 @@ $(document).ready(function(){
 function connect(){
 	sock = new SockJS('<c:url value="/talk"/>');
 	sock.onopen = function(){ //열림메시지
-		alert("open");
+		//alert("open");
 		console.log('talk.jsp socket opne');
 	};
 	
@@ -173,25 +242,37 @@ onmouseover="hover(this);" onmouseout="unhover(this);"></div>
 </div>
 </div> <!-- profile_feed div끝 -->
 <div id="profile_mList">
-<button id="mListBt">미션 내역 확인</button></div>
+<button id="mListBt" onclick="location.href='userMission.do?login_no=${loginMember.u_no}&page=1'">미션 내역 확인</button></div>
 
 </div> <!-- 1.2프로필영역div profile_Div 끝 -->
 </div> <!--1. 전체div talkViewDiv 끝 -->
 <div id="mission_modal" class="modal">
+
 <div id="mModal_con">
 <div id="mM_con_title"><p>Mission</p></div>
 <div id="mM_con_close">
 <span class="close-button">&times;</span></div>
+
 <div id="mM_con_text"><p>영화를 보고 영화표를 업로드하세요</p></div>
-<div id="mM_con_upload">
+
+<div class="filebox preview-image">
+
 <img src="">
-<form>
-<input class="upload_name" value="파일선택" disabled="disabled">
-<label for="ms_fileUp">업로드</label>
-<input type="file" id="ms_fileUp" class="fileUp_hidden">
+
+<form action="" method="post">
+<!-- <input class="upload_name" value="파일선택" disabled="disabled"> -->
+<input class="msupload_name" value="파일선택" disabled="disabled">
+<label for="ms_file">업로드</label>
+<input type="file" id="ms_file" class="msupload_hidden">
+
+<!-- <label for="ms_submit">보내기</label> -->
+<input type="submit" value="보내기" id="ms_submit">
 </form>
+
 </div>
+
 </div> <!-- mModal_con 끝. 모달 미션 content -->
+
 </div> <!-- <mission_modalAll 끝. 미션모달 전체, 배경> -->
 
 

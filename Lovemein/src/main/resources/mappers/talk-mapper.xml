@@ -52,18 +52,50 @@
 	</select>
 
 	<select id="chatListMethod" parameterType="hashMap" resultType="TalkChat">
-		select *
-		from (select c.c_no, t.t_no as t_no,
-					t.t_con as t_con, t.t_date as t_date , t.t_read as t_read,
-					t.t_from_uno as t_from_uno,	 t.t_to_uno as t_to_uno,
-					c.c_from_uno as c_from_uno,	 c.c_to_uno as c_to_uno, c.c_mission as c_mission,
-					c.c_readc as c_readc, c.c_nreadc as c_nreadc
-			from talk t
-			join chat c on c.c_no = t.c_no
-			where (t.t_from_uno =2) or (t.t_to_uno =2)) al
-		where (t_no in (select max(t_no) as max_t
-						from talk 
-						group by c_no))
+		<![CDATA[
+		select *	
+		from (select  rownum rum, al.*
+			from (select c.c_no as c_no, t.t_no as t_no,
+				t.t_con as t_con, t.t_date as t_date , t.t_read as t_read,
+				t.t_from_uno as t_from_uno,	 t.t_to_uno as t_to_uno,
+				c.c_from_uno as c_from_uno,	 c.c_to_uno as c_to_uno, c.c_mission as c_mission,
+				c.c_readc as c_readc, c.c_nreadc as c_nreadc, null as t_profile
+				from talk t
+				join chat c on c.c_no = t.c_no
+				where (t.t_from_uno = #{loginNo}
+				or t.t_to_uno = #{loginNo})
+				order by t.t_date desc
+				) al
+			where (t_no in (select max(t_no) as max_t
+			from talk 
+			group by c_no)))
+		where rum >= #{startRow} and rum <= #{endRow}
+		order by rum
+		]]>
 	</select>
-
+	
+	<select id="userMissionList" parameterType="hashMap" resultType="TalkMission">
+		<![CDATA[
+		select *
+		from (select rownum rnum, al.*
+			 from (select m_no, c_no, c_from_uno, c_to_uno, (u.u_name) as p_name,
+						c_mission, m_con, m_sta, m_date, count(*)over() as listcount 
+				  from mission m, users u
+				  where (c_from_uno = #{loginNo} or c_to_uno = #{loginNo})
+				  and (decode(c_from_uno, #{loginNo}, c_to_uno, c_from_uno) = u_no) 
+				  order by m_no desc) al) 
+		where rnum >= #{startRow} and rnum <= #{endRow}
+		order by rnum 
+		]]>
+	</select>
+		<!-- 		sselect *
+		from (select rownum rnum, m_no, c_no, c_from_uno, c_to_uno, 
+				(u.u_name) as p_name, c_mission, m_con, m_sta, m_date, 
+				count(*)over() as listcount 
+			from mission m, users u
+			where (c_from_uno = #{loginNo} or c_to_uno = #{loginNo})
+			and (decode(c_from_uno, #{loginNo}, c_to_uno, c_from_uno) = u_no) 
+			order by m_no)
+		where rnum >= #{startRow} and rnum <= #{endRow}
+		order by rnum -->
 </mapper>
