@@ -60,6 +60,10 @@ public class TalkDao {
 		return sqlSession.selectList("chatListMethod", cmap);
 	}
 
+	public List<TalkMission> userMSearchList(HashMap<String, Object> map) {
+		return sqlSession.selectList("userMSearchList", map);
+	}
+
 
 
 

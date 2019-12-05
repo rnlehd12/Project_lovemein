@@ -88,6 +88,7 @@
 		order by rnum 
 		]]>
 	</select>
+	
 		<!-- 		sselect *
 		from (select rownum rnum, m_no, c_no, c_from_uno, c_to_uno, 
 				(u.u_name) as p_name, c_mission, m_con, m_sta, m_date, 
@@ -98,4 +99,25 @@
 			order by m_no)
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		order by rnum -->
+	<select id="userMSearchList" parameterType="hashMap" resultType="TalkMission">
+		<bind name="keyword" value="'%'+keyword+'%'"/>
+	
+		<![CDATA[
+		select *
+		from (select rownum rnum, al.*
+			 from (select m_no, c_no, c_from_uno, c_to_uno, (u.u_name) as p_name,
+						c_mission, m_con, m_sta, m_date, count(*)over() as listcount 
+				  from mission m, users u
+				  where (c_from_uno = #{loginNo} or c_to_uno = #{loginNo})
+				  and (decode(c_from_uno, #{loginNo}, c_to_uno, c_from_uno) = u_no) 
+				  and ${type} like #{keyword}
+				  order by m_no desc) al) 
+		where rnum >= #{startRow} and rnum <= #{endRow}
+		order by rnum 
+		]]>	
+	</select>	
+	<!-- and u.u_name like '%지수%'	 -->
+		
+		
+		
 </mapper>

@@ -33,6 +33,8 @@ public interface TalkService {
 
 	List<TalkChat> chatListMethod(HashMap<String, Object> cmap);
 
+	List<TalkMission> userMSearchList(HashMap<String, Object> map);
+
 
 
 

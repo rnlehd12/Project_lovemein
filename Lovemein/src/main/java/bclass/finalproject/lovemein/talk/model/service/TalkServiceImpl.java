@@ -74,6 +74,11 @@ public class TalkServiceImpl implements TalkService{
 		return talkDao.chatListMethod(cmap);
 	}
 
+	@Override
+	public List<TalkMission> userMSearchList(HashMap<String, Object> map) {
+		return talkDao.userMSearchList(map);
+	}
+
 
 
 

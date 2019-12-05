@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import bclass.finalproject.lovemein.talk.model.service.TalkService;
 import bclass.finalproject.lovemein.talk.model.vo.Chat;
+import bclass.finalproject.lovemein.talk.model.vo.Search;
 import bclass.finalproject.lovemein.talk.model.vo.Talk;
 import bclass.finalproject.lovemein.talk.model.vo.TalkChat;
 import bclass.finalproject.lovemein.talk.model.vo.TalkMission;
@@ -314,7 +315,7 @@ public class TalkController {
 			logger.info("MissionList 를 받아오지 못함");
 		}
 	
-		//m_con 찾기
+		//m_con 찾기 //결과 넣기
 		for(TalkMission talkMission : MissionList) {
 			logger.info("TalkMission.m_con 확인 " + talkMission.getM_con() );
 			// 없으면 기본이미지 넣기
@@ -322,8 +323,16 @@ public class TalkController {
 				logger.info("userMission list 이미지없음");
 				talkMission.setM_con("noImage.jpg");
 			} 
+			
+			if(talkMission.getM_sta() == null) {
+				logger.info("mission sta :  null");
+				talkMission.setM_sta("미결");
+			} else if (talkMission.getM_sta().equals("1")){
+				talkMission.setM_sta("성공");
+			} else {
+				talkMission.setM_sta("실패");
+			}
 		}	
-		
 		
 		logger.info("listCount : " + listCount);
 		int maxPage = (int)((double)listCount/limit + 0.9);
@@ -352,6 +361,125 @@ public class TalkController {
 		mv.setViewName("mission/myMissionListView");
 		return mv;
 	} 
+
+	/*검색*/
+	@RequestMapping(value="userMSearch.do")
+	public ModelAndView userMSearch(ModelAndView mv,
+			Search search) {
+		String keyword = search.getKeyword();
+		String type = search.getType();
+		String page = search.getPage();
+		String loginNo = search.getU_no();
+		logger.info("keyword: " + keyword + ", type: " + type
+				+ ", page: " + page + ", loginNo: " + loginNo);
+		
+		if(type.equals("m_sta") && keyword.equals("미결")) {
+			keyword = "0";
+		} else if (type.equals("m_sta") && keyword.equals("성공")){
+			keyword = "1";
+		} else if (type.equals("m_sta") && keyword.equals("실패")){
+			keyword = "2";
+		}
+		logger.info("mission sta 검색시 keyword값 : " + keyword);
+		//페이징
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		int limit = 10; //한 페이지 목록 수 
+		
+		int startRow = (currentPage -1) * limit + 1;
+		int endRow = startRow + limit -1;
+		
+		//회원미션내역 리스트
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("loginNo", loginNo);
+		map.put("type", type);
+		map.put("keyword", keyword);
+		
+		logger.info("startRow : " + startRow+ ", endRow : " + endRow);
+				
+				
+		List<TalkMission> MissionList = new ArrayList<TalkMission>();
+		
+		
+		MissionList = talkService.userMSearchList(map);		
+		int listCount = 0; // 총 목록 수
+		logger.info("MissionList 를 받아오지 못함");
+		//총 목록 수 구하기
+		if (MissionList.size() != 0) {
+			listCount = Integer.parseInt(MissionList.get(0).getListcount());
+			
+			logger.info("MissionList : " + MissionList.toString());
+			
+			//m_con 찾기 //결과 넣기
+			for(TalkMission talkMission : MissionList) {
+				logger.info("TalkMission.m_con 확인 " + talkMission.getM_con() );
+				// 없으면 기본이미지 넣기
+				if(talkMission.getM_con() == null) {
+					logger.info("userMission list 이미지없음");
+					talkMission.setM_con("noImage.jpg");
+				} 
+				
+				if(talkMission.getM_sta().equals("0")) {
+					logger.info("mission sta :  null");
+					talkMission.setM_sta("미결");
+				} else if (talkMission.getM_sta().equals("1")){
+					talkMission.setM_sta("성공");
+				} else {
+					talkMission.setM_sta("실패");
+				}
+			}
+		} else {
+			
+			logger.info("MissionList 를 받아오지 못함2");
+		} 
+	
+	
+		
+		logger.info("listCount : " + listCount);
+		int maxPage = (int)((double)listCount/limit + 0.9);
+		int startPage = (int)((double)currentPage/limit + 0.9);
+		int endPage = startPage + limit -1;
+		
+		if(maxPage <endPage) {
+			endPage = maxPage;
+		}
+		logger.info("maxPage : " + maxPage + ", currentPage :" + currentPage 
+				+", startPage : " +startPage +", endPage : " +endPage);
+		if(MissionList != null && MissionList.size() >0) {
+			mv.addObject("list", MissionList);
+			mv.addObject("listCount", listCount);
+			mv.addObject("maxPage", maxPage);
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("startPage", startPage);
+			mv.addObject("endPage", endPage);
+			mv.addObject("limit", limit);
+
+		} else {
+			if(type.equals("u.u_name")) {
+				mv.addObject("type", "상대회원");
+			} else if (type.equals("c_mission")){
+				mv.addObject("type", "미션");
+			} else if (type.equals("m_con")){
+				mv.addObject("type", "이미지");
+			} else{
+				mv.addObject("type", "결과");
+			} 
+			
+			mv.addObject("listCount", listCount);
+			mv.addObject("keyword", keyword);
+
+			mv.addObject("listCount", listCount);
+		}
+		
+		
+		//mv.addObject("list", "list");
+		mv.setViewName("mission/myMissionListView");
+		return mv;
+	}
 	
 }	
 	
