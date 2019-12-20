@@ -7,6 +7,6 @@
 <title>Lovemein index.jsp</title>
 </head>
 <body>
-	<jsp:forward page="login.do"></jsp:forward>
+	<jsp:forward page="/login/login.do"></jsp:forward>
 </body>
 </html>

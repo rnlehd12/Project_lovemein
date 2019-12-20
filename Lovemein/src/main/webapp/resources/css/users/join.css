@@ -21,36 +21,48 @@
 #sendMessageBtn{width:24%; height:48px; background:#474747; border:none; color:#fff; border-radius:3px;}
 #chkNum{ width:100%; border-radius:3px; border:1px solid #d5d5d5; height:48px; margin-top:10px; margin-bottom:15px;}	
 #chkNum::placeholder{font-size:14px; color:#8c8c8c; padding-left:5px; display:inline-block;}
+#nextLevelDiv {width: 380px; margin: 0 auto; display:none;}
+#nextLevelDiv #nextBtn { margin-top:15px; width:380px; border-radius:3px; border:none; height:48px; margin-top:7px; background:#e64c7f;
+			font-weight:600; font-size:18px; color:#fff}
 #nextBtn{ margin-top:15px; width:100%; border-radius:3px; border:none; height:48px; margin-top:7px; background:#e64c7f;
 			font-weight:600; font-size:18px; color:#fff}
 #nextBtn:hover{background-color:#e42e5f; color:#fff}
 #nextBtn a { width:380px; height:48px; color:#fff; padding: 10px 150px; line-height: 48px;}	
 .coment{color:#DE4F4F; font-size:14px; padding-bottom: 5px;}
-#step1AuthForm {width: 380px; margin: 10px auto; margin-bottom: 10px;}
+#checkMailMsg{color:#DE4F4F; font-size:14px; padding-bottom: 5px;}
+.mailsub{padding-right: 8px; font-size: 13px; font-weight:bold; border:none; background:none}
+.mailsub:hover{color:#DE4F4F}
+#chkDiv{text-align:center;}
+#step1AuthForm {width: 380px; margin: 10px auto; margin-bottom: 10px; display:block !important;}
 #auth{width:74%; border-radius:3px; border:1px solid #d5d5d5; height:48px;}
-#authBtn{width:24%; height:48px; background:#474747; border:none; color:#fff; border-radius:3px;}
+#authBtn{width:24%; height:48px; background:#474747; border:none; color:#fff; border-radius:3px; margin-left:5px;}
 #step1AuthForm2 {width: 380px; margin: 10px auto; margin-bottom: 10px;}
 
 /*step2*/	
-#step2Form{width:380px; margin:50px auto;}
-#u_email{width:74%; border-radius:3px; border:1px solid #d5d5d5; height:48px;}
+#step2Form{width:400px; margin:50px auto;}
+#u_email{width:68%; border-radius:3px; border:1px solid #d5d5d5; height:48px;}
 #u_email::placeholder{font-size:14px; color:#8c8c8c; padding-left:5px; display:inline-block;}	
-#chkemail{width:24%; height:48px; background:#474747; border:none; color:#fff; border-radius:3px;}
-#u_name{width:74%; border-radius:3px; border:1px solid #d5d5d5; height:48px;}
+#chkemail{width:21%; height:48px; background:#474747; border:none; color:#fff; border-radius:3px;}
+.authOk{width:21%; height:48px; background:#F15F5F !important; border:none; color:#fff; border-radius:3px;}
+#u_name{width:68%; border-radius:3px; border:1px solid #d5d5d5; height:48px;}
 #u_name::placeholder{ margin-top:10px; font-size:14px; color:#8c8c8c; padding-left:5px; display:inline-block;}	
-#chkname{ margin-top:10px; width:24.3%; height:48px; background:#474747; border:none; color:#fff; 
+#chkname{ margin-top:10px; width:21%; height:48px; background:#474747; border:none; color:#fff; 
 			border-radius:3px;}	
-
-#step2Form input[type='password']{width:100%; height:48px; margin-top:7px; border-radius:3px; border:1px solid #d5d5d5;}	
+.authName{margin-top:10px;}			
+.joinicon{position:relative; top:11px;}
+.ok{position:relative; top:11px;}
+#step2Form input[type='password']{width:90%; height:48px; margin-top:7px; border-radius:3px; border:1px solid #d5d5d5;}	
 #step2Form input[type="password"]::placeholder { font-size:14px; color:#8c8c8c; padding-left:5px;}	
 .pw_con{font-size:14px; color:#F15F5F; padding-left:5px; padding-top:3px;}
 #step2Form input[type='submit']{background-color:#e64c7f; color:#fff; font-size:18px; border:none; 
-								border-radius:3px;  font-weight:600; width:100%; height:48px; margin-top:20px}
+								border-radius:3px;  font-weight:600; width:90%; height:48px; margin-top:20px}
 #step2Form input[type='submit']:hover{background-color:#e42e5f; color:#fff; font-size:18px;; 
 								border-radius:3px;}
-#step2Form #u_intro{width:100%; height:48px; margin-top:7px; border-radius:3px; border:1px solid #d5d5d5;}	
+#step2Form #u_intro{width:90%; height:48px; margin-top:7px; border-radius:3px; border:1px solid #d5d5d5;}	
 #step2Form #u_intro::placeholder { font-size:14px; color:#8c8c8c; padding-left:5px;}	
-
+.namesub{padding-right: 8px; font-size: 13px; font-weight:bold; border:none; background:none}
+.namesub:hover{color:#DE4F4F}
+#introLengthChk{color:#8c8c8c; font-size:13px;}
 
 /*step3*/
 .joinWrap3	{ width:500px; margin:80px auto; margin-bottom:10px;}

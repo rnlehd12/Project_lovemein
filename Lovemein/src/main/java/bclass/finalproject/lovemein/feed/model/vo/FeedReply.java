@@ -1,7 +1,7 @@
 package bclass.finalproject.lovemein.feed.model.vo;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 //피드댓글 VO by 귀정
 public class FeedReply implements Serializable{
@@ -11,7 +11,7 @@ public class FeedReply implements Serializable{
 	private String fr_no;
 	private String f_no;
 	private String fr_text;
-	private java.sql.Date fr_date;
+	private java.util.Date fr_date;
 	private String u_no;
 	private String u_profile;
 	private String u_name;	//댓글단 유저 네임
@@ -54,11 +54,11 @@ public class FeedReply implements Serializable{
 		this.fr_text = fr_text;
 	}
 
-	public java.sql.Date getFr_date() {
+	public java.util.Date getFr_date() {
 		return fr_date;
 	}
 
-	public void setFr_date(java.sql.Date fr_date) {
+	public void setFr_date(java.util.Date fr_date) {
 		this.fr_date = fr_date;
 	}
 

@@ -119,5 +119,111 @@
 		U_DRINKING = #{u_drinking}
 		WHERE u_no = #{u_no}
 	</update>
+	
+	<!-- 스타일 정보 수정용 -->
+	<update id="StyleInfo" parameterType="style">
+		UPDATE style 
+		SET
+		S_APPEAL = #{s_appeal},
+		S_INTER = #{s_inter},
+		S_DS = #{s_ds},
+		S_LS = #{s_ls}
+		WHERE u_no = #{u_no}
+	</update>
+	
+	<!-- 이상형 정보 수정용 -->
+	<update id="idealModi" parameterType="Ideal">
+		UPDATE ideal 
+		SET
+		i_height = #{i_height},
+		i_loc = #{i_loc},
+		i_edu = #{i_edu},
+		i_age = #{i_age},
+		i_weight = #{i_weight}
+		WHERE u_no = #{u_no}
+	</update>
+	
+	<!-- 최근 검색기록 list -->
+	<select id="historyList" parameterType="String" resultType="RecentSearch">
+		select rownum, u_no, search_Date, search_Text
+		from recent_search
+		where u_no = #{u_no}
+		order by search_date desc , rownum desc
+	</select>
+	
+	<!-- 검색결과 중복일시 upadate, 중복아닐시 insert함 -->
+	<insert id="saveHistory" parameterType="RecentSearch">
+		MERGE INTO recent_search
+	    USING DUAL
+	       ON (u_no = #{u_no} AND search_text = #{search_text})
+	    WHEN MATCHED THEN
+	        UPDATE SET search_date = sysdate
+	    WHEN NOT MATCHED THEN
+	        INSERT (u_no, search_date, search_text)
+	        VALUES (#{u_no}, sysdate, #{search_text})
+	</insert>
+	
+	<!-- 최근검색기록 전체 삭제용 -->
+	<delete id="historyAllDel" parameterType="String">
+		delete from recent_search where u_no = #{u_no}
+	</delete>
+
+	<!-- 검색기록 하나만 지우기 -->
+	<delete id="searchOneDel" parameterType="RecentSearch">
+		delete from recent_search where u_no = #{u_no} and search_text = #{search_text}
+	</delete>
+	
+	<!-- 제일오래된 검색어 1개 지우기 -->
+	<delete id="tenSizeHistory" parameterType="String">
+		delete from recent_search
+		where u_no = #{u_no} and
+		search_date =
+		(select min(search_date)
+		from recent_search
+		where u_no = #{u_no}
+		group by u_no)
+	</delete>
+	
+	<!-- 신고하기용  -->
+	<insert id="reportInsert" parameterType="UserReport">
+		INSERT INTO report
+		  VALUES (
+		    TO_CHAR(SEQ_R_NO.nextval),
+		    #{r_text},sysdate,#{r_send_uno},#{r_rec_uno}, #{r_yn})
+	</insert>
+
+	<!-- 신고목록 보기용 -->
+	<select id="userReportList" parameterType="hashmap" resultType="Report">
+		<![CDATA[
+			select rownum, r_no, r_text, u_name, r_date, r_yn
+			from (select rownum, r_no, r_text, u_name, r_date, r_yn from report 
+			join users u on r_rec_uno = u_no
+			where r_send_uno = #{u_no}
+			order by r_date desc, rownum desc)
+			group by rownum, r_no,r_text, u_name, r_date, r_yn
+			having rownum >= #{startRow} and rownum <= #{endRow}
+			order by rownum desc, r_date desc
+		]]>
+	</select>
+	
+	<!-- 신고목록 개수 -->
+	<select id="userReportListCount" parameterType="String" resultType="int">
+		select count(*) from report where r_send_uno = #{u_no}
+	</select>
+	
+	<!-- 휴대폰번호 중복체크 -->
+	<select id="phoneDBChk" parameterType="String" resultType="int">
+		select count(*) from users where u_phone = #{phone}
+	</select>
+
+	<!-- 아이디 중복체크 -->
+	<select id="chkMail" parameterType="String" resultType="int">
+		select count(*) from users where u_email = #{chkMail}
+	</select>
+	
+	<!-- 이름 중복체크 -->
+	<select id="chkName" parameterType="String" resultType="int">
+		select count(*) from users where u_name = #{chkName}
+	</select>
 
 </mapper>

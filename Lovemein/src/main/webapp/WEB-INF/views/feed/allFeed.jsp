@@ -9,14 +9,16 @@
 <head>
 <meta charset="UTF-8">
 <title>전체 피드</title>
+<c:import url="../common/header.jsp"/>
 <link rel="stylesheet" type="text/css" href="resources/css/feed/feed.css">
-<script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/css/feed/slick.css">
+<link rel="stylesheet" type="text/css" href="resources/css/feed/slick-theme.css">
 <script type="text/javascript" src="resources/js/feed/allFeed.js"></script>
+<script type="text/javascript" src="resources/js/feed/slick.js"></script>
 </head>
 <body>
 	<div id="mask" onclick="closeMaskFun();"></div> 
 	<input type="hidden" id="hiddenU_no" value="${loginMember.u_no}">
-	<c:import url="../common/header.jsp"/>
 		<div id="allFeedWrap">
 			<c:forEach var="feed" items="${allFeed}">
 				<div onmouseover="showMenuFun('${feed.f_no}');" onmouseout="hideMenuFun('${feed.f_no}');" id="onDiv">
@@ -57,7 +59,7 @@
 										</c:otherwise>
 									</c:choose>
 								</div>	
-								<button id="goTargetFeed" onclick="gotargetFeedFunc('${feed.u_no}')">피드로 이동</button>
+								<button id="goTargetFeed" onclick="gotargetFeedFunc('${feed.u_no}','${feed.f_no}')">피드로 이동</button>
 								<button id="showFeedOne" onclick="showFeedOneFunc('${feed.f_no}')">게시글 보기</button>
 							</div>
 						</div>
@@ -65,25 +67,265 @@
 				</div>
 				<!-- 게시글 하나만 보기 -->
 				<div class="showFeedOneArea" id="showFeedOneArea${feed.f_no}">
-					<button id="findClose" onclick="findCloseFnc();">X</button>
-					<!-- 피드 이미지 슬라이드 영역  -->
-					<div id="slide${feed.f_no}" class="allfeedSlideDiv">
-						<c:if test="${feed.f_img != null}">
-							<div class="slider">
-								<c:forTokens items="${feed.f_img}" delims="," var="f_img">
-							        	<div><img src="resources/images/feedImages/${f_img}"></div>
-							    </c:forTokens>
-							</div>
-						</c:if>	
-						<c:if test="${feed.f_img == null}">
-							<div class="swiper-container">
-								<p id="noFeedImage">등록된 피드이미지가 없습니다.</p>
-							</div>
-						</c:if>
-					</div>
+					<table>
+						<tr>
+							<!-- 피드이미지 영역 -->
+							<td id="feedTd">
+								<div class="allfeedSlideDiv" align="center" style="width: 500px; left: 500px;">
+								     <c:forTokens items="${feed.f_img}" delims="," var="f_img" varStatus="status">
+							        	<div class="swiper-slide">
+							        		<img src="resources/images/feedImages/${f_img}" id="imgid${status.count}">
+							        	</div>
+							        </c:forTokens>
+								</div>
+							</td>
+							<td>
+								<div id="allFeedContentsArea">
+									<div id="allWriterArea">
+										<div id="allWriterImgDiv">
+											<button id="findCloseFeedOne" onclick="findCloseFnc();">X</button>
+											<a href="goTargetFeed.do?u_no=${feed.u_no}#feedContainer${feed.f_no}">
+												<div id="imagebox">
+													<c:if test="${feed.u_profile != null}">
+														<img id="allprofileImgsOne" src="resources/images/profile/${feed.u_profile}" />
+													</c:if>
+													<c:if test="${feed.u_profile == null}">
+															<img id="allprofileImgsOne" src="resources/images/profile/nullProfile.png" />
+													</c:if>
+												</div>
+												<div id="writerbox">
+													${feed.u_name}<br>
+													<span>${feed.u_email}</span>
+												</div>
+											</a>
+											<div id="goLikeArea">
+												<c:forEach var="feedUserLikeChks" items="${userLikeChkList}">
+													<c:if test="${feedUserLikeChks.target_no == feed.u_no}">
+														 <c:set var="heart" value="${feed.u_no}" />
+			                               				 <input type="hidden" value="${heart}">
+													</c:if>
+												</c:forEach>
+												 <c:choose>
+												 	<c:when test="${feed.u_no == loginMember.u_no}">
+					                               		<div id="writeArea">
+															<button type="button" class="allGoLikeTargetBtn" id="unlikeBtn">
+																<img id="goLikeTargetImg" src="resources/images/common/heartIcon2.png" width="50">
+																나
+															</button>
+														</div>
+					                               </c:when>
+					                               <c:when test="${heart == feed.u_no}">
+					                               		<div id="writeArea">
+															<button type="button" class="allGoLikeTargetBtn" onclick="ullikeBtnFunc('${feed.u_no}','${loginMember.u_no}');">
+																<img id="goLikeTargetImg" src="resources/images/common/heartIcon3.png" width="50">
+																찜하는중
+															</button>
+														</div>
+					                               </c:when>
+					                               <c:otherwise>
+					                               		<div id="writeArea">
+															<button type="button" class="allGoLikeTargetBtn" id="unlikeBtn" onclick="goLikeTargetFunc('${feed.f_no}');">
+																<img id="goLikeTargetImg" src="resources/images/common/heartIcon2.png" width="50">
+																찜하기
+															</button>
+														</div>	
+					                               </c:otherwise>
+					                           	</c:choose>
+											</div>
+											<!-- 찜하기 모달 팝업 -->
+											<div id="golike" class="golike${feed.f_no}">
+												<button id="findClose" onclick="LikeCloseFnc();">X</button>
+												<form id="golikeForm" method="post" action="golikeTarget.do">
+													<div id="heartIconArea">
+														<img id="goLikeTargetImages" src="resources/images/common/heartIcon2.png" width="50">
+													</div>
+													<p id="golikeTitle">
+													찜하기
+													</p>
+													<div id="golikeimgArea">
+														<c:if test="${targetUser.u_profile == null}">
+															<img id="profileImg" src="resources/images/common/nullProfile.png">
+														</c:if>
+														<c:if test="${targetUser.u_profile != null}">
+															<img id="profileImg" src="resources/images/profile/${targetUser.u_profile}">
+														</c:if>
+													</div>
+													<p id="likeMessage1"><span>${feed.u_name}</span>님을 찜하시겠습니까?</p>
+													<p id="likeMessage2"><span>푸딩1개</span>가 소진됩니다.</p>
+													<input type="hidden" name="loginUno" value="${loginMember.u_no}">
+													<input type="hidden" name="targetUno" value="${feed.u_no}">
+														<c:choose>
+															<c:when test="${loginMember.u_coin > 0}">
+																<div id="likeAreaBtns">
+																	<input type="submit" value="찜하기" class="likesBtns" id="goTargetLikeBtn" />
+																	<button type="button" class="likesBtns" id="resetLikeBtn" onclick="findCloseFnc();">취소</button>
+																</div>
+															</c:when>
+															<c:otherwise>
+																<div id="likeAreaBtns">
+																	<button type="button" class="likesBtns" id="goTargetLikeBtn" onclick="goPayFunc();">충전페이지로 이동</button>
+																	<button type="button" class="likesBtns" id="resetLikeBtn" onclick="findCloseFnc();">취소</button>
+																</div>	
+																<p id="noCoin">잔여푸딩이 부족합니다. 충전 후 이용해주세요.</p>
+															</c:otherwise>
+														</c:choose>		
+												</form>
+											</div>
+										</div>
+										<!-- 피드글 내용영역 -->
+										<div id="allfeedOneContentsArea">
+											<p id="allfeedOnetext">
+												${feed.f_text}
+											</p>
+										</div>
+										<div id="feedTag">
+			    							<c:forTokens items="${feed.f_tag}" delims="," var="tag">
+											    <a id="hashTagId" href="#" onclick="goTagSearchFunc('${tag}');">${tag}</a>
+											</c:forTokens>
+				    					</div>
+										<div id="likeCnt">
+		    								<!-- 글 좋아요 영역 -->
+			    							<c:forEach var="like_Check" items="${feed_Like_Chk}">
+					                            <c:if test="${like_Check.f_no eq feed.f_no}">
+					                               <c:set var="heart" value="${feed.f_no}" />
+					                               <input type="hidden" value="${heart}">
+												</c:if>
+			    							</c:forEach>
+				    					 	 <c:choose>
+					                               <c:when test="${heart == feed.f_no}">
+					                               		<a href="#" onclick="delLikeFunc('${feed.f_no}');">
+					                               			<img class="likeClass" id="chkHeart${feed.f_no}" src="resources/images/common/heartIcon2.png">
+					                               		</a>
+					                               </c:when>
+					                               <c:otherwise>
+					                               		<a href="#" onclick="plusLikeFunc('${feed.f_no}');">
+					                                		<img class="unlikeClass" id="unChkHeart${feed.f_no}" src="resources/images/common/heartIcon3.png">
+					                                	</a>	
+					                               </c:otherwise>
+				                           	</c:choose>
+				                           	<!-- 좋아요 수 영역 -->
+											<c:forEach var="feed_like_count" items="${feed_like_cnt}">
+												 <c:if test="${feed_like_count.f_no eq feed.f_no}">
+												 		${feed_like_count.count}
+												 </c:if>						
+											</c:forEach>
+					    				</div>
+					    				<!-- 댓글 수 영역 -->
+					    				<div id="replyCnt">
+					    					<img src="resources/images/common/chatIcon.png">
+					    					<c:forEach var="feed_reply_count" items="${feed_reply_cnt}">
+												 <c:if test="${feed_reply_count.f_no eq feed.f_no}">
+												 		${feed_reply_count.count}
+												 </c:if>  							
+											</c:forEach>
+					    				</div>
+										<!-- 피드 댓글 영역 -->
+										<div id="lines"></div>
+										<c:forEach var="feed_reply_count" items="${feed_reply_cnt}">
+										 <c:if test="${feed_reply_count.f_no eq feed.f_no}">
+										 		<c:set var="replyCount" value="${feed_reply_count.count}" />
+										 </c:if>  							
+										</c:forEach>
+										<c:choose>
+										<c:when test="${replyCount <=3}">
+											<div id="allFeedreplyArea">
+												<c:forEach var="feed_reply_list" items="${allFeedReplyList}">
+													<c:if test="${feed_reply_list.f_no eq feed.f_no}">
+														<a href="#" onclick="targetFeedFunc('${feed_reply_list.u_no}')">
+									    					<div id="replyOne">
+									    						<div id="replyProfileImg">
+									    							<c:if test="${feed_reply_list.u_profile != null}">
+							    										<img id="profileImgs" src="resources/images/profile/${feed_reply_list.u_profile}" />
+								    								</c:if>
+									    							<c:if test="${feed_reply_list.u_profile == null}">
+									    									<img id="profileImgs" src="resources/images/profile/nullProfile.png" />
+									    							</c:if>
+									    						</div>
+									    						<div id="rightArea">
+									    							<div id="replyNickName">${feed_reply_list.u_name}</div>
+									    							<div id="replyDate">
+									    								<fmt:formatDate value="${feed_reply_list.fr_date}" pattern="M월 dd일"/>
+									    								<c:if test="${loginMember.u_no eq feed_reply_list.u_no}">
+										    								<div id="editArea">
+										    									<a href="#" onclick="replydelFunc('${feed_reply_list.fr_no}');">삭제</a>
+										    									<a href="#" onclick="replyModiFunc('${feed_reply_list.fr_no}');">수정</a>
+										    								</div>
+										    							</c:if>	 
+									    							</div>
+									    							<div id="replyText">${feed_reply_list.fr_text}</div>
+									    						</div>
+									    						<!-- 댓글수정 폼 영역 시작 '수정'을 누르면 노출 -->
+									    						<div id="replyModidiv${feed_reply_list.fr_no}" class="modiDiv">
+									    							<form id="replyModiForm" method="post">
+										    							<input type="text" id="fr_Moditext${feed_reply_list.fr_no}" 
+										    								class="fr_Moditext" name="fr_Ntext" value="${feed_reply_list.fr_text}">
+																		<button id="replyModiSub" onclick="replyModiSubFunc('${feed_reply_list.fr_no}');">수정</button>
+																		<button id="closeReplyModiSub" onclick="closeReplyModiSubFunc('${feed_reply_list.fr_no}');">닫기</button>
+																	</form>				    						
+									    						</div>
+									    					</div>
+									    				</a>
+													</c:if>
+												</c:forEach>	
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="allFeedreplyAreaMore">
+						    				<c:forEach var="feed_reply_list" items="${allFeedReplyList}">
+								    				 <c:if test="${feed_reply_list.f_no eq feed.f_no}">
+									    					<a href="#" onclick="targetFeedFunc('${feed_reply_list.u_no}')">
+										    					<div id="replyOne">
+										    						<div id="replyProfileImg">
+										    							<c:if test="${feed_reply_list.u_profile != null}">
+								    										<img id="profileImgs" src="resources/images/profile/${feed_reply_list.u_profile}" />
+									    								</c:if>
+										    							<c:if test="${feed_reply_list.u_profile == null}">
+										    									<img id="profileImgs" src="resources/images/profile/nullProfile.png" />
+										    							</c:if>
+										    						</div>
+										    						<div id="rightArea">
+										    							<div id="replyNickName">${feed_reply_list.u_name}</div>
+										    							<div id="replyDate">
+										    								<fmt:formatDate value="${feed_reply_list.fr_date}" pattern="M월 dd일"/>
+										    								<c:if test="${loginMember.u_no eq feed_reply_list.u_no}">
+											    								<div id="editArea">
+											    									<a href="#" onclick="replydelFunc('${feed_reply_list.fr_no}');">삭제</a>
+											    									<a href="#" onclick="replyModiFunc('${feed_reply_list.fr_no}');">수정</a>
+											    								</div>
+											    							</c:if>	 
+										    							</div>
+										    							<div id="replyText">${feed_reply_list.fr_text}</div>
+										    						</div>
+										    						<!-- 댓글수정 폼 영역 시작 '수정'을 누르면 노출 -->
+										    						<div id="replyModidiv${feed_reply_list.fr_no}" class="modiDiv">
+										    							<form id="replyModiForm" method="post">
+											    							<input type="text" id="fr_Moditext${feed_reply_list.fr_no}" 
+											    								class="fr_Moditext" name="fr_Ntext" value="${feed_reply_list.fr_text}">
+																			<button id="replyModiSub" onclick="replyModiSubFunc('${feed_reply_list.fr_no}');">수정</button>
+																			<button id="closeReplyModiSub" onclick="closeReplyModiSubFunc('${feed_reply_list.fr_no}');">닫기</button>
+																		</form>				    						
+										    						</div>
+										    					</div>
+									    					</a>
+									    			 </c:if>
+						    				</c:forEach>
+						    				
+					    				</div>
+					    				<!-- 댓글 더보기 버튼 -->
+					    				<c:set var= "more" value="${replyCount-3}"/>
+					    				<input type="button" id="moreReply${feed.f_no}" class="moreReplyAll" onclick="goAreaFeedFunc('${feed.f_no}','${feed.u_no}');" 
+					    					value="${more}개의 댓글을 더 보시려면 ${feed.u_name}님의 피드에 방문하세요!">	
+										</c:otherwise>
+									</c:choose>		
+									</div>
+								</div>
+							</td>	
+						</tr>
+					</table>
 				</div>
 			</c:forEach>
 		</div>
 		<c:import url="../common/footer.jsp"/>
 </body>
+
 </html>

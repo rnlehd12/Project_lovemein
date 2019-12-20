@@ -1,0 +1,21 @@
+@charset "UTF-8";
+/*회원 신고목록 (유저용) css by 귀정*/
+
+#listTitles li{float: left;text-align: center; font-size: 16px; font-weight: bold; background:#f6f6f6; padding: 10px 0;}
+#reportWrap { width: 65%; margin: 40px auto; }
+#reportTitles{color: #000; font-size: 30px; font-weight: bold; margin-bottom: 30px; text-align:left;}
+.reportListLi{float: left; text-align: center; padding: 13px 0; color: #5d5d5d; border-bottom: 1px solid #EAEAEA;}
+.nullReportList{text-align: center; top: 30px; position: relative; height: 70px; line-height: 30px; font-size: 17px; color: #5d5d5d;}
+#rownum{width:10%;}
+#rowDate{width:25%;}
+#rowPerson{width:20%;}
+#rowReson{width:25%;}
+#rowAnswer{width:15%;}
+#rownumli{width:10%;}
+#rowDateli{width:25%;}
+#rowPerli{width:20%;}
+#rowResli{width:25%;}
+#redLi{color:#F15F5F; width:15%;}
+.paging{clear: both; width: 80%; margin: 0 auto; text-align: center; position:relative; top:25px}
+.pre_page{display: inline-block; background: #e64c7f; padding: 5px 10px; margin: 0 5px; color: #fff; font-weight:bold; border-radius:3px;}
+.pre_page a{color:#fff; font-weight:bold}

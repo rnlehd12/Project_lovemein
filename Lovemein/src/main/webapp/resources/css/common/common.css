@@ -24,9 +24,24 @@ button{outline:none; cursor: pointer !important;}
 .headerIcon img{height: 24px;}
 #accountBtn img {height:30px; position: relative; top: 3.5px; left:-4px;}
 
+/*헤더 영역 최근 검색어 창 css*/
+#SearchViewArea{ width:100%;}
+#SearchView{width:362px;margin:0 auto;}
+#searchAreas{ border: 1px solid #d5d5d5; position: absolute; width: 360px; margin-left: -43px; background: #fff; margin-top: -11px; 
+				border-top: none; border-radius: 0px; z-index:998; display:none;}
+#searchAreas p{ color: #e64c7f; font-weight: bold; font-size: 14px; margin:8px; padding-left:20px; margin-left: 0;}				
+.searchOptionmenu{background:#EAEAEA; width:100%; margin-top:10px}
+#historydelBtn{border: none; background: #eaeaea; color: #353535; padding: 5px 0; margin-left: 185px;}
+#historycloseBtn{border: none; background: #eaeaea; color: #353535; padding: 5px 0; padding-left:10px}
+#searchAreas li{color: #353535; font-size: 14px; font-weight: 500; padding: 3px 0; padding-left:20px; }
+#searchAreas li:hover{background:#F6F6F6;}
+#no_search{background:none !important;}
+#searchAreas li span{float: right; margin-right: 20px; font-size: 12px; color: #8c8c8c; position: relative; left: -15px;}
+#oneDelete{ float: right; padding-right: 20px; color: #8c8c8c; font-size: 12px; }
+
 /*헤더 서브메뉴 css*/
 .subMenu{background:#F8F8F8; width: 230px; z-index: 9999999; margin-top: 5px;
-    	position: relative; left: 1250px; padding: 25px 25px 45px 25px;}
+    	position: relative; left: 1355px; padding: 25px 25px 45px 25px;}
 .alCountTitle{ font-size: 20px; font-weight: bold; color: #353535; padding-bottom: 10px;}
 .alCountTitle span{ color:#e64c7f;}  
 .alLi{ font-size:12px; padding: 8px 0; border-top: 1px solid #ddd;}  
@@ -41,6 +56,7 @@ button{outline:none; cursor: pointer !important;}
 #logoutId{text-align:right; font-size:13px; border:none;}	
 #logoutId a{color:#8c8c8c;} 
 #accountEmail{ color:#8c8c8c; font-size:15px;}
+#searchAreas p span{ font-size: 13px; color: #535353; font-weight: normal;}
 
 /*푸터메뉴 css*/
 #footerArea{width:40%; margin:0 auto; margin-bottom:20px; padding-bottom:20px}

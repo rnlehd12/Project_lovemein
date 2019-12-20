@@ -9,18 +9,18 @@
 <head>
 <meta charset="UTF-8">
 <title>${targetUser.u_name}님의 피드</title>
+<c:import url="../common/header.jsp" />
 <link rel="stylesheet" type="text/css" href="resources/css/common/common.css">
 <link rel="stylesheet" type="text/css" href="resources/css/feed/feed.css">
-<link rel="stylesheet" type="text/css" href="resources/css/feed/swiper.min.css">
-<script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/css/feed/slick.css">
+<link rel="stylesheet" type="text/css" href="resources/css/feed/slick-theme.css">
 <script type="text/javascript" src="resources/js/feed/targetFeed.js"></script>
-<script type="text/javascript" src="resources/js/feed/swiper.min.js"></script>
+<script type="text/javascript" src="resources/js/feed/slick.js"></script>
 </head>
 <body>
 	<div id="mask" onclick="closeMaskFun();"></div> 
 	<input type="hidden" id="hiddenSessionU_no" name="my_no" value="${loginMember.u_no}">
 	<input type="hidden" id="hieddenU_no" name="u_no" value="${u_no}">
-	<c:import url="../common/header.jsp" />
 	<div id="feedWrap">
 		<!-- 피드영역 -->
 		<div id="feedArea">
@@ -32,7 +32,7 @@
 						</div>
 					</c:if><!-- 피드가없을시 피드없다는 메시지 노출 -->
 					<c:forEach var="feed" items="${feed_list}">
-					<div id="feedContainer">
+					<div id="feedContainer${feed.f_no}" class="feedContainer">
 						<!-- 피드 글영역 시작 -->
 						<div id="feedContents">
 							<div id="feedWriterWrap">
@@ -54,7 +54,7 @@
 	    					<div id="textArea">${feed.f_text}</div>
 	    					<div id="feedTag">
 	    							<c:forTokens items="${feed.f_tag}" delims="," var="tag">
-									    <a id="hashTagId" href="${tag}">${tag}</a>
+									   <a id="hashTagId" href="#" onclick="goTagSearchFunc('${tag}');">${tag}</a>
 									</c:forTokens>
 	    					</div>
 	    					<div id="likeCnt">
@@ -118,7 +118,11 @@
 									    						<div id="rightArea">
 									    							<div id="replyNickName">${feed_reply_list.u_name}</div>
 									    							<div id="replyDate">
-									    								<fmt:formatDate value="${feed_reply_list.fr_date}" pattern="M월 dd일"/>
+									    								<c:forEach var="replyTimes" items="${rtList}">
+									    									<c:if test="${replyTimes.fr_no eq feed_reply_list.fr_no}">
+									    										${replyTimes.fr_date_msg }
+									    									</c:if>
+								    									</c:forEach>
 									    								<c:if test="${loginMember.u_no eq feed_reply_list.u_no}">
 										    								<div id="editArea">
 										    									<a href="#" onclick="replydelFunc('${feed_reply_list.fr_no}');">삭제</a>
@@ -160,7 +164,11 @@
 										    						<div id="rightArea">
 										    							<div id="replyNickName">${feed_reply_list.u_name}</div>
 										    							<div id="replyDate">
-										    								<fmt:formatDate value="${feed_reply_list.fr_date}" pattern="M월 dd일"/>
+										    								<c:forEach var="replyTimes" items="${rtList}">
+										    									<c:if test="${replyTimes.fr_no eq feed_reply_list.fr_no}">
+										    										${replyTimes.fr_date_msg }
+										    									</c:if>
+								    										</c:forEach>
 										    								<c:if test="${loginMember.u_no eq feed_reply_list.u_no}">
 											    								<div id="editArea">
 											    									<a href="#" onclick="replydelFunc('${feed_reply_list.fr_no}');">삭제</a>
@@ -206,16 +214,10 @@
 							<!-- 피드 이미지 슬라이드 영역  -->
 							<div id="slide${feed.f_no}" class="feedSlideDiv">
 								<c:if test="${feed.f_img != null}">
-									<div class="swiper-container" id="swiper-container${feed.f_no}">
-									    <div class="swiper-wrapper">
-									        <c:forTokens items="${feed.f_img}" delims="," var="f_img">
-									        	<div class="swiper-slide"><img src="resources/images/feedImages/${f_img}"></div>
-									        </c:forTokens>
-									    </div>    
-									   <!--  <div class="swiper-pagination"></div> -->
-										<div class="swiper-scrollbar"></div>
-									    <!-- <div class="swiper-button-prev"></div>
-									    <div class="swiper-button-next"></div> -->
+									<div class="targetfeedSlideDiv" align="center" style="width: 400px; left: 400px;">
+								     <c:forTokens items="${feed.f_img}" delims="," var="f_img">
+							        	<div class="swiper-slide"><img src="resources/images/feedImages/${f_img}"></div>
+							        </c:forTokens>
 									</div>
 								</c:if>	
 								<c:if test="${feed.f_img == null}">
@@ -239,7 +241,7 @@
 					<img id="profileImg" src="resources/images/profile/${targetUser.u_profile}">
 				</c:if>
 			</div>
-			<div id="accountPrimaryInfo">
+			<div id="targetAccountPrimaryInfo">
 				<div id="accountName">${targetUser.u_name}
 				 </div>
 				<div id="accountEmail">${targetUser.u_email}</div>
@@ -312,7 +314,41 @@
 					</button>
 				</div>
 			</c:if>
-			<!-- 찜하기 모달 팝업 -->
+			<!-- 신고하기 링크 영역 -->
+			<div class="reportArea"><a href="#" onclick="goReportFunc();">신고하기</a></div>
+			<!-- 신고하기 모달 팝업 -->
+			<div id="goReport">
+				<button id="findClose" onclick="findCloseFnc();">X</button>
+					<p id="goReportTitle">
+					신고하기
+					</p>
+					<div id="golikeimgArea">
+						<c:if test="${targetUser.u_profile == null}">
+							<img id="profileImg" src="resources/images/common/nullProfile.png">
+						</c:if>
+						<c:if test="${targetUser.u_profile != null}">
+							<img id="profileImg" src="resources/images/profile/${targetUser.u_profile}">
+						</c:if>
+					</div>
+					<p id="reportMessage1"><span>${targetUser.u_name}</span>님을 신고하시겠습니까?</p>
+					<p id="reportMessage2">신고사유를 선택해주세요.</p>
+					<div id="reportDiv">
+						<select id="r_text" name="r_text" class="reportText">
+							<option value="사진도용">사진도용</option>
+							<option value="폭력적 또는 혐오적인 콘텐츠">폭력적 또는 혐오적인 콘텐츠</option>
+							<option value="악의적인 콘텐츠">악의적인 콘텐츠</option>
+							<option value="유해한 위험행위">유해한 위험행위</option>
+							<option value="욕설 또는 비방">욕설 또는 비방</option>
+							<option value="음란물 게재">음란물 개제</option>
+							<option value="광고">광고</option>
+							<option value="권리침해">권리침해</option>
+						</select>
+						<button type="button" id="goReportSub" onclick="goReportConFunc();">신고하기</button>
+					</div>
+					<input type="hidden" id="loginUno" name="r_send_uno" value="${loginMember.u_no}">
+					<input type="hidden" id="targetUno" name="r_rec_uno" value="${targetUser.u_no}">
+			</div>
+			<!-- 찜하기 모달팝업 -->
 			<div id="golike">
 				<button id="findClose" onclick="findCloseFnc();">X</button>
 				<form id="golikeForm" method="post" action="golikeTarget.do">
@@ -350,7 +386,6 @@
 							</c:otherwise>
 						</c:choose>		
 				</form>
-				
 			</div>
 		</div><!-- 계정영역 끝 -->
 	</div>

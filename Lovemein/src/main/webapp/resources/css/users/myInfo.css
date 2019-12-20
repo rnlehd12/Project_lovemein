@@ -66,14 +66,14 @@ input[type=range]::-webkit-slider-thumb {border: 1px solid #2497E3; height: 15px
 
 /*스타일정보 수정*/
 #tab-4 { width: 100%; }
-.styleTitle {font-size:24px; font-weight:bold; color:#353535; display:inline-block; margin:0; margin-top:25px; padding-right:7px;}
-.rstyleTitle {font-size:24px; font-weight:bold; color:#353535; display:inline-block; margin:0; margin-top:25px; padding-right:7px; margin-left:70px}
+.styleTitle {font-size:15px; font-weight:bold; color:#353535; display:inline-block; margin:0; margin-top:25px; margin-bottom:15px; padding-right:7px;}
+.rstyleTitle {font-size:15px; font-weight:bold; color:#353535; display:inline-block; margin:0; margin-top:25px; margin-bottom:15px; padding-right:7px; margin-left:70px}
 .stylesubTitle{ font-size:14px; color:#8c8c8c; display:inline-block; margin:0;}
 #styleTable .subCo{ color:#6f6f6f; margin: 0 0 16px 0; font-size:14px; font-weight:bold;}
 #styleTable .rsubCo{ color:#6f6f6f; margin: 0 0 16px 0; font-size:14px; font-weight:bold; padding-left:70px;}
-#styleForm{width:900px; margin:30px auto;}
+#styleForm{width:900px; margin:10px auto;}
 #styleForm .lines{clear:both; height: 36px; width: 435px;}
-#styleForm .rlines{clear:both; height: 36px; width: 390px; margin-left:70px;}
+#styleForm .rlines{clear:both; height: 36px; width: 392px; margin-left:70px;}
 #styleForm #styleTable{margin:0 auto; padding:0; width:100%;}
 #styleForm #styleTable td{margin:0; padding:0}
 #dateText{ margin-top:10px;}
@@ -81,4 +81,18 @@ input[type=range]::-webkit-slider-thumb {border: 1px solid #2497E3; height: 15px
 								border-radius:3px;  font-weight:600; width:100%; height:48px; margin-top:50px}
 #styleForm .centerLine{width: 1px; height: 540px; background: #BDBDBD; position: relative;} 					
 #styleForm input[type='submit']:hover{background-color:#e42e5f; color:#fff}		
-#submitTable{width:100%}	
+#submitTable{width:100%}
+.aChks{display:none;}
+.schks{display:none;}	
+.lchks{display:none;}
+.dchks{display:none;}
+
+/*이상형정보 수정*/
+#idealForm{width:380px; margin:30px auto;}
+#idealForm input[type='text']{width: 100%; height: 48px; margin-bottom: 5px; border-radius: 3px; border: 1px solid #d5d5d5;}
+#idealForm p { display: inline-block; font-size: 14px; width: 100%; margin-bottom: 7px; color: #747474; }
+#idealForm select { width: 100%; height: 48px; margin-bottom: 5px; border-radius: 3px; border: 1px solid #d5d5d5; }
+#idealForm input[type='number']{width: 100%; height: 48px; margin-bottom: 5px; border-radius: 3px; border: 1px solid #d5d5d5;}
+.ichks{display:none;}
+#idealForm input[type='submit'] { margin-top: 20px; background-color: #e64c7f; color: #fff; font-size: 18px; border: none; 
+								border-radius: 3px; font-weight: 600; width: 100%; height: 48px; margin-top: 20px; padding: 0 5px; }

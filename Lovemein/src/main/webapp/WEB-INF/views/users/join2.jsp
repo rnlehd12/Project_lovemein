@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css" href="resources/css/common/common.css">
 <link rel="stylesheet" type="text/css" href="resources/css/users/join.css">
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="resources/js/users/join2.js"></script>
 </head>
 <body>
 	<div class="joinWrap">
@@ -44,15 +45,22 @@
 			<p class="rconK">이상형설정</p>
 		</div>
 	</div>
-		<form method="post" id="step2Form" action="gojoinStep2ok.do">
+		<form method="post" id="step2Form" action="gojoinStep2ok.do" onsubmit="return subBtnFunc();">
 			<input type="text" placeholder="이메일을 입력하세요" id="u_email" name="u_email">
-			<button id="chkemail">중복확인</button>
-			<input type="text" placeholder="이름을 입력하세요" id="u_name" name="u_name">
-			<button id="chkname">중복확인</button>
-			<input type="password" id="u_pw" name="u_pw" placeholder="비밀번호(특수문자,영문,숫자 포함 8자 이상)">
+			<button id="chkemail" type="button" onclick="mailChkScript();">중복확인</button>
+			<img src='resources/images/users/x.png' id="xEamilicon" class='joinicon'>
+			<div id="checkMailMsgDiv"></div>
+			<input type="text" type="button" placeholder="닉네임을 입력하세요" id="u_name" name="u_name">
+			<button id="chkname" type="button" onclick="nameChkScript();">중복확인</button>
+			<img src='resources/images/users/x.png' id="xNameicon" class='joinicon'>
+			<div id="checkNameMsgDiv"></div>
+			<input type="password" id="u_pw" name="u_pw" placeholder="비밀번호(특수문자,영문,숫자 포함 8~16자)">
 			<input type="password" id="chkpw" placeholder="비밀번호중복확인">
-			<p class="pw_con">비밀번호는 특수문자,영문,숫자 포함 8자 이상입니다.</p>
-			<input type="text" id="u_intro" name="u_intro" placeholder="간단한 인사말을 입력하세요.">
+			<img src='resources/images/users/x.png' id="xPwdicon" class='joinicon'>
+			<p class="pw_con"></p>
+			<input type="text" id="u_intro" name="u_intro" placeholder="간단한 인사말을 입력하세요." autocomplete="off">
+			<img src='resources/images/users/o.png' id="xIntroicon" class='ok'>
+			<p id="introLengthChk">인사말은 최대 30자까지 가능합니다.(0/30)</p>
 			<input type="hidden" name="u_phone" value="${requestScope.u_phone}">
 			<input type="submit" value="다음단계" id="subBtn">
 		</form>	
