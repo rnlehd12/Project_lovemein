@@ -44,9 +44,9 @@
 </c:url>
 <tr>
 <td><a href="${mselect}">${ listsearch.u_no }</a></td>
-<td>${ listsearch.u_name }</td>
-<td>${ listsearch.u_email }</td>
-<td>${ listsearch.join_date }</td>
+<td><a href="${mselect}">${ listsearch.u_name }</a></td>
+<td><a href="${mselect}">${ listsearch.u_email }</a></td>
+<td><a href="${mselect}">${ listsearch.join_date }</a></td>
 </tr>
 </c:forEach>
 </table>
@@ -56,10 +56,10 @@
 <div class="paging">
 <!-- 맨 처음 페이지 -->
 <c:if test="${requestScope.currentPage le 1 }"><p class="pre_page"><<</p></c:if>
-<c:if test="${requestScope.currentPage gt 1 }"><a href="memberSearchList.do?page=1&search=${search }"><p class="pre_page"><<</p></a></c:if>
+<c:if test="${requestScope.currentPage gt 1 }"><a href="memberSearchList.do?page=1&searchmenu=${searchmenu}&search=${search}"><p class="pre_page"><<</p></a></c:if>
 <!-- 이전 페이지 -->
 <c:if test="${(currentPage - 10) lt startPage and (currentPage - 10) gt 1 }">
-<a class="pre_page" href="memberSearchList.do?page=${requestScope.startPage - 10 }&search=${search }"><p class="pre_page"><</p></a>
+<a class="pre_page" href="memberSearchList.do?page=${requestScope.startPage - 10 }&searchmenu=${searchmenu}&search=${search}"><p class="pre_page"><</p></a>
 </c:if>
 <c:if test="${(currentPage - 10) ge startPage or (currentPage - 10) le 1 }">
 <p class="pre_page"><</p>
@@ -70,22 +70,24 @@
 	<c:if test="${p eq requestScope.currentPage }">		
 		<font><b class="page">${ p }</b></font>
 	</c:if>
-	<c:if test="${p ne requestScope.currentPage }"><a href="memberSearchList.do?page=${ p }&search=${search }"><p class="pre_page">${ p }</p></a></c:if>
+	<c:if test="${p ne requestScope.currentPage }"><a href="memberSearchList.do?page=${ p }&searchmenu=${searchmenu}&search=${search}"><p class="pre_page">${ p }</p></a></c:if>
 </c:forEach>
 <!-- 다음 페이지 -->
 <c:if test="${(currentPage + 10) gt endPage and (currentPage + 10) lt maxPage }">
-	<a class="next_page" href="memberSearchList.do?page=${requestScope.endPage + 10 }&search=${search }"><p class="next_page">></p></a>
+	<a class="next_page" href="memberSearchList.do?page=${requestScope.endPage + 10 }&searchmenu=${searchmenu}&search=${search}"><p class="next_page">></p></a>
 </c:if>
 <c:if test="${(currentPage + 10) le endPage or (currentPage + 10) ge maxPage }">
 <p class="next_page">></p>
 </c:if>
 <!-- 맨 마지막페이지 -->
 <c:if test="${currentPage ge maxPage }"><p class="next_page">>></p></c:if>
-<c:if test="${currentPage lt maxPage }"><a class="next_page" href="memberSearchList.do?page=${ requestScope.maxPage }&search=${search }">>></a></c:if>  
+<c:if test="${currentPage lt maxPage }"><a class="next_page" href="memberSearchList.do?page=${ requestScope.maxPage }&searchmenu=${searchmenu}&search=${search}">>></a></c:if>  
 
 </div>
 <!-- //페이징 -->
 
 </div><!-- //main -->
+<c:import url="../common/footer.jsp"/>
+<div class="space"></div>
 </body>
 </html>

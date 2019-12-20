@@ -47,9 +47,9 @@ public class PaymentDao {
 
 
 
-	public int paySuccess2(Payment payment) {
+	public int Insertcoin(Payment payment) {
 		// TODO Auto-generated method stub
-		return sqlSession.update("paymentMapper.paySuccess2", payment);
+		return sqlSession.update("paymentMapper.Insertcoin", payment);
 	}
 
 

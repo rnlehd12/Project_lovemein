@@ -48,12 +48,12 @@ public class AdminServiceImple implements AdminService {
 	@Override
 	public List<AllUsers>memberSearchList(HashMap<String, Object> map){
 		
-		return adminDao.memberSearcchList(map);
+		return adminDao.memberSearchList(map);
 	}
 	
 	@Override
-	public	int memberSearchListCount(String search) {
-		return adminDao.memberSearchListCount(search);
+	public	int memberSearchListCount(HashMap<String, Object> mmap) {
+		return adminDao.memberSearchListCount(mmap);
 	}
 
 	@Override
@@ -70,7 +70,11 @@ public class AdminServiceImple implements AdminService {
 	}
 	
 	@Override
-	public int noticeSelect(String n_no) {
+	public int noticeListCount() {
+		return adminDao.noticeListCount();
+	}
+	@Override
+	public Notice noticeSelect(String n_no) {
 		return adminDao.noticeSelect(n_no);
 	}
 	
@@ -78,9 +82,9 @@ public class AdminServiceImple implements AdminService {
 	public int noticeInsert(Notice notice) {
 		return adminDao.notceInsert(notice);
 	}
-	
+
 	@Override
-	public 	int noticeUpdate(Notice notice) {
+	public int noticeUpdate(Notice notice) {
 		return adminDao.noticeUpdate(notice);
 	}
 	
@@ -117,13 +121,17 @@ public class AdminServiceImple implements AdminService {
 	}
 
 	@Override
-	public int reportSearchListCount(Report report) {
-		return adminDao.reportSearcgListCount(report);
+	public List<Report> reportYN(String r_no) {
+		return adminDao.reportYN(r_no);
+	}
+	@Override
+	public int reportSearchListCount(HashMap<String, Object> map) {
+		return adminDao.reportSearchListCount(map);
 	}
 
 	@Override
-	public List<Report>reportSearcchList(HashMap<String, Object> map){
-		return adminDao.reportSearcchList(map);
+	public List<Report>reportSearchList(HashMap<String, Object> rmap){
+		return adminDao.reportSearchList(rmap);
 	}
 
 

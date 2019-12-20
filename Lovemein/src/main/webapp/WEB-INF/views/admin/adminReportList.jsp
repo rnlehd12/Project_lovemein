@@ -16,32 +16,35 @@ $(function(){
 	
 	/*input text-> date로 바꾸는 함수*/
 	$(".sselect").change(function(){
-		
+		//select option 바뀌는 함수
 		var sel= $(".sselect").val();
-		
-		if(	sel == '날짜'){
-			$('.search_text').css("display","inline-block");
-			$(".search_text").attr("type","date");
-			$(".search_text2").attr("type","hidden");
-			$(".chbox").css("display","none");
-			
+		//select안의   value 값을 담아주는 변수 sel
+		if(	sel == 'r_date'){
+			//sel이  옵션값 value=re_date와 같다면
+			$('.search_text').css("display","inline-block"); // css inline-block 으로 바뀌고
+			$(".search_text2").val("");
+			$(".search_text2").attr("type","hidden"); //.search_text2 는 숨겨지고
+			$(".chbox").css("display","none"); //.chbox는 보이지않게된다.
+			$(".search_text").attr("type","date"); // .search_text의 input type이 date가 되며
 
-		}else if( sel == '처리현황'){
-			
-			$('.search_text').css("display","none");
-			$('.search_text2').attr("type","checkbox")
-			$('.chbox').css("display","inline-block");
+		}else if( sel == 'r_yn'){
+			//sel이  옵션값 value=re_yn와 같다면
+			$(".search_text").val("");
+			$('.search_text').css("display","none");// .search_text의 css inline-block 으로 바뀌고
+			$('.search_text2').attr("type","radio") // .search_text2의 input type이 date가 되며
+			$('.chbox').css("display","inline-block"); //.chbox는 보이지 않게 된다.
 			
 		
-		}else if( sel == '신고한유저'|sel == '신고받은유저'|sel == '내용' ){
-			$(".search_text").attr("type","text");
-			$(".search_text").val("");			
-			$(".chbox").css("display","none");
-			$(".search_text").css("display","inline-block");
+		}else if( sel == 'r_send_uno'|sel == 'r_rec_uno'|sel == 'r_text' ){
+			$(".search_text").attr("type","text"); // .search_text의 input type이 text가 되며
+			$(".search_text").val("");		// .search_text의  value가 사라지며
+			$(".chbox").css("display","none"); //.chbox는 보이지 않게 되며.(확인처리에 관한 체크박스)
+			$(".search_text").css("display","inline-block");// .search_text의 css inline-block 으로 바뀐다
 		}
 	});
 		
-
+// 확인처리여부 : .search_text2 체크박스yn
+// 날짜, 신고보낸사람, 신고한사람, 내용은 .search_text 이것은 name이 result_text input 임
 
 });//document.ready
 </script>
@@ -54,20 +57,20 @@ $(function(){
 <!-- //타이틀 -->
 
 <!-- 검색창 -->
-<form action="">
+<form action="adminSearchReportList.do" method="post">
+<input type="hidden">
 <div class="search">
-<select class="sselect">
-     <option  selected="selected" value="신고한유저">신고한 유저</option>
-     <option value="신고받은유저">신고받은 유저</option>
-     <option value="내용">내용</option>
-     <option class="opdate" value="날짜">날짜</option>
-     <option  value="처리현황">처리현황</option>
+<select class="sselect" name="sselect">
+     <option value="r_send_uno" selected="selected">신고한 유저</option>
+     <option value="r_rec_uno">신고받은 유저</option>
+     <option value="r_text">내용</option>
+     <option value="r_date" class="opdate">날짜</option> 
+     <option value="r_yn">처리현황</option>
 </select>
-<input class="search_text" type="text" >
-<!-- <input class="search_text" type="date" style="padding: 3px;" > -->
+<input class="search_text" type="text" name="result_text" >
 <div class="chbox" style="display:none">
-<p class="pp">확인완료</p><input type="checkbox" class="search_text2">
-<p class="pp">미확인</p><input type="checkbox" class="search_text2">
+<p class="pp">확인완료</p><input type="radio" class="search_text2" name="result_text"  value="Y">
+<p class="pp">미확인</p><input type="radio" class="search_text2" name="result_text" value="N">
 </div>
 <input class="search_bt" type="submit" value="검색">
 </div>
@@ -77,110 +80,73 @@ $(function(){
 <!-- 회원목록-->
 <table class="table">
 <thead class="title">
+<tr>
 <th>신고한닉네임</th>
 <th>신고받은 닉네임</th>
 <th>내용</th>
 <th>날짜</th>
 <th>처리현황</th>
+</tr>
 </thead>
-
+<c:forEach var="report" items="${  requestScope.listr }">
+<c:url var="rselect" value="adminReportDetail.do">
+	<c:param name="r_no" value="${ report.r_no }" />
+</c:url>
 <tr>
-<td>럽미인</td>
-<td>쁘띠영기_071</td>
-<td>피드에 음란물을 올림</td>
-<td>2019.10.11</td>
-<td>처리</td>
+<td><a href="${rselect}">${ report.r_send_uno }</a></td>
+<td><a href="${rselect}">${ report.r_rec_uno }</a></td>
+<c:if test="${fn:length(report.r_text) >= 7}">
+<td><a href="${rselect}">${fn:substring(report.r_text, 0, 6)}...</a></td>
+</c:if>
+<c:if test="${fn:length(report.r_text) < 7}">
+<td><a href="${rselect}">${ report.r_text }</a></td>
+</c:if>
+<td><a href="${rselect}"><fmt:formatDate value="${ report.r_date }" pattern="yyyy.MM.dd"/></a></td>
+<td><a href="${rselect}">${ report.r_yn}</a></td>
 </tr>
-
-<tr>
-<td>럽미인</td>
-<td>쁘띠영기_071</td>
-<td>피드에 음란물을 올림</td>
-<td>2019.10.12</td>
-<td>미확인</td>
-</tr>
-
-<tr>
-<td>럽미인</td>
-<td>쁘띠영기_071</td>
-<td>피드에 음란물을 올림</td>
-<td>2019.10.13</td>
-<td>처리</td>
-</tr>
-
-<tr>
-<td>럽미인</td>
-<td>쁘띠영기_071</td>
-<td>피드에 음란물을 올림</td>
-<td>2019.10.14</td>
-<td>미확인</td>
-</tr>
-<tr>
-<td>럽미인</td>
-<td>쁘띠영기_071</td>
-<td>피드에 음란물을 올림</td>
-<td>2019.10.15</td>
-<td>처리</td>
-</tr>
-
-<tr>
-<td>럽미인</td>
-<td>쁘띠영기_071</td>
-<td>피드에 음란물을 올림</td>
-<td>2019.10.16</td>
-<td>미확인</td>
-</tr>
-<tr>
-<td>럽미인</td>
-<td>쁘띠영기_071</td>
-<td>피드에 음란물을 올림</td>
-<td>2019.10.17</td>
-<td>처리</td>
-</tr>
-
-<tr>
-<td>럽미인</td>
-<td>쁘띠영기_071</td>
-<td>피드에 음란물을 올림</td>
-<td>2019.10.18</td>
-<td>미확인</td>
-</tr>
-
-<tr>
-<td>럽미인</td>
-<td>쁘띠영기_071</td>
-<td>피드에 음란물을 올림</td>
-<td>2019.10.19</td>
-<td>처리</td>
-</tr>
-
-<tr>
-<td>럽미인</td>
-<td>쁘띠영기_071</td>
-<td>피드에 음란물을 올림</td>
-<td>2019.10.20</td>
-<td>미확인</td>
-</tr>
-
-
+</c:forEach>
 
 </table>
 <!-- //회원목록 -->
 
 <!-- 페이징 -->
 <div class="paging">
-<a class="pre_page"><</a>
-<a class="page">1</a>
-<a class="page">2</a>
-<a class="page">3</a>
-<a class="page">4</a>
-<a class="page">5</a>
-<a class="next_page">></a>
+<!-- 맨 처음 페이지 -->
+<c:if test="${requestScope.currentPage le 1 }"><p class="pre_page"><<</p></c:if>
+<c:if test="${requestScope.currentPage gt 1 }"><a href="adminReportList.do?page=1"><p class="pre_page"><<</p></a></c:if>
+<!-- 이전 페이지 -->
+<c:if test="${(currentPage - 10) lt startPage and (currentPage - 10) gt 1 }">
+<a class="pre_page" href="adminReportList.do?page=${requestScope.startPage - 10 }"><p class="pre_page"><</p></a>
+</c:if>
+<c:if test="${(currentPage - 10) ge startPage or (currentPage - 10) le 1 }">
+<p class="pre_page"><</p>
+</c:if>
+<!-- 현재 페이지가 포함된 그룹의 페이지 숫자 출력 -->
+
+<c:forEach var="p" begin="${requestScope.startPage }" end="${requestScope.endPage }" step="1">
+	<c:if test="${p eq requestScope.currentPage }">		
+		<font><b class="page">${ p }</b></font>
+	</c:if>
+	<c:if test="${p ne requestScope.currentPage }"><a href="adminReportList.do?page=${ p }"><p class="pre_page">${ p }</p></a></c:if>
+</c:forEach>
+<!-- 다음 페이지 -->
+<c:if test="${(currentPage + 10) gt endPage and (currentPage + 10) lt maxPage }">
+	<a class="next_page" href="adminReportList.do?page=${requestScope.endPage + 10 }"><p class="next_page">></p></a>
+</c:if>
+<c:if test="${(currentPage + 10) le endPage or (currentPage + 10) ge maxPage }">
+<p class="next_page">></p>
+</c:if>
+<!-- 맨 마지막페이지 -->
+<c:if test="${currentPage ge maxPage }"><p class="next_page">>></p></c:if>
+<c:if test="${currentPage lt maxPage }"><a class="next_page" href="adminReportList.do?page=${ requestScope.maxPage }">>></a></c:if>  
 
 </div>
 <!-- //페이징 -->
 
 
+
 </div><!-- //main -->
+<div class="space"></div>
+<c:import url="../common/footer.jsp"/>
 </body>
 </html>

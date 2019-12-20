@@ -33,7 +33,7 @@ select count(*) as count from payment where u_no = #{u_no}
 INSERT INTO PAYMENT VALUES(TO_CHAR(SEQ_P_NO.nextval), SYSDATE, #{u_no}, #{p_coin}, #{p_price})
 </insert>
 
-<update id="paySuccess2" parameterType="Payment">
+<update id="Insertcoin" parameterType="Payment">
 UPDATE USERS SET u_coin = u_coin + #{p_coin} where u_no = #{u_no}
 </update>
 

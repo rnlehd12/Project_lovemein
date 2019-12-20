@@ -1,7 +1,7 @@
 package bclass.finalproject.lovemein.admin.model.vo;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 public class Notice implements Serializable {
 	
@@ -14,10 +14,11 @@ public class Notice implements Serializable {
 	private String n_text;
 	private Date n_date;
 	private String n_simg;
+	private String parseDate;
 	
 	public Notice() {}
 
-	public Notice(String n_no, String n_img, String n_title, String u_no, String n_text, Date n_date, String n_simg) {
+	public Notice(String n_no, String n_img, String n_title, String u_no, String n_text, Date n_date, String n_simg, String parseDate) {
 		super();
 		this.n_no = n_no;
 		this.n_img = n_img;
@@ -26,6 +27,7 @@ public class Notice implements Serializable {
 		this.n_text = n_text;
 		this.n_date = n_date;
 		this.n_simg = n_simg;
+		this.parseDate = parseDate;
 	}
 
 	public String getN_no() {
@@ -84,14 +86,20 @@ public class Notice implements Serializable {
 		this.n_simg = n_simg;
 	}
 
+	
+	public String getParseDate() {
+		return parseDate;
+	}
+
+	public void setParseDate(String parseDate) {
+		this.parseDate = parseDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Notice [n_no=" + n_no + ", n_img=" + n_img + ", n_title=" + n_title + ", u_no=" + u_no + ", n_text="
-				+ n_text + ", n_date=" + n_date + ", n_simg=" + n_simg + "]";
+				+ n_text + ", n_date=" + n_date + ", n_simg=" + n_simg + ", parseDate=" + parseDate + "]";
 	}
-	
-	
-	
-	
-	
+
+
 }

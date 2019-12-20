@@ -8,7 +8,7 @@
 .bt{border: 1px solid #f0f0f0; padding: 3px 5px 3px 5px; background: #f0f0f0;
 	border-radius: 2px; float:right;margin: 3px;}
 .member_detail{ background:rgb(251, 251, 251); margin-bottom:150px;}
-.pro1_div{margin-bottom: 30px; width:50% float:right}
+.pro1_div{margin-bottom: 30px; } 
 .profile_img{ width:220px; height:240px; padding: 60px 0px 0px 55px;}
 .profile1_ul{padding: 10px 100px 0px 0px;}
 li{ list-style:none;} 
@@ -31,22 +31,24 @@ hr{width:90%}
 .style4 > li{background: #808080b3; padding: 3px; border-radius: 3px;margin-right: 3px;}
 .style5{display: inline-flex;}
 .style5 > li{background: #808080b3; padding: 3px; border-radius: 3px;margin-right: 3px;}
-.pro4_div{padding-bottom: 5px;}
-p {display: inline-block;    margin: 0;
-    padding: 2px;    font-weight: normal;} 
+.pro4_div{ padding: 40px;}
+p {display: inline-block; margin: 0; padding: 2px; font-weight: normal;} 
 .Ap1{padding-left: 40px;}    
-.Ap2{    padding-left: 32px; color : #185A82; }
-.Ap3{    padding-left: 48px;}
-.Ap4{padding-left: 17px;}
-.Ap5{padding-left: 49px;}
-.Ap6{    padding-left: 48px; display: inline-block; overflow: scroll; height: 80px; width: 52%;} 
+.Ap2{ padding-left: 32px; color : #185A82; }
+.Ap3{ padding-left: 48px;}
+.Ap4{ padding-left: 17px;}
+.Ap5{ padding-left: 49px;}
+.Ap6{ padding-left: 48px; display: inline-block; overflow: scroll; height: 80px; width: 52%;} 
 .profile1_ul_div{float:right; display:inline-block; margin-top: 30px; width: 63%; position: relative; left: 43px;}
 .profile_img_div{ float:left; display:inline-block;}
 .pro2_div > .pro_font_g {color:rgb(24, 90, 142); padding-left : 50px; clear: both; padding-top: 50px;}
 .Bp1, .Bp2, .Bp4, .Bp5, .Bp6, .Bp7, .Bp8{padding-left: 30px;}
 .Bp3{padding-left: 47px;}
 .Cp1, .Cp2, .Cp4, .Cp5, .Cp6{padding-left: 30px;}
-.Cp3{    padding-left: 17px;}
+.Cp3{ padding-left: 17px;}
 #intro{display: inline-block; position: relative;font-weight: bold; top: -58px;}
-.pro1_div2{    padding-top: 10px;
-    padding-left: 13px;}
+.pro1_div2{ padding-top: 10px; padding-left: 13px;}
+a{color:#3e3c3c;}
+.hrdiv{text-align:cneter; margin-bottom:20px;}
+.hrp{background: black;width: 900px; height: 1px; padding: 0px;}
+.space{margin-top: 180px;}

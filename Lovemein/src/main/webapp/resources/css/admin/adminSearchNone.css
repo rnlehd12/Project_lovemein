@@ -1,0 +1,8 @@
+@charset "UTF-8";
+.searchNoneBox{text-align: center; margin:200px 0px 200px 0px;}
+.listBack{    font-size: 37px;width: 350px;display: inline-block;
+    background: #2980B9;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;cursor:pointer;}
+.searchNone{    margin-bottom: 30px;font-size: 65px; }

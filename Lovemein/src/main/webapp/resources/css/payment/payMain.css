@@ -27,3 +27,4 @@
 .charge_box{    text-align: center;margin-top: 30px;}
 .hitimg{width: 10%; z-index: 2; position: absolute; display: flex;top: 0px; left: -138px; color:#e64c75;}
 .hit{z-index: 1; left: 100px; top: -30px; position: relative;}
+.space{margin-top:100px;}

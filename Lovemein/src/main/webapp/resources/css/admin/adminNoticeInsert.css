@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+/*공지사항 추가 페이지*/
+.main{width:50%; margin: 0 auto;}
+table{border-collapse: collapse;}
+.listfont{color: #2980B9; margin: 100px 0px 25px 10px; width: 160px;
+    border-bottom: 1.5px solid #9E9E9E; padding-bottom: 10px;}
+.notice_box{ background:rgb(251, 251, 251); margin-bottom:150px;}
+.ptitle{margin-right: 100px;margin-top: 60px; }
+.ptitle, .psimg, .pimg, .ptext{font-size: 22px;
+    font-weight: bold;
+    color: #333333;    margin-left: 30px;
+    }
+.ptext{    position: absolute;
+    top: 435px;}
+input[type='text']{width: 300px;
+    height: 30px;margin-top: 30px;}
+.text_editor{    margin-top: 30px;}    
+input[type='submit']{
+    float: right;
+   margin: 20px 0px;
+    padding: 10px 15px;
+    border-radius: 3px;
+    border: 1px solid #dddd;
+}
+.space{margin-top: 180px;}

@@ -1,0 +1,33 @@
+@charset "UTF-8";
+/*신고검색결과페이지*/
+.main{width:50%; margin: 0 auto;}
+.listfont{color:#3e3c3c; margin: 100px 0px 25px 10px; width: 170px;
+    border-bottom: 3px solid rgb(24, 90, 142); padding-bottom: 10px;}
+.search{ float: right; margin-bottom: 20px;}
+select{padding: 4px 3px 7px 5px;}
+.search_text{    padding: 5.5px; vertical-align: bottom;}
+.search_bt{padding: 3.5px 8px 3.5px 8px;}
+.table{ width: 100%; text-align: center; border-collapse: collapse;}
+.title{background-color:#80808059;}
+tr > th {border:none}
+thead,td{border-bottom: 1px solid gray; }
+thead{border-top: 1px solid gray; font-size: 15px;}
+th{ padding: 7px;}
+td{padding: 5px;}
+/* .paging{text-align: center;margin-top: 30px;}
+.page{border: 1px solid rgb(244, 244, 244);; background: rgb(244, 244, 244);
+   	   color: #3e3e3e; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;}
+.page{border: 1px solid rgb(24, 90, 142); background: rgb(24, 90, 142);
+   	   color: white; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;}
+.pre_page, .next_page{border: 1px solid rgb(244, 244, 244);; background: rgb(244, 244, 244);
+   	   color: #3e3e3e; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;} */
+   	   .paging{text-align: center;margin-top: 30px;}
+.page{border: 1px solid rgb(24, 90, 142); background: rgb(24, 90, 142);
+   	   color: white; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;}
+.pre_page, .next_page{border: 1px solid rgb(244, 244, 244); background: rgb(244, 244, 244);
+   	   color: #3e3e3e; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;    display: inline-block;}
+   	   a{color:black;}
+.search_result{text-align:center;}
+.search_font{color:rgb(24, 90, 142);display: inline-block;}
+h2{    color: #3e3c3c;}
+.space{margin-top: 180px;}

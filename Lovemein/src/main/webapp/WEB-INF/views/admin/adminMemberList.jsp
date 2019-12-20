@@ -19,7 +19,7 @@ $(function(){
 		
 		var sel= $(".searchmenu").val();
 		
-		if(	sel == '가입날짜'){
+		if(	sel == 'join_date'){
 			$(".search_text").attr("type","date");
 			$('.search_text').css("display","inline-block");
 			$(".search_text").css("padding-top","7.5px");
@@ -27,7 +27,7 @@ $(function(){
 		
 
 		
-		}else if( sel == '닉네임'|sel == '이메일'){
+		}else if( sel == 'u_name'|sel == 'u_email'){
 			$(".search_text").attr("type","text");
 			$(".search_text").val("");				
 			$(".search_text").css("display","inline-block");
@@ -52,10 +52,10 @@ $(function(){
 <!-- 검색창 -->
 <div class="search">
 <form action="memberSearchList.do" method="post">
-<select class="searchmenu">
-     <option value="닉네임">닉네임</option>
-     <option value="이메일">이메일</option>
-     <option selected="selected" value="가입날짜">가입날짜</option>
+<select class="searchmenu" name="searchmenu">
+     <option value="u_name">닉네임</option>
+     <option value="u_email">이메일</option>
+     <option selected="selected" value="join_date">가입날짜</option>
 </select>
 
 <input class="search_text" type="date" name="search">
@@ -77,15 +77,14 @@ $(function(){
 
 <c:url var="mselect" value="memberSelect.do">
 	<c:param name="u_no" value="${ users.u_no }" />
-	<c:param name="page" value="${ requestScope.currentPage }"/>
 </c:url>
 
 
 <tr>
 <td><a href="${mselect}">${ users.u_no }</a></td>
-<td>${ users.u_name }</td>
-<td>${ users.u_email }</td>
-<td>${ users.join_date }</td>
+<td><a href="${mselect}">${ users.u_name }</a></td>
+<td><a href="${mselect}">${ users.u_email }</a></td>
+<td><a href="${mselect}">${ users.join_date }</a></td>
 </tr>
 </c:forEach>
 </table>
@@ -127,5 +126,7 @@ $(function(){
 
 
 </div><!-- //main -->
+<div class="space"></div>
+<c:import url="../common/footer.jsp"/>
 </body>
 </html>

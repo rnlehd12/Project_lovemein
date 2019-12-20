@@ -13,7 +13,7 @@ public class Users implements Serializable{
 	private String u_pw;
 	private String u_name;
 	private String u_phone;
-	private int coin;
+	private int u_coin;
 	private String u_billing;
 	private String u_intro;
 	private String u_profile;
@@ -21,7 +21,7 @@ public class Users implements Serializable{
 	
 	public Users() {}
 
-	public Users(String u_no, String u_email, String u_pw, String u_name, String u_phone, int coin, String u_billing,
+	public Users(String u_no, String u_email, String u_pw, String u_name, String u_phone, int u_coin, String u_billing,
 			String u_intro, String u_profile, Date join_date) {
 		super();
 		this.u_no = u_no;
@@ -29,7 +29,7 @@ public class Users implements Serializable{
 		this.u_pw = u_pw;
 		this.u_name = u_name;
 		this.u_phone = u_phone;
-		this.coin = coin;
+		this.u_coin = u_coin;
 		this.u_billing = u_billing;
 		this.u_intro = u_intro;
 		this.u_profile = u_profile;
@@ -76,12 +76,12 @@ public class Users implements Serializable{
 		this.u_phone = u_phone;
 	}
 
-	public int getCoin() {
-		return coin;
+	public int getU_coin() {
+		return u_coin;
 	}
 
-	public void setCoin(int coin) {
-		this.coin = coin;
+	public void setU_coin(int u_coin) {
+		this.u_coin = u_coin;
 	}
 
 	public String getU_billing() {
@@ -119,9 +119,11 @@ public class Users implements Serializable{
 	@Override
 	public String toString() {
 		return "Users [u_no=" + u_no + ", u_email=" + u_email + ", u_pw=" + u_pw + ", u_name=" + u_name + ", u_phone="
-				+ u_phone + ", coin=" + coin + ", u_billing=" + u_billing + ", u_intro=" + u_intro + ", u_profile="
+				+ u_phone + ", u_coin=" + u_coin + ", u_billing=" + u_billing + ", u_intro=" + u_intro + ", u_profile="
 				+ u_profile + ", join_date=" + join_date + "]";
 	}
+
+
 	
 	
 }

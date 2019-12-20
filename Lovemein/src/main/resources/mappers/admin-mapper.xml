@@ -6,46 +6,220 @@
 <!-- 관리자(admin) Mapper by 선혜 -->
 
 <!-- 회원관리 -->
+
+<!-- 회원수 가져오는 쿼리 -->
 <select id="memberListCount" resultType="int">
 select count(*) as count from users where u_no not like '1'
 </select>
-
+<!-- 전체 회원 정보가져오는 쿼리 -->
 <select id="memberList" parameterType="Hashmap" resultType="AllUsers">
-<![CDATA[
-select * 
-			from (select u_no, u_email,
+
+<!-- <![CDATA[
+  select * 
+			from (select rownum u_coin, u_no, u_email,
 					   u_name, join_date 					   
-				  from (select * from users where u_no not like '1' order by u_no asc))
-			where u_no not like '1' and u_no >= #{startRow} and u_no <= #{endRow} ORDER BY TO_NUMBER(U_NO)
-]]>
+				  from (select * from users))
+			where u_coin >= #{startRow} and u_coin <= #{endRow} ORDER BY TO_NUMBER(U_NO)
 
-
+			]]>  -->
+<![CDATA[
+select rownum u_coin, u_no, u_email, u_name, join_date 					   
+from  users
+where u_no not like '1'
+group by rownum , u_no, u_email, u_name, join_date 	
+having rownum >= #{startRow} and rownum <= #{endRow}
+ORDER BY u_coin
+]]> 
 </select>
-<select id="memberSearchListCount" parameterType="string" resultType="int">
+<!-- 검색한 회원 수 가져오는 쿼리 -->
+<select id="memberSearchListCount" parameterType="Hashmap" resultType="int">
   <![CDATA[
 select count(*) as count from users where u_no not like '1' and
-				  								u_name like '%'|| #{search} || '%' or
-				  								join_date like '%' || #{search} || '%' or
-				  								u_email like '%' || #{search} || '%'
+${searchmenu} like '%'|| #{search} || '%'			  							
 ]]>
 </select>
-<select id="memberSearcchList" parameterType="Hashmap" resultType="Allusers">
-  <![CDATA[
-select * 
-			from (select u_no, u_email,
-					   u_name, join_date 					   
-				  from (select * from users where u_no not like '1' and
-				  								u_name like '%' || #{search} || '%' or
-				  								join_date like '%' || #{search} || '%' or
-				  								u_email like '%'|| #{search} || '%'
-				  						 order by u_no asc))
-			where u_no not like '1' and u_no >= #{startRow} and u_no <= #{endRow}
-			 ORDER BY U_NO asc
-]]>
 
+<!-- 검색한 회원 정보 가져오는 쿼리 -->
+<select id="memberSearchList" parameterType="Hashmap" resultType="Allusers">
+<![CDATA[
+select rownum as u_coin, u_no, u_email, u_name, join_date 					 
+from users
+where ${searchmenu} like '%' || #{search} || '%' and u_no not like '1'
+group by rownum, u_no, u_email, u_name, join_date 
+having rownum >= #{startRow} and rownum <= #{endRow}
+ORDER BY u_coin asc
+]]>
 </select>
+
+<!-- 회원 상세정보 가져오는 쿼리 -->
+<select id="memberSelect" parameterType="string" resultType="Allusers">
+select * 
+from users u
+join addinfo a on a.u_no = u.u_no
+join primaryinfo p on p.u_no = u.u_no
+join style s on s.u_no = u.u_no
+join ideal i on i.u_no = u.u_no
+where u.u_no = #{u_no}
+</select>
+
+<!-- 상세정보에 있는 삭제버튼 누르면 처리되는 쿼리 -->
+<select id="memberDelete" parameterType="string" resultType="int">
+delete from users where u_no = #{u_no}
+</select>
+
+<!-- 회원정보 수정되는 쿼리  -->
+<update id="memberUpdate" parameterType="Users">
+UPDATE users
+<if test="u_profile != null">
+SET u_name = #{u_name}, u_coin = #{u_coin}, u_intro = #{u_intro}, u_profile = #{u_profile}
+</if>
+<if test='u_profile == null'>
+SET u_name = #{u_name}, u_coin = #{u_coin}, u_intro = #{u_intro}
+</if>
+WHERE u_no = #{u_no}
+</update>
 
 <!-- 공지사항 -->
-	
+<!-- 공지사항 전체정보 가져오는 쿼리 -->
+<select id="noticeList" resultType="Notice">
+select * from notice order by n_date desc
+</select>
+
+<!-- 공지사항 갯수가져오는 쿼리  -->
+<select id="noticeListCount" resultType="int">
+select count(*) as n_no from notice
+</select>
+
+<!-- 공지사항 상세정보 -->
+<select id="noticeSelect" parameterType="String" resultType="Notice">
+select * from notice where n_no=#{n_no}
+</select>
+
+<!-- 공지사항 수정 -->
+<select id="noticeUpdate" parameterType="Notice">
+UPDATE notice
+SET n_title = #{n_title}, n_text = #{n_text}, n_simg = #{n_simg}
+WHERE n_no = #{n_no}
+</select>
+
+<!--  공지사항 삭제 -->
+<select id="noticeDelete" parameterType="string" resultType="int">
+delete from notice where n_no = #{n_no}
+</select>
+
+<!--  공지사항추가 -->
+<select id="noticeInsert" parameterType="Notice" resultType="int">
+INSERT INTO notice VALUES(TO_CHAR(SEQ_N_NO.nextval), 'null',#{n_title}, '1' , #{n_text} ,SYSDATE, #{n_simg})
+</select>
+
 <!-- 신고관리 -->
+<select id="reportListCount" resultType="int">
+select count(*) as count from report
+</select>
+
+<!-- 신고리스트 -->
+<select id="reportList" parameterType="Hashmap" resultType="Report">
+<![CDATA[
+select rownum, r_no, r_text, r_date, u.u_name as r_send_uno, ur.u_name as r_rec_uno, r.r_yn
+from report r
+join users u on u.u_no = r.r_send_uno
+join users ur on ur.u_no = r.R_REC_UNO
+group by rownum, r_no, r_text, r_date, u.u_name , ur.u_name , r.r_yn
+having rownum >= #{startRow} and rownum <= #{endRow}
+order by rownum asc
+]]>
+</select>
+
+<!-- 신고상세보기 -->
+<select id="reportSelect" parameterType="Report" resultType="Report">
+select  r_rec_uno as u_no, r_no, r_text, r_date, u.u_name as r_send_uno, ur.u_name as r_rec_uno, r.r_yn as r_yn
+from report r
+join users u on u.u_no = r.r_send_uno
+join users ur on ur.u_no = r.R_REC_UNO
+where r_no = #{r_no}
+</select>
+
+<!-- 신고결과확인처리 -->
+<select id="reportResult" parameterType="Report" resultType="int">
+UPDATE report
+SET r_yn = 'Y'
+WHERE r_no = #{r_no}
+</select>
+
+<!-- 신고결과보기 -->
+<select id="reportYN" parameterType="string" resultType="Report">
+select r_yn from report where r_no = #{r_no}
+</select>
+
+<!-- 신고검색 카운트-->
+<select id="reportSearchListCount" parameterType="Hashmap" resultType="int">
+select count(*) from report r
+<if test="searchOption.equals('r_send_uno')">
+join users u on u.u_no = r.r_send_uno
+where u.u_name like '%' || #{searchResult} || '%'
+</if>
+<if test="searchOption.equals('r_rec_uno')">
+join users u on u.u_no = r.r_rec_uno
+where u.u_name like '%' || #{searchResult} || '%'
+</if>
+<if test="searchOption.equals('r_text')">
+where r.${searchOption} like '%' || #{searchResult} || '%'
+</if>
+<if test="searchOption.equals('r_yn')">
+where r.${searchOption} like '%' || #{searchResult} || '%'
+</if>
+<if test="searchOption.equals('r_date')">
+where r.${searchOption} like '%' || #{searchResult} || '%'
+</if>
+</select>
+
+<!--  신고검색리스트 -->
+<select id="reportSearchList" parameterType="Hashmap" resultType="Report">
+<![CDATA[
+select rownum, r_rec_uno as u_no, r_no, r_text, r_date, u.u_name as r_send_uno, ur.u_name as r_rec_uno, r.r_yn as r_yn 
+from report r
+join users u on u.u_no = r.r_send_uno
+join users ur on ur.u_no = r.R_REC_UNO
+]]>
+<if test="searchOption.equals('r_send_uno')">
+<![CDATA[
+where u.u_name like '%' || #{searchResult} || '%'
+group by rownum, r_rec_uno,r_no, r_text, r_date, u.u_name , ur.u_name , r.r_yn
+having rownum >= #{startRow} and rownum <= #{endRow}
+order by rownum asc
+]]>
+</if>
+<if test="searchOption.equals('r_rec_uno')">
+<![CDATA[
+where u.u_name like '%' || #{searchResult} || '%'
+group by rownum, r_rec_uno,r_no, r_text, r_date, u.u_name , ur.u_name , r.r_yn
+having rownum >= #{startRow} and rownum <= #{endRow}
+order by rownum asc
+]]>
+</if>
+<if test="searchOption.equals('r_text')">
+<![CDATA[
+where r.${searchOption} like '%' || #{searchResult} || '%'
+group by rownum, r_rec_uno,r_no, r_text, r_date, u.u_name , ur.u_name , r.r_yn
+having rownum >= #{startRow} and rownum <= #{endRow}
+order by rownum asc
+]]>
+</if>
+<if test="searchOption.equals('r_yn')">
+<![CDATA[
+where r.${searchOption} like '%' || #{searchResult} || '%'
+group by rownum, r_rec_uno,r_no, r_text, r_date, u.u_name , ur.u_name , r.r_yn
+having rownum >= #{startRow} and rownum <= #{endRow}
+order by rownum asc
+]]>
+</if>
+<if test="searchOption.equals('r_date')">
+<![CDATA[
+where r.${searchOption} like '%' || #{searchResult} || '%'
+group by rownum, r_rec_uno,r_no, r_text, r_date, u.u_name , ur.u_name , r.r_yn
+having rownum >= #{startRow} and rownum <= #{endRow}
+order by rownum asc
+]]>
+</if>
+</select>
 </mapper>

@@ -23,7 +23,7 @@ public interface PaymentService {
 	int paySuccess(Payment payment);
 	
 	//DB user테이블에 coin 정보추가
-	int paySuccess2(Payment payment);
+	int Insertcoin(Payment payment);
 
 	int userCoin(String u_no);
 

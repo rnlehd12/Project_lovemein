@@ -139,12 +139,22 @@ $(function(){
 	<a href="${bdt }">${board.board_title }</a>
 </c:if> --%>
 <c:forEach var="talkMission" items="${requestScope.list}">
-<tr onclick="location.href='adminMDetail.do?c_from_uno=${talkMission.c_from_uno}&c_to_uno=${talkMission.c_to_uno}'"><td>${talkMission.m_name}, ${talkMission.p_name}</td>
+<tr onclick="location.href='adminMDetail.do?c_from_uno=${talkMission.c_from_uno}&c_to_uno=${talkMission.c_to_uno}'">
+<td>${talkMission.m_name}, ${talkMission.p_name}</td>
 <%-- <tr onclick="location.href='adminMDetail.do?c_from_uno=${talkMission.c_from_uno}&c_to_uno=${talkMission.c_to_uno}&c_mission=${talkMission.c_mission}&m_con=${talkMission.m_con}&m_sta=${talkMission.m_sta}'"><td>${talkMission.m_name}, ${talkMission.p_name}</td> --%>
 <td>${talkMission.c_mission}</td>
 <td><img alt="" src="resources/images/mission/${talkMission.m_con}"></td>
 <td>${talkMission.m_date}</td>
-<td class="msta">${talkMission.m_sta}</td></tr>
+<c:if test="${talkMission.m_sta eq '성공'}">
+<td class="msta1">${talkMission.m_sta}</td>
+</c:if>
+<c:if test="${talkMission.m_sta eq '실패'}">
+<td class="msta2">${talkMission.m_sta}</td>
+</c:if>
+<c:if test="${talkMission.m_sta eq '미결'}">
+<td class="msta3">${talkMission.m_sta}</td>
+</c:if>
+</tr>
 </c:forEach>
 <!-- 임시 -->
 <!-- <tr><td><a href="#">보거미</a></td>

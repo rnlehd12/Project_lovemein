@@ -64,6 +64,7 @@
 
 
 </div><!-- //main -->
-
+<div class="space"></div>
+	<c:import url="../common/footer.jsp"/>
 </body>
 </html>

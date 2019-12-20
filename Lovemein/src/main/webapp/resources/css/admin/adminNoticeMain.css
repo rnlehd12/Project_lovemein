@@ -1,17 +1,32 @@
 @charset "UTF-8";
 /*관리자 공지사항 메인페이지*/
 
-.main {width: 50%;margin: 0 auto;}
+body {position:absolute;margin: 0px;overflow: scroll;}
+.insertdiv{margin:50px}
+.aaa{color: black;}
+.ntb{width:100%}
+.main {width: 50%;margin: 0 auto; }
+#maind{}
 .listfont{text-align: center;}
 .nt{  text-align:center;}
-.ntimg{width:80%;border: 1px solid;margin: 20px;}
-.nt_box{background-color: rgb(244, 144, 174);width:30%; margin-right: 5%;} 
+.ntimg{width:80%;border: 1px solid;margin: 20px;height: 150px; }
+.nt_box{background-color: rgb(244, 144, 174);width:28%; margin-right: 5%; display:inline-block;} 
 .text, .heart, .datep {margin:0px;}
-.textbox{padding: 0px 20px 20px 20px;}
+.textbox{padding: 0px 20px 20px 20px;text-overflow: ellipsis;}
 .datep{font-weight: bold; display: inline-block; }
 .heart{ display: inline-block; float: right; color:#e91e63; margin-right: 15px;}
-.ntbox_list{ display: inline-flex;}
+/* .ntbox_list{ display: inline-flex;} */
 .btbox{ text-align: center; margin-top: 50px;}
 .bt{ padding: 10px 45px; background: #FFC107;
     border: 1px; border-radius: 3px; font-weight: bold;}
-.insertbt{    padding: 10px 15px; border: 1px;border-radius: 3px; margin: 0px 40px 20px 0px; float: right;}
+.insertbt{    padding: 10px 15px; border: 1px;border-radius: 3px; margin: 50px 60px 20px 0px; float: right;}
+.ntbox_lists{  margin-top: 30px; clear:both;}
+.ntbox_lists2{  margin-top: 30px;width: 100%;}
+.ntbox_lists2 .nt_box{background-color: rgb(244, 144, 174);width:262px;     margin-right: 49px; display:inline-block;}  
+.space{margin-top: 80px;}
+.text{
+    height: 24px;
+    width: 100%;
+     overflow: hidden;
+     white-space:nowrap;
+     text-overflow: ellipsis;}

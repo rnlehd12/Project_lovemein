@@ -12,3 +12,4 @@ td{text-align: center;font-size: 25px; font-weight: bold;}
 .tdmission > .mission_div > img {    margin-top: 15px;}
 .tdmission> .mission_div > p {    margin-top: 15px;}
 .user_div, .notice_div, .mission_div, .report_div{cursor:pointer;}
+.space{margin-top: 180px;}

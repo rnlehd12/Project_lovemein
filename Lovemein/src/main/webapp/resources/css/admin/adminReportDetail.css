@@ -1,0 +1,32 @@
+@charset "UTF-8";
+/*body*/
+.main{width:50%; margin: 0 auto;}
+.listfont{color:rgb(24, 90, 142); margin: 100px 0px 25px 10px; width: 175px;
+    border-bottom: 1.5px solid #9E9E9E; padding-bottom: 10px;}
+.report_detail{ background:rgb(251, 251, 251); margin-bottom:60px;}    
+li{list-style:none;height: 35px;    color: #2c3e50;}
+a{    text-decoration: none;
+    color: black;}
+p{color: #2c3e50;}
+.headerul{padding: 40px; margin-top: 115px;}
+.confirm_bt{float: right; padding: 8px 15px; background: #2980b9;border: 1px solid #2980b9;
+  			border-radius: 2px; color: white; font-weight: bold;}
+.confirm_bt2{float: right; padding: 8px 15px; background:  white;border: 1px solid black;
+  			border-radius: 2px; color: black; font-weight: bold;}	
+.name, .unum, .date{display: flex;}
+.pname{padding-right: 60px;font-weight: bold;}
+.punum{padding-right: 23px;font-weight: bold;}
+.pdate{padding-right: 77px;font-weight: bold;}
+.ptext{padding-top: 15px;font-weight: bold;}
+.text{margin-bottom: 50px;}
+.outbt{border: 1px solid #e0e0e0;background: #e0e0e0;padding: 5px 10px;
+    font-weight: bold; border-radius: 3px;margin-left: 10px;}
+.report_list{border: 1px solid #e0e0e0;
+    padding: 10px;
+    border-radius: 3px;
+    background: #e0e0e0;
+    font-weight: bold;
+    color: #2b2b2b;
+}
+.report_div{    text-align: center;}
+.space{margin-top: 180px;}

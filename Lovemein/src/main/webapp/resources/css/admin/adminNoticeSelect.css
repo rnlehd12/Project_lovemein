@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+/*공지사항 상세보기*/
+.main { width: 50%; margin: 0 auto;}
+li { list-style: none; }
+.nname { font-size: 20px; font-weight: bold; margin: 0px; display: inline-block; margin-left: 10px; }
+.btbt { float: right; margin-top: 20px; }
+button { border: 0px solid; background: #e8e8e8; padding: 5px 7px; padding: 10px 15px; 
+		border-radius: 3px; color:#404040; }
+.ptitle { font-size: 30px;	font-weight: bold;	margin: 140px 0px 8px 0px;}
+.iconimg {width: 5%;margin-top: 20px; }
+.nname_li {	border-top: 1px solid;}
+.date {margin-bottom: 8px;float: right;margin-right: 20px;}
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%; /* Could be more or less, depending on screen size */
+}
+/* The Close Button */
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* The Modal (background) */
+.modal, .modalu {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+	background-color: #ededed;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 300px;
+	height: 142px; /* Could be more or less, depending on screen size */
+}
+
+/*모달창 버튼 묶는 div*/
+.pop_btbt {
+	cursor: pointer;
+	text-align: center;
+	padding-top: 20px;
+}
+/*모달창 버튼*/
+.pop_bt1 {
+	width: 133px;
+	height: 35px;
+	display: inline-block;
+	font-size: 13pt;
+	background: #bebebe;
+	color: white;
+	padding-top: 10px;
+	border-radius: 4px;
+}
+
+.pop_bt2 {
+	width: 133px;
+	height: 35px;
+	display: inline-block;
+	font-size: 13pt;
+	background: #e64c75;
+	color: white;
+	padding-top: 10px;
+	border-radius: 4px;
+	}
+.pop_bt2_a{    text-decoration: none;color: white;}
+.delp {text-align: center;    padding-top: 25px;}
+.ntimg{border-bottom: 1px solid; width:100%;}
+.backbt{ margin: 70px; padding: 10px 30px; font-size: 25px;background: #e64c75;color: white;}
+.backbt_div{text-align:center; width:112%;}
+.ah{color: white;}
+.space{margin-top: 180px;}
+.ntimg > img { 
+    width: 100%; !important}

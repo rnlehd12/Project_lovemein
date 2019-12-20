@@ -20,11 +20,18 @@
 
 <!-- 수정|삭제버튼-->
 <div class="btbt">
+
 <c:url var="mselect" value="memberDelete.do">
-	<c:param name="u_no" value="${ u_no }" />
+	<c:param name="u_no" value="${ requestScope.member.u_no }" />
 </c:url>
-<a href="${mselect }"class="bt">삭제</a>
-<a class="bt">수정</a>
+<c:url var="mupdate" value="memberUpdate.do">
+	<c:param name="u_no" value="${ requestScope.member.u_no }" />
+	<c:param name="u_name" value="${ requestScope.member.u_name }" />
+	<c:param name="u_coin" value="${ requestScope.member.u_coin }" />
+	<c:param name="u_intro" value="${ requestScope.member.u_intro }" />
+</c:url>
+<a href="${ mselect }"class="bt">삭제</a>
+<a href="${ mupdate }" class="bt">수정</a>
 <!-- //수정|삭제버튼 -->
 </div>
 <!-- 회원상세정보-->
@@ -35,30 +42,34 @@
 	<div class="pro1_div2">
 	
 	<div class="profile_img_div">
-	<img class="profile_img">
+	<c:if test="${ empty requestScope.member.u_profile || requestScope.member.u_profile eq 'null' }">
+	<img class="profile_img"src="resources/images/admin/member/icon.png">
+	</c:if>
+	<c:if test="${ !empty requestScope.member.u_profile }">
+	<img class="profile_img"src="resources/images/admin/member/${ requestScope.member.u_profile }">
+	</c:if>
 	</div><!-- //img div -->
 	
 	<div class="profile1_ul_div">
 	
 	<ul class="profile1_ul">
 	<li>email
-		<p class="Ap1">lovemein@gmail.com</p>
+		<p class="Ap1">${ requestScope.member.u_email }</p>
 	</li> 
 	<li>닉네임
-		<p class="Ap2">럽미인</p>
+		<p class="Ap2">${ requestScope.member.u_name }</p>
 	</li>
 	<li>성별
-		<p class="Ap3">여자</p>
+		<p class="Ap3">${ requestScope.member.u_gender }</p>
 	</li>
 	<li>전화번호
-		<p class="Ap4">010-1234-4567</p>
+		<p class="Ap4">${ requestScope.member.u_phone }</p>
 	</li>
 	<li>푸딩
-		<p class="Ap5">9999</p>
+		<p class="Ap5">${ requestScope.member.u_coin }</p>
 	</li>
 	<li><p id="intro">소개</p>
-		<div class="Ap6"><p>안냥하세요 럽미인 관리자 럽미인입니당
-		안냥하세요 럽미인 관리자 럽미인입니당안냥하세요 럽미인 관리자 럽미인입니당</p></div>
+		<div class="Ap6"><p>${ requestScope.member.u_intro }</p></div>
 	</li>
 	</ul>
 
@@ -72,37 +83,37 @@
 <div class="pro2_div">
 <h3 class="pro_font_g">기본정보</h3>
 <div class="profile1">
-	<ul>
+	<ul style="padding:40px">
 		<li>생일
-			<p class="Bp1">19.12.24</p>
+			<p class="Bp1">${ requestScope.member.u_birth }</p>
 		</li>
 		<li>지역
-			<p class="Bp2">서울</p>
+			<p class="Bp2">${ requestScope.member.u_loc }</p>
 		</li>
 		<li>키
-			<p class="Bp3">192</p>
+			<p class="Bp3">${ requestScope.member.u_height }</p>
 		</li>
 		<li>체형
-			<p class="Bp4">통통</p>
+			<p class="Bp4">${ requestScope.member.u_weight }</p>
 		</li>
 	</ul>
 </div>
 <div class="profile2">
-	<ul>
+	<ul style="padding:40px">
 		<li>직장
-		<p class="Bp5">럽미인</p>
+		<p class="Bp5">${ requestScope.member.u_job }</p>
 		</li>
 		
 		<li>직업
-		<p class="Bp6">개발자</p>		
+		<p class="Bp6">${ requestScope.member.u_weight }</p>		
 		</li>
 		
 		<li>학력
-		<p class="Bp7">4년제 대졸</p>	
+		<p class="Bp7">${ requestScope.member. u_edu }</p>	
 		</li>
 		
 		<li>학교
-		<p class="Bp8">사랑대학교</p>	
+		<p class="Bp8">${ requestScope.member.u_shcool }</p>	
 		</li>
 	</ul>
 </div>
@@ -110,101 +121,82 @@
 
 </div>
 <!-- //2 -->
-<hr>
+
 <!-- 3.추가정보 -->
 <div class="pro2_div">
+<div class="hrdiv" style="text-align:center"><p class="hrp"></p></div>
 <h3 class="pro_font">추가정보</h3>
 <div class="profile1">
-	<ul>
+	<ul style="padding:40px">
 		<li>성격
-			<p class="Cp1">도발적인</p>
+			<p class="Cp1">${ requestScope.member.u_char }</p>
 		</li>
 		
 		<li>음주
-			<p class="Cp2">자주</p>
+			<p class="Cp2">${ requestScope.member.u_drinking }</p>
 		</li>
 		<li>혈액형
-			<p class="Cp3">AB형</p>
+			<p class="Cp3">${ requestScope.member.u_blood }</p>
 		</li>
 		
 	</ul>
 </div>
 <div class="profile2">
-	<ul>
+	<ul style="padding:40px" >
 		<li>종교
-			<p class="Cp4">힌두교</p>
+			<p class="Cp4">${ requestScope.member.u_rei }</p>
 		</li>
 		<li>흡연
-			<p class="Cp5">자주</p>
+			<p class="Cp5">${ requestScope.member.u_smoking }</p>
 		</li>
-		<li>인종
-			<p class="Cp6">한국인</p>
-		</li>
-		
+	
 	</ul>
 </div>
 </div>
+
 <!-- //추가정보 -->
-<hr>
+<div class="hrdiv" style="text-align:center"><p class="hrp"></p></div>
+
 <!-- 4.스타일정보 -->
 <h3 class="pro_font">스타일정보</h3>
 <div class="pro4_div">
-	<ul>
-		
+	<ul>		
 		<li>매력포인트
 			<ul class="style1">
-				<li>허세없어요</li>
-				<li>경제력</li>
-				<li>뭐든 잘먹어요</li>
-				<li>긍정적마인드</li>
-				<li>보조개</li>
+				<li>${ requestScope.member.s_appeal }</li>				
 			</ul>	
 		</li>
 		
 		<li>이상형
 			<ul class="style2">
-				<li>표현을 잘하는 사람</li>
-				<li>예의 바른 사람</li>
+				<li>지역 : ${ requestScope.member.i_loc }</li>
+				<li>나이 : ${ requestScope.member.i_age }</li>
+				<li>학력 : ${ requestScope.member.i_edu }</li>
+				<li>키 : ${ requestScope.member.i_weight }</li>
+				<li>체형 : ${ requestScope.member.i_weight }</li>				
 			</ul>
 		</li>
 		
 		<li>관심사
 			<ul class="style3">
-				<li>그림 그리기</li>
-				<li>노래</li>
-				<li>글 쓰기</li>
-				<li>커피</li>
-				<li>IT</li>
+				<li>${ requestScope.member.s_inter }</li>
+				
 			</ul>
 		</li>
 		
 		<li>데이트스타일
 			<ul class="style4">
-				<li>영화보기</li>
-				<li>노래방가기</li>
-				<li>도서관가기</li>
-				<li>카페가기</li>
-				<li>쇼핑하기</li>
+				<li>${ requestScope.member.s_ds }</li>		
 			</ul>
 		
 		</li>
 		
 		<li class="life_li">라이프스타일
 			<ul class="style5">
-				<li>아침형 인간</li>
-				<li>1인가구</li>
-				<li>자녀가있어요</li>
-				<li>돌싱이에요</li>
-				<li>야깅</li>
+				<li>${ requestScope.member.s_ls }</li>		
 			</ul>
-		
-		
 		</li>		
 	</ul>
-	
-	
-	
-	
 </div>
 <!-- //4-->
 
@@ -215,5 +207,7 @@
 
 
 </div><!-- //main -->
+<div class="space"></div>
+<c:import url="../common/footer.jsp"/>
 </body>
 </html>

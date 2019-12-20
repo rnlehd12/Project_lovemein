@@ -48,6 +48,7 @@ public class PaymentController {
 	@RequestMapping("payList.do")
 	public ModelAndView payListMethod(@RequestParam("u_no")String u_no,@RequestParam(name="page", required=false) String page,  ModelAndView mv) {
 	
+
 	/*	
 	 * 결제목록불러오는
 	 * List<Payment> list = paymentService.payList(u_no);
@@ -110,7 +111,7 @@ public class PaymentController {
 			mv.setViewName("payment/payList");
 		}else {
 			mv.addObject("message", currentPage + "페이지 목록 조회 실패!");
-			mv.setViewName("common/error");
+			mv.setViewName("payment/paymentNone");
 		}
 		
 		return mv;

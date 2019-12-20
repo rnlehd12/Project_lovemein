@@ -16,7 +16,7 @@ public interface AdminService {
 	List<AllUsers>memberList(HashMap<String, Object> map);
 	AllUsers memberSelect(String u_no);
 	int memberUpdate(Users users);
-	int memberSearchListCount(String search);
+	int memberSearchListCount(HashMap<String, Object> mmap);
 	List<AllUsers>memberSearchList(HashMap<String, Object> map);
 	int memberDelete(String u_no);
 	
@@ -24,17 +24,20 @@ public interface AdminService {
 	/*공지사항*/
 	
 	List<Notice> noticeList();
-	int noticeSelect (String n_no);
+	int noticeListCount();
+	Notice noticeSelect (String n_no);
 	int noticeInsert (Notice notice);
 	int noticeUpdate(Notice notice);
 	int noticeDelete(String n_no);
-	
 	/*신고관리*/
 	
 	int reportListCount();
 	List<Report>reportList (HashMap<String, Object> map);
 	Report reportSelect (Report report);
 	int reportResult (Report report);
-	int reportSearchListCount(Report report);
-	List<Report>reportSearcchList (HashMap<String, Object> map);
+	int reportSearchListCount(HashMap<String, Object> map);
+	List<Report>reportSearchList (HashMap<String, Object> rmap);
+	List<Report> reportYN(String r_no);
+	
+	
 }

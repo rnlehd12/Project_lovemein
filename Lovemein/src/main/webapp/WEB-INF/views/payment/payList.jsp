@@ -18,7 +18,7 @@
 
 
 <!-- 타이틀 -->
-<h2 class="listfont">${loginMember.u_name}의 결제내역  ${ listCount } 건</h2>
+<h2 class="listfont">${loginMember.u_name }님의 결제내역  ${ listCount } 건</h2>
 <!-- //타이틀 -->
 
 <!-- 결제내역 -->
@@ -63,7 +63,7 @@
 	<c:if test="${p eq requestScope.currentPage }">		
 		<font><b class="page">${ p }</b></font>
 	</c:if>
-	<c:if test="${p ne requestScope.currentPage }"><a href="payList.do?page=${ p }&u_no=${loginMember.u_no}"><p class="pre_page" stype="margin:0px 2px 0px 2px">${ p }</p></a></c:if>
+	<c:if test="${p ne requestScope.currentPage }"><a href="payList.do?page=${ p }&u_no=${loginMember.u_no}"><p class="pre_page" style="margin:0px 2px 0px 2px">${ p }</p></a></c:if>
 </c:forEach>
 <!-- 다음 페이지 -->
 <c:if test="${(currentPage + 10) gt endPage and (currentPage + 10) lt maxPage }">

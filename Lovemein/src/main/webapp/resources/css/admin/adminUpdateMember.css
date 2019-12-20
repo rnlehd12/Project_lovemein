@@ -1,0 +1,57 @@
+@charset "UTF-8";
+/*회원상세보기 */
+.main{width:50%; margin: 0 auto;}
+.listfont{color:rgb(24, 90, 142); margin: 100px 0px 25px 10px; width: 190px;
+    border-bottom: 1.5px solid #9E9E9E; padding-bottom: 10px;}
+.btbt{margin-bottom:70px;}
+.bt{border: 1px solid #f0f0f0; padding: 3px 5px 3px 5px; background: #f0f0f0;
+	border-radius: 2px; float:right;margin: 3px;}
+.member_detail{ background:rgb(251, 251, 251); margin-bottom:150px;}
+.pro1_div{margin-bottom: 30px;} 
+.profile_img{ width:220px; height:240px; padding: 60px 0px 0px 55px;}
+.profile1_ul{padding: 30px 100px 0px 0px;margin-left: 50px;}
+li{ list-style:none;} 
+.profile1_ul > li {padding: 3px; font-weight: bold; color: #333333; }
+.profile1{width:50%; float:left;}
+.profile2{width:50%; float:right;}
+.pro_font{color:rgb(24, 90, 142); padding-left : 50px; clear: both;}
+.profile1 > ul > li{padding: 0px 0px 10px 10px; font-weight: bold; color: #333333; }
+.profile2 > ul > li{padding: 0px 0px 10px 10px; font-weight: bold; color: #333333;}
+.pro4_div > ul > li {    padding: 0px 0px 20px 10px; font-weight: bold; color: #333333;}
+.life_li{ margin-bottom: 20px;}
+hr{width:90%}
+.style1{ display: inline-flex; margin-left: 18px;}
+.style1 > li{background: #808080b3; padding: 3px; border-radius: 3px;margin-right: 3px;}
+.style2{display: inline-flex;margin-left: 50px;}
+.style2 > li{background: #808080b3; padding: 3px; border-radius: 3px;margin-right: 3px;}
+.style3{display: inline-flex;margin-left: 50px;}
+.style3 > li{background: #808080b3; padding: 3px; border-radius: 3px;margin-right: 3px;}
+.style4{display: inline-flex;}
+.style4 > li{background: #808080b3; padding: 3px; border-radius: 3px;margin-right: 3px;}
+.style5{display: inline-flex;}
+.style5 > li{background: #808080b3; padding: 3px; border-radius: 3px;margin-right: 3px;}
+.pro4_div{padding-bottom: 5px;}
+p {display: inline-block;    margin: 0;
+    padding: 2px;    font-weight: normal;} 
+.Ap1{padding-left: 40px;}    
+.Ap2{    padding-left: 32px; color : #185A82; }
+.Ap3{    padding-left: 48px;}
+.Ap4{padding-left: 17px;}
+.Ap5{padding-left: 49px;}
+.Ap6{    padding-left: 48px; display: inline-block;height: 80px; width: 52%;} 
+/*디폴트정h*/
+.profile1_ul_div{float:right; display:inline-block; margin-top: 30px; width: 63%; left: 43px;}
+.profile_img_div{ float:left; display:inline-block;}
+.pro2_div > .pro_font_g {color:rgb(24, 90, 142); padding-left : 50px; clear: both; padding-top: 50px;}
+.Bp1, .Bp2, .Bp4, .Bp5, .Bp6, .Bp7, .Bp8{padding-left: 30px;}
+.Bp3{padding-left: 47px;}
+.Cp1, .Cp2, .Cp4, .Cp5, .Cp6{padding-left: 30px;}
+.Cp3{    padding-left: 17px;}
+#intro{display: inline-block; position: relative;font-weight: bold; top: -18px;}
+.pro1_div2{    padding-top: 10px; padding-left: 13px;}
+a{color:#3e3c3c;}
+.imgfile{margin-left:80px;margin-top:20px;}
+.coin{    margin-left: 48px;}
+.nname_text{margin-left:30px;}
+.space{margin-top: 180px;}
+.intro_area{    width: 185px;height: 50px;}

@@ -354,7 +354,7 @@ App
 }
 #myMi_table table tr:hover > td{
 	font-weight: bold;
-	color : rgb(41, 128, 185);
+	color : black;/* rgb(41, 128, 185); */
 	font-size: 1.1em;
 }
 #myMi_table table td{
@@ -373,6 +373,21 @@ App
 	width:60px;
 	height:60px;
 	border-radius: 2px;
+}
+#myMi_table table .msta1{
+	font-weight: bold;
+	color:  rgb(230, 76, 117);
+/* 	rgb(41, 128, 185); */
+}
+#myMi_table table .msta2{
+	font-weight: bold;
+	color:  rgb(41, 128, 185);
+/* 	rgb(41, 128, 185); */
+}
+#myMi_table table .msta3{
+	font-weight: bold;
+	color:  gray;
+/* 	rgb(41, 128, 185); */
 }
 table .m1 {
 	width: 15%;

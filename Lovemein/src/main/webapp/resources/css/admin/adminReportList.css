@@ -14,15 +14,22 @@ thead,td{border-bottom: 1px solid gray; }
 thead{border-top: 1px solid gray; font-size: 15px;}
 th{ padding: 7px;}
 td{padding: 5px;}
-.paging{text-align: center;margin-top: 30px;}
+/* .paging{text-align: center;margin-top: 30px;}
 .page{border: 1px solid rgb(244, 244, 244);; background: rgb(244, 244, 244);
    	   color: #3e3e3e; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;}
 .page{border: 1px solid rgb(24, 90, 142); background: rgb(24, 90, 142);
    	   color: white; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;}
 .pre_page, .next_page{border: 1px solid rgb(244, 244, 244);; background: rgb(244, 244, 244);
-   	   color: #3e3e3e; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;}
-.pp{display: inline-block;margin-bottom:0px; margin-top:0px;    margin-right: 4px;}
+   	   color: #3e3e3e; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;}*/
+.pp{display: inline-block;margin-bottom:0px; margin-top:0px;    margin-right: 4px;} 
 input[type='date']{padding: 3px; width:174px;}
 input[type='checkbox']{transform: scale(1.5);}
 .chbox{    width: 184px;}
 div > .chbox{margin:0px; text-align: center;}
+.paging{text-align: center;margin-top: 30px;}
+.page{border: 1px solid rgb(24, 90, 142); background: rgb(24, 90, 142);
+   	   color: white; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;}
+.pre_page, .next_page{border: 1px solid rgb(244, 244, 244); background: rgb(244, 244, 244);
+   	   color: #3e3e3e; padding: 3px 10px 3px 10px; border-radius: 6px;font-weight: bold;    display: inline-block;}
+a{color:black;}
+.space{margin-top: 180px;}

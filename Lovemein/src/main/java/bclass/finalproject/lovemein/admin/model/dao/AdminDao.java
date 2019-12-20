@@ -40,14 +40,14 @@ public class AdminDao {
 		return sqlSession.update("adminMapper.memberUpdate", users);
 	}
 
-	public int memberSearchListCount(String search) {
+	public int memberSearchListCount(HashMap<String, Object> mmap) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("adminMapper.memberSearchListCount",search);
+		return sqlSession.selectOne("adminMapper.memberSearchListCount",mmap);
 	}
 	
-	public List<AllUsers> memberSearcchList (HashMap<String, Object> map){
+	public List<AllUsers> memberSearchList (HashMap<String, Object> map){
 		
-		return sqlSession.selectList("adminMapper.memberSearcchList", map);
+		return sqlSession.selectList("adminMapper.memberSearchList", map);
 	}
 
 	public int memberDelete(String u_no) {
@@ -61,14 +61,14 @@ public class AdminDao {
 		return sqlSession.selectList("adminMapper.noticeList");
 	}
 
-	public int noticeSelect(String n_no) {
+	public Notice noticeSelect(String n_no) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("adminMapper.noticeSelect", n_no);
 	}
 
 	public int notceInsert(Notice notice) {
 		// TODO Auto-generated method stub
-		return sqlSession.insert("adminMapper.notceInsert", notice);
+		return sqlSession.insert("adminMapper.noticeInsert", notice);
 	}
 
 	public int noticeUpdate(Notice notice) {
@@ -81,9 +81,11 @@ public class AdminDao {
 		return sqlSession.delete("adminMapper.noticeDelete", n_no);
 	}
 
+	public int noticeListCount() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("adminMapper.noticeListCount");
+	}
 
-	
-	
 	/*신고관리*/
 	
 	public int reportListCount() {
@@ -103,17 +105,22 @@ public class AdminDao {
 
 	public int reportResult(Report report) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("adminMapper.reportResult", report);
+		return sqlSession.update("adminMapper.reportResult", report);
 	}
 
-	public int reportSearcgListCount(Report report) {
+	public int reportSearchListCount(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("adminMappder.reportSearcgListCount", report);
+		return sqlSession.selectOne("adminMapper.reportSearchListCount", map);
 	}
 
-	public List<Report> reportSearcchList(HashMap<String, Object> map) {
+	public List<Report> reportSearchList(HashMap<String, Object> rmap) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("adminMappder.reportSearcchList",map);
+		return sqlSession.selectList("adminMapper.reportSearchList", rmap);
+	}
+
+	public  List<Report> reportYN(String r_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("adminMapper.reportYN", r_no);
 	}
 	
 	

@@ -49,8 +49,8 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 	
 	@Override
-	public int paySuccess2(Payment payment) {
-		return paymentDao.paySuccess2(payment);
+	public int Insertcoin(Payment payment) {
+		return paymentDao.Insertcoin(payment);
 	}
 	
 	@Override
