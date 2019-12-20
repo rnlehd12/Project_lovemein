@@ -12,6 +12,7 @@
 <link href="resources/css/common/common.css" rel="stylesheet">
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="resources/js/sockjs.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- <script src="http://cdn.jsdeliver.net/sockjs/1/sockjs.min.js"></script> -->
 <script type="text/javascript">
 /* 이미지변환 */
@@ -23,12 +24,13 @@ function hover(e){
 function unhover(e){
 		e.setAttribute('src','resources/images/talk/r3.jpg');
 }
-/* 모달	 */
+
+/* 기본view 모달	 */
 $(document).ready(function(){
-	
+	/* swal("Hello world!"); */
 		//미션틀릭시 모달팝업동작
 		$(".missbt").on("click", function(){
-			alert("클릭됨");
+			//alert("클릭됨");
 			$(".modal").css("display", "block");
 			/* $("#mission_modal").show(); */
 		}); 
@@ -71,38 +73,64 @@ $(document).ready(function(){
 	 				var img = $(this).siblings('.upload-display').find('img'); 
 	 				img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")"; 
 	 				}
-	 	});
+	 	}); // 	 	//모달파일 preview image 보이기	
 
-	 	/* imgTarget.on("change", function(){
-	 		var parent =$(this).parent();
-	 		if(window.FileReader){
-	 			//이미지파일만
-	 			if(!$(this)[0].files[0].type.match(/image\//)) return;
-	 			var reader = new FileReader();
-	 			reader.onload = function(e){
-	 				var src = e.target.result;
-	 				alert(src);
-	 				parent.prepend("<div class='upload-display'>"+
-	 						"<div class='upload-thumb-wrap'<img src='"+src+"'"+
-	 						"class='upload-thumb'></div></div>");
-	 			}
-	 			reader.readAsDataURL($(this)[0].files[0]);
-	 		} else {
-	 			$(this)[0].select();
-	 			$(this)[0].blur();
-	 			var imgSrc = document.selection.creatRange().text;
-	 			parent.prepend("<div class='upload-display'><div class='upload-thumb-wrap'>"+
-	 					"<img class='upload-thumb'></div></div>");  
-	 			
-	 			var img = $(this).siblings(".upload-display").find("img");
-	 			img[0].style.filter = "progid:DXImageTransfrom.Microsoft.AlphaImageLoader"+
-	 			"(enable='true', sizingMethod='scale', src=\""+imgSrc+"\")";
-	 			
-	 		}
-	 		
-	 	}) */// 모달파일 preview image 보이기 끝
-	 	
-});//모달docu
+});//모달 기본docu
+
+
+//미션업로드
+function insertMFunc(){
+	
+	var form = $('#insertMForm')[0];
+
+    // FormData 객체 생성
+    var formData = new FormData(form);
+
+    // 코드로 동적으로 데이터 추가 가능.
+//                formData.append("userId", "testUser!");
+
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "insertMission.do",
+        data: formData,
+        processData: false,
+        contentType: false,
+        cache: false,
+        //timeout: 600000,
+        success: function (data) {
+        	if(data == "success") {
+        		swal("미션 SUCCESS!", "미션내역을 통해 확인할 수 있습니다!", "success");
+        		$(".upload-display").remove();
+         		$("#insertMForm")[0].reset();  
+        		$(".modal").css("display", "none");
+        		
+        	} else {
+        		swal("미션 FAIL!", "이미 업로드된 미션이 있습니다!", "error");
+        		$(".upload-display").remove();
+        		$("#insertMForm")[0].reset(); 
+        		$(".modal").css("display", "none");
+        	}
+        },
+        error : function(request, status, errorData){
+			console.log("error code : " + request.status 
+					+ "\nMessage : " + request.responseText
+					+ "\nError : " + errorData);
+		}
+    });
+}
+//스크롤 설정
+$(document).ready(function(){
+	  $("#talkTextArea").scrollTop($("#talkTextArea")[0].scrollHeight);
+});
+
+//이전채팅
+/* $(document).ready(function(){
+	$.ajax({
+		
+		
+	});
+} */
 
 /* 소켓 */
 $(document).ready(function(){
@@ -112,7 +140,10 @@ $(document).ready(function(){
 	$("#inputBtn").click(function(){
 		send();
 	});
-	//keypress, 엔터처리
+	/* $('#enterBtn').click(function() { connect(); }); 
+	$('#exitBtn').click(function() { disconnect(); }); */
+	 
+	//keypress, 엔터처리 //빈칸처리안됨
 	 $('#textInput').keypress(function(event){
   	 	var keycode = (event.keyCode ? event.keyCode : event.which);
    		if(keycode == '13'){
@@ -122,7 +153,7 @@ $(document).ready(function(){
   	});
 });// inputbtn click
 
-//연결
+//소켓연결
 function connect(){
 	sock = new SockJS('<c:url value="/talk"/>');
 	sock.onopen = function(){ //열림메시지
@@ -132,45 +163,102 @@ function connect(){
 	
 	sock.onmessage = function(msg) { 	//받은메시지 처리
 	 	var msgdata =  msg.data;
-		alert("onmessage() msgdata : " + msgdata);
+		//alert("onmessage() msgdata : " + msgdata);
 		var msgJson = JSON.parse(msgdata);	 
-		alert("onmessage() msgJson : " + msgJson);
+		//alert("onmessage() msgJson : " + msgJson);
 		//alert(msg);
-		appendMessage(msgJson);
+		appendMessage(msgJson.t_con, msgJson.t_from_uno);
+/* 		appendMessage(msgJson); */
+		 $("#talkTextArea").scrollTop($("#talkTextArea")[0].scrollHeight);
 	}
 	sock.onclose = function() { //닫음메시지
-		//appendMessage("서버종료");
+		appendMessage("소켓연결종료");
 		console.log("talk.jsp socket close.");
 		
 	}
-}// socket connect
+}// socket connect 소켓연결 func
 
+//소켓 메시지 전송 func
 function send(){
 	console.log($("#textInput").val());
-	alert("send() : " + $("#textInput").val());
-	sock.send(JSON.stringify($("#textInput").val()));
-	//sock.send("test");
-	//var msg = $("#textInput").val();
-	/* if(msg != "") {
-	talk = {};
-	message.message_
-	}
-	 */
+	///alert("send() : " + $("#textInput").val());
+	var msg = $("#textInput").val();
+	/* var d = getTimeStamp();
+	alert(d); */
+ 	if(msg != ""){
+	  talk = {};
+	  talk.c_no = '${chat.c_no}'
+	  talk.t_from_uno = '${loginMember.u_no}'
+	  talk.t_to_uno ='${talkPartner.p_no}'
+	  talk.t_con =  $("#textInput").val()
+	} 
+	 
+	//sock.send(JSON.stringify($("#textInput").val()));
+	sock.send(JSON.stringify(talk));
 	$("#textInput").val("");
 	$("#textInput").focus();
 } // send func 
 
-function appendMessage(msg){
-	if(msg ==''){
+//div 메시지 추가 func
+function appendMessage(msg, funo){
+	if(msg == ''){
 		return false;
 	} else {
+		var t = getTimeStamp();
+		//alert(funo);
+		if(funo == '${loginMember.u_no}') {
+			$("#talkTextArea").append( 
+					"<div class='from-me'>"+
+					"<p>"+msg+"</p>"+
+					"<p class='rightTime'>"+t+"</p>"+
+					"</div>"+
+			   		"<div class='clear'></div>"
+			   		);	
+		} else {
+			$("#talkTextArea").append( 
+					"<div class='from-them'>"+
+					"<p>"+msg+"</p>"+
+					"<p class='rightTime'>"+t+"</p>"+
+					"</div>"+
+			   		"<div class='clear'></div>"
+			   		);	
+		}
+/* 		$("#talkTextArea").append(msg); */
 		console.log("append: " + msg);
+		
+		//var chatAreaHeight = $("#chatArea").height();
+		//var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
+		//$("#chatArea").scrollTop(maxScroll);
+		
 	}
-	$("#talkTextArea").append(msg);
-	
+	//$("#talkTextArea").append(msg);
 }   // 받은 메시지처리 메소드
 
+//날짜자르기
+ function leadingZeros(n, digits) {
+   var zero = '';
+   n = n.toString();
 
+   if (n.length < digits) {
+     for (i = 0; i < digits - n.length; i++)
+       zero += '0';
+   }
+   return zero + n;
+ }
+ //날짜가져오기
+ function getTimeStamp() {
+   var d = new Date();
+   var s =
+     leadingZeros(d.getFullYear(), 4) + '-' +
+     leadingZeros(d.getMonth() + 1, 2) + '-' +
+     leadingZeros(d.getDate(), 2) + ' ' +
+
+     leadingZeros(d.getHours(), 2) + ':' +
+     leadingZeros(d.getMinutes(), 2) + ':' +
+     leadingZeros(d.getSeconds(), 2);
+
+   return s;
+ }
 
 </script>
 
@@ -184,7 +272,22 @@ function appendMessage(msg){
 <div id="talkForm_Div"><!-- 1.1채팅영역 -->
 <div id="talkTitle"><p>${talkPartner.p_name} 님과의 대화</p></div>
 <!-- 채팅내용 -->
-<div id="talkText"><textarea id="talkTextArea"></textarea></div>
+<div id="talkText"><div id="talkTextArea">
+<c:forEach var="talk" items="${requestScope.talkList}">
+<c:if test="${talk.t_from_uno eq loginMember.u_no}">
+	<div class="from-me">
+   	<p>${talk.t_con}</p>
+ 	</div>
+ 	<div class="clear"></div>
+</c:if>
+<c:if test="${talk.t_from_uno ne loginMember.u_no}">
+	<div class="from-them">
+   	<p>${talk.t_con}</p>
+ 	</div>
+ 	<div class="clear"></div>
+</c:if>
+ </c:forEach>
+</div></div>
 <!-- 채팅입력 -->
 <div id="talkInput">
 <textarea id="textInput"></textarea>
@@ -253,21 +356,26 @@ onmouseover="hover(this);" onmouseout="unhover(this);"></div>
 <div id="mM_con_close">
 <span class="close-button">&times;</span></div>
 
-<div id="mM_con_text"><p>영화를 보고 영화표를 업로드하세요</p></div>
+<div id="mM_con_text"><p>${chat.c_mission}</p></div>
 
 <div class="filebox preview-image">
 
 <img src="">
 
-<form action="" method="post">
+<form id="insertMForm" method="post" enctype="multipart/form-data">
 <!-- <input class="upload_name" value="파일선택" disabled="disabled"> -->
 <input class="msupload_name" value="파일선택" disabled="disabled">
-<label for="ms_file">업로드</label>
-<input type="file" id="ms_file" class="msupload_hidden">
-
+<label for="ms_file">업로드</label> 		
+<input type="file" name="ms_file" id="ms_file" class="msupload_hidden">
+<input type="hidden" name="ms_uid" id="ms_uid" value="${loginMember.u_no}">
+<input type="hidden" name="ms_pid" id="ms_pid" value="${talkPartner.p_no}">
+<input type="hidden" name="ms_cno" id="ms_cno" value="${chat.c_no}">
+<input type="hidden" name="ms_cmission" id="ms_cmission" value="${chat.c_mission}">
+<!-- ms_uid ms_pid ms_cno ms_cmission -->
 <!-- <label for="ms_submit">보내기</label> -->
-<input type="submit" value="보내기" id="ms_submit">
 </form>
+<input type="button" value="보내기" onclick="insertMFunc();" id="ms_submit">
+
 
 </div>
 

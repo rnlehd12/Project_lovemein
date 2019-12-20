@@ -2,6 +2,8 @@ package bclass.finalproject.lovemein.talk.model.vo;
 
 import java.sql.Date;
 
+import com.google.gson.Gson;
+
 public class Talk {
 	
 	private static final long serialVersionUID = 2222L;
@@ -94,7 +96,14 @@ public class Talk {
 		return serialVersionUID;
 	}
 
-
+	
+	public static Talk convertMessage(String source) {
+		Talk talk = new Talk();
+		Gson gson = new Gson();
+		talk = gson.fromJson(source,  Talk.class);
+		return talk;
+	}
+	
 	@Override
 	public String toString() {
 		return "Talk [c_no=" + c_no + ", t_from_uno=" + t_from_uno + ", t_to_uno=" + t_to_uno + ", t_no=" + t_no

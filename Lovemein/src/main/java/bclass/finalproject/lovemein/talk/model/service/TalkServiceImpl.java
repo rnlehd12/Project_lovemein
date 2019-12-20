@@ -33,8 +33,8 @@ public class TalkServiceImpl implements TalkService{
 
 
 	@Override
-	public List<Talk> getTalk(Talk talk) {
-		return talkDao.getTalk(talk);
+	public List<Talk> getTalkList(Chat chat) {
+		return talkDao.getTalkList(chat);
 	}
 
 	@Override
@@ -42,21 +42,9 @@ public class TalkServiceImpl implements TalkService{
 		return talkDao.getPatnerInfo(receiver);
 	}
 
-
-
 	@Override
-	public int insetTalk(Talk talk) {
-		return talkDao.insetTalk(talk);
-	}
-
-	@Override
-	public List<Talk> readTalk(Talk talk) {
-		return talkDao.readTalk(talk);
-	}
-
-	@Override
-	public int insertUserMission(TalkMission talkMission) {
-		return talkDao.insertUserMission(talkMission);
+	public int insertMissionMethod(TalkMission talkMission) {
+		return talkDao.insertMissionMethod(talkMission);
 	}
 
 	@Override
@@ -78,6 +66,48 @@ public class TalkServiceImpl implements TalkService{
 	public List<TalkMission> userMSearchList(HashMap<String, Object> map) {
 		return talkDao.userMSearchList(map);
 	}
+
+
+	@Override
+	public List<TalkMission> adminMissionList(HashMap<String, Object> map) {
+		return talkDao.adminMissionList(map);
+	}
+
+	@Override
+	public List<TalkMission> adminMSearchList(HashMap<String, Object> map) {
+		return talkDao.adminMSearchList(map);
+	}
+
+	@Override
+	public TalkMission adminMDetailMethod(TalkMission talkMission) {
+		return talkDao.adminMDetailMethod(talkMission);
+	}
+
+	@Override
+	public int mstaUpdateMethod(HashMap<String, Object> map) {
+		return talkDao.mstaUpdateMethod(map);
+	}
+
+	@Override
+	public int insertTalk(Talk talk) {
+		return talkDao.insertTalk(talk);
+	}
+
+	@Override
+	public Talk getOneTalk(Talk talk) {
+		return talkDao.getOneTalk(talk);
+	}
+
+	@Override
+	public int cReadUpdate(Talk talk) {
+		return talkDao.cReadUpdate(talk);
+	}
+
+	@Override
+	public TalkMission mstaMethod(HashMap<String, Object> map) {
+		return talkDao.mstaMethod(map);
+	}
+
 
 
 

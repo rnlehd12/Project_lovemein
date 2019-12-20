@@ -28,24 +28,17 @@ public class TalkDao {
 		return sqlSession.selectOne("getTalkChat", talk);
 	}
 	
-	public List<Talk> getTalk(Talk talk) {
-		return sqlSession.selectList("getTalk", talk);
+	public List<Talk> getTalkList(Chat chat) {
+		return sqlSession.selectList("getTalkList", chat);
 	}
 	
 	public TalkPartner getPatnerInfo(String receiver) {
 		return sqlSession.selectOne("getPatnerInfo", receiver);
 	}
 	
-	public int insetTalk(Talk talk) {
-		return sqlSession.insert("insetTalk", talk);
-	}
-	
-	public List<Talk> readTalk(Talk talk) {
-		return sqlSession.selectList("readTalk", talk);
-	}
-	
-	public int insertUserMission(TalkMission talkMission) {
-		return sqlSession.insert("insertUserMission", talkMission);
+
+	public int insertMissionMethod(TalkMission talkMission) {
+		return sqlSession.insert("insertMissionMethod", talkMission);
 	}
 
 	public int insertReport(TalkReport talkReport) {
@@ -62,6 +55,40 @@ public class TalkDao {
 
 	public List<TalkMission> userMSearchList(HashMap<String, Object> map) {
 		return sqlSession.selectList("userMSearchList", map);
+	}
+
+	public List<TalkMission> adminMissionList(HashMap<String, Object> map) {
+		return sqlSession.selectList("adminMissionList", map);
+	}
+
+	public List<TalkMission> adminMSearchList(HashMap<String, Object> map) {
+		return sqlSession.selectList("adminMSearchList", map);
+	}
+
+	public TalkMission adminMDetailMethod(TalkMission talkMission) {
+		return sqlSession.selectOne("adminMDetailMethod", talkMission);
+	}
+
+	public int mstaUpdateMethod(HashMap<String, Object> map) {
+		return sqlSession.update("mstaUpdateMethod", map);
+	}
+
+	public int insertTalk(Talk talk) {
+		return sqlSession.insert("insertTalk", talk);
+	}
+
+	public Talk getOneTalk(Talk talk) {
+		return sqlSession.selectOne("getOneTalk", talk);
+	}
+
+	public int cReadUpdate(Talk talk) {
+		System.out.println("talkDao의 cReadUpdate : " + talk.getT_from_uno()
+		+ ", " + talk.getT_to_uno());
+		return sqlSession.update("cReadUpdate", talk);
+	}
+
+	public TalkMission mstaMethod(HashMap<String, Object> map) {
+		return sqlSession.selectOne("mstaMethod", map);
 	}
 
 

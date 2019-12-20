@@ -46,6 +46,7 @@
 				<div id="iconWrap">
 					<button id="chatBtn" class="headerIcon"  onclick="location.href='moveChat.do'">
 						<img src="resources/images/common/chatIcon.png">
+						<div class="badge-num">59</div>
 					</button>
 					<button id="likeBtn" class="headerIcon" onclick="location.href='likesList.do'">
 						<img src="resources/images/common/heartIcon2.png">

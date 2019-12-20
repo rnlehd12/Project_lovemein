@@ -52,9 +52,15 @@ $(function(){
 							
 					"<a id='ctext'>"+decodeURIComponent(jsonObj.list[i].t_con).replace(/\+/gi, " ") +
 					"</a><a id='cdate'>"+ jsonObj.list[i].t_date +
-					"</a></div></div><div class='chatDiv' id='rcountDiv'> "+
-					"<div id='rcDiv' ><a>"+ jsonObj.list[i].t_read +
-					"</a></div></div></div>";
+					"</a></div></div>";
+					if(jsonObj.list[i].t_read != 0) {
+					outValues +=
+					"<div class='chatDiv' id='rcountDiv'> "+
+					"<div id='rcDiv' ><p>"+ jsonObj.list[i].t_read +
+					"</p></div></div>";
+					}
+					outValues +=
+					"</div>";
 				if(i == jsonObj.list.length -1) {
 					outValues += "<div id='butDiv'><button id='addlist' onclick='addListfunc(btNum);'>"+
 					"Read More</button></div>";
@@ -91,13 +97,30 @@ function addListfunc(btNumVal){
 				outValues += "<div class='oneChatDiv'><div class='chatDiv' id='imgDiv'> "+
 					"<img alt='' src='resources/images/profile/"+
 					decodeURIComponent(jsonObj.list[i].t_profile).replace(/\+/gi, " ") + "'>"+
-					"</div><div class='chatDiv' id='textDiv'> "+
-					"<div id='textcon'>"+
-					"<p id='ctext'>"+decodeURIComponent(jsonObj.list[i].t_con).replace(/\+/gi, " ") +
-					"</p><p id='cdate'>"+ jsonObj.list[i].t_date +
-					"</p></div></div><div class='chatDiv' id='rcountDiv'> "+
+					"</div><div class='chatDiv' id='textDiv'> ";
+					if(jsonObj.list[i].t_from_uno == parseInt(loginNo)) {
+						/* alert("11111"); */
+						outValues += 
+							"<div id='textcon' onclick='location.href=\"talkView.do?t_from_uno="+jsonObj.list[i].t_from_uno+"&t_to_uno="+jsonObj.list[i].t_to_uno+"\"'>";
+							/* jsonObj.list[i].t_to_uno;  */
+					} else {
+						/* alert("22222"); */
+						outValues += 
+							"<div id='textcon' onclick='location.href=\"talkView.do?t_from_uno="+jsonObj.list[i].t_to_uno+"&t_to_uno="+jsonObj.list[i].t_from_uno+"\"'>";
+							/* jsonObj.list[i].t_from_uno;	 */	
+					}
+					outValues +=
+					"<a id='ctext'>"+decodeURIComponent(jsonObj.list[i].t_con).replace(/\+/gi, " ") +
+					"</a><a id='cdate'>"+ jsonObj.list[i].t_date +
+					"</a></div></div>";
+				if(jsonObj.list[i].t_read != 0) {
+					outValues +=
+					"<div class='chatDiv' id='rcountDiv'> "+
 					"<div id='rcDiv' ><p>"+ jsonObj.list[i].t_read +
-					"</p></div></div></div>";
+					"</p></div></div>";
+				}	
+				outValues +=	
+					"</div>";
 				if(i == jsonObj.list.length -1) {
 					outValues += "<div id='butDiv'><button id='addlist' onclick='addListfunc(btNum);'>"+
 					"Read More</button></div>";
@@ -119,7 +142,7 @@ function addListfunc(btNumVal){
 <c:import url="../common/header.jsp" />
 <div id="chatListDiv"> <!-- 전체div -->
 <div id="titleDiv"> <!-- 제목div -->
-<p>채팅목록</p>
+<p onclick="location.href='adminMission.do?page=1'">채팅목록</p>
 </div>
 <div id="contentDiv">  <!-- 내용전체div -->
 

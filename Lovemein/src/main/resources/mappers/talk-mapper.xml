@@ -23,8 +23,8 @@
 		(select u_no from users where u_no = #{t_from_uno}),
 		(select u_no from users where u_no = #{t_to_uno}),
 		#{c_mission},
-		null,	
-		null)
+		0,	
+		0)
 	</insert>
 
 	<select id="getPatnerInfo" parameterType="String" resultType="TalkPartner">
@@ -56,15 +56,20 @@
 		select *	
 		from (select  rownum rum, al.*
 			from (select c.c_no as c_no, t.t_no as t_no,
-				t.t_con as t_con, t.t_date as t_date , t.t_read as t_read,
+				t.t_con as t_con, t.t_date as t_date , r.t_read as t_read,
 				t.t_from_uno as t_from_uno,	 t.t_to_uno as t_to_uno,
 				c.c_from_uno as c_from_uno,	 c.c_to_uno as c_to_uno, c.c_mission as c_mission,
 				c.c_readc as c_readc, c.c_nreadc as c_nreadc, null as t_profile
 				from talk t
 				join chat c on c.c_no = t.c_no
+				join (select count(case when t_read = 0 then 1 end) as t_read, c_no
+				from talk
+				where (t_to_uno = #{loginNo})
+				group by c_no) r on r.c_no = t.c_no
 				where (t.t_from_uno = #{loginNo}
 				or t.t_to_uno = #{loginNo})
 				order by t.t_date desc
+				
 				) al
 			where (t_no in (select max(t_no) as max_t
 			from talk 
@@ -83,7 +88,7 @@
 				  from mission m, users u
 				  where (c_from_uno = #{loginNo} or c_to_uno = #{loginNo})
 				  and (decode(c_from_uno, #{loginNo}, c_to_uno, c_from_uno) = u_no) 
-				  order by m_no desc) al) 
+				  order by m_date desc) al) 
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		order by rnum 
 		]]>
@@ -117,7 +122,106 @@
 		]]>	
 	</select>	
 	<!-- and u.u_name like '%지수%'	 -->
+	
+	<insert id="insertMissionMethod" parameterType="TalkMission">
+		MERGE INTO mission
+   		USING DUAL
+       	ON ((C_FROM_UNO = #{c_from_uno} and C_TO_UNO = #{c_to_uno})
+		or (C_FROM_UNO = #{c_to_uno} and C_TO_UNO = #{c_from_uno}))
+    	WHEN NOT MATCHED THEN
+       	insert (M_NO, C_NO, C_FROM_UNO, C_TO_UNO, C_MISSION, M_CON, M_STA, M_DATE) 
+       	values(
+		to_char(SEQ_M_NO.nextval),
+		445,
+		(select u_no from users where u_no = #{c_from_uno}),
+		(select u_no from users where u_no = #{c_to_uno}),
+		#{c_mission},
+		#{m_con},	
+		default,
+		default)
+	</insert>
+	
+	<select id="adminMissionList" parameterType="hashMap" resultType="TalkMission">
+		<![CDATA[
+		select *
+		from (select rownum rnum, al.*
+			 from (select m_no, c_no, c_from_uno, (users.u_name) as m_name,  c_to_uno, (select u_name from users where u_no = c_to_uno) as p_name,
+						c_mission, m_con, m_sta, m_date,
+						count(*)over() as listcount 
+					from mission 
+					inner join users 
+					on c_from_uno = users.u_no
+					order by m_date desc) al) 
+		where rnum >= #{startRow} and rnum <= #{endRow}
+		order by rnum
+		]]>
+	</select>	
+	
+	<select id="adminMSearchList" parameterType="hashMap" resultType="TalkMission">
+		<bind name="keyword" value="'%'+keyword+'%'"/>
+				<![CDATA[
+		select *
+		from (select rownum rnum, al.*
+			 from (select  m_no, c_no, c_from_uno, (users.u_name) as m_name,  c_to_uno, (select u_name from users where u_no = c_to_uno) as p_name,
+						c_mission, m_con, m_sta, m_date,
+					count(*)over() as listcount 
+					 from mission 
+					inner join users 
+					on c_from_uno = users.u_no
+				  and ${type} like #{keyword}
+				  order by m_no desc) al) 
+		where rnum >= #{startRow} and rnum <= #{endRow}
+		order by rnum
+		]]>	
+	</select>	
+	<select id="adminMDetailMethod" parameterType="TalkMission" resultType="TalkMission">
+		select m_no, c_no, c_from_uno, (select u_name from users where u_no = c_from_uno) as m_name,  c_to_uno, (select u_name from users where u_no = c_to_uno) as p_name,
+						c_mission, m_con, m_sta, m_date 
+		from mission
+		where c_from_uno = #{c_from_uno} and c_to_uno = #{c_to_uno}
+	</select>
+	
+	
+	<insert id="insertTalk" parameterType="Talk">
+		<![CDATA[
+		insert into talk values(
+			to_char(seq_t_no.nextval),
+			#{t_con},
+			sysdate,
+			null,
+			#{c_no},
+			#{t_from_uno},
+			#{t_to_uno}
+			)	
+		]]>	
+
+	</insert>
+	
+	<select id="getOneTalk" parameterType="Talk" resultType="Talk">
+		select *
+		from talk
+		where c_no = #{c_no}
+		and t_from_uno =  #{t_from_uno}
+		and t_to_uno = #{t_to_uno}
+		and t_date = (select max(t_date) from talk)
+	</select> 
+	
+	<select id="getTalkList" parameterType="Chat" resultType="Talk">
+		select *
+		from talk
+		where c_no = #{c_no}
+		order by t_date 
+	</select>
+	
+	<update id="cReadUpdate" parameterType="Talk">
+		update talk SET t_read = 1 
+		where ((t_from_uno =  #{t_to_uno}) and (t_to_uno = #{t_from_uno}))
 		
+	</update>
+	
+	<select id="mstaMethod" parameterType="hashMap" resultType="TalkMission">
+	
 		
-		
+	</select>
+	
 </mapper>

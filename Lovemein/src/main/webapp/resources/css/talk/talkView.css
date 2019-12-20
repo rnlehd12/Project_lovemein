@@ -44,6 +44,7 @@
 	align: center;
 	color: #656565;
 	text-align: center;
+	
 	margin-top:7px;	
 }
 
@@ -56,21 +57,136 @@
 		border: 1px solid rgb(250, 220, 220); */
 	 		background-color:rgb(250, 248, 249);
 	 border: 0px solid pink;
+	 /*  */
+	 /* display : block;
+	overflow:scroll; */
 }
 
 #talkForm_Div #talkText #talkTextArea{
-	margin:0px;
-	padding:0px;
-	width: 100%;
-	height: 100%;
+	margin:3px; 
+	padding:10px;
+	width: 97%;
+	height: 96%;
 	display : block;
 	overflow:scroll;
-	 		background-color:rgb(250, 248, 249);
-	 border: 0px solid pink;
+	overflow-x:hidden;
+	 background-color:rgb(250, 248, 249);
+	 border: 1px solid red;
  	/* background-color:rgb(250, 248, 249); 
 	background-color:#F8F8F8 ;
 		border: 1px solid rgb(250, 220, 220); */
+	font-family: "Helvetica Neue";
+  	font-size: 20px;
+  	font-weight: normal;	
+	 max-width: 100%;
+	word-wrap: break-word;
+  	/* margin-bottom: 20px; */
+  	line-height: 24px;	
 }
+.rightTime{
+		margin-bottom:-3px;
+	font-size: 15px;
+	text-align: right;
+	
+}
+.leftTime{
+	margin-bottom:-3px;
+	font-size: 15px;
+	text-align: left;
+}
+
+/* 채팅박스  *//* 
+#talkTextArea{
+	 font-family: "Helvetica Neue";
+  font-size: 20px;
+  font-weight: normal;
+
+  max-width: 450px;
+  margin: 50px auto;
+
+  max-width: 255px;
+  word-wrap: break-word;
+  margin-bottom: 20px;
+  line-height: 24px;
+}   */
+/*  채팅 말풍선 */
+
+#talkTextArea .clear {
+  clear: both;
+}
+
+#talkTextArea .from-me {
+  position: relative;
+  padding: 10px 20px;
+  max-width: 65%; 
+  color: white;
+  background: #0B93F6;
+  border-radius: 25px;
+  float: right;
+  margin-bottom:8px;
+}
+#talkTextArea .from-me:before {content: "";
+  position: absolute;
+  z-index: -1;
+  z-index: 1;
+  bottom: -2px;
+  right: -7px;
+  height: 20px;
+  border-right: 20px solid #0B93F6;
+/*   border-right: 20px solid green; */
+  border-bottom-left-radius: 16px 14px;
+  -webkit-transform: translate(0, -2px);
+}
+#talkTextArea .from-me:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  bottom: -2px;
+  right: -56px;
+  width: 26px;
+  height: 20px;
+  background: white;
+  border-bottom-left-radius: 10px;
+  -webkit-transform: translate(-30px, -2px);
+}
+
+#talkTextArea .from-them {
+  position: relative;
+  padding: 10px 20px;
+  background: #E5E5EA;
+  border-radius: 25px;
+   max-width: 65%; 
+  color: black;
+  float: left;  
+  margin-bottom:8px;
+}
+#talkTextArea .from-them:before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  bottom: -2px;
+  left: -7px;
+  height: 20px;
+/*   border-left: 20px solid red; */
+  border-left: 20px solid #E5E5EA;
+  border-bottom-right-radius: 16px 14px;
+  -webkit-transform: translate(0, -2px);
+}
+#talkTextArea .from-them:after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  bottom: -2px;
+  left: 4px;
+  width: 26px;
+  height: 20px;
+  background: white;
+  border-bottom-right-radius: 10px;
+  -webkit-transform: translate(-30px, -2px);
+} 
+
+
+
 #talkForm_Div #talkInput{
 /* 	채팅입력 div */
 	width: 100%;
@@ -405,7 +521,7 @@
 
 .modal{
 	/* 미션모달배경 임시변경*/
-	/* display: none; */ 
+	display: none; 
 	position: fixed;
 	z-index: 1;
 
@@ -414,7 +530,7 @@
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0,0,0,0.5);	
-    /* visibility: hidden;  */
+    /*  visibility: hidden; */ 
 /*     transform: scale(1.1);  */
 /*     transition: visibility 0s linear 0.25s, 
     opacity 0.25s 0s, transform 0.25s;  */
@@ -621,7 +737,7 @@ margin: 0px;
 padding: 0px;
 }
 
-.filebox input[type="submit"] { 
+.filebox input[type="button"] { 
 /* 파일 필드 숨기기 */
 display: block; 
 	padding: .4em 3.5em; 
@@ -649,4 +765,3 @@ display: block;
  clip:rect(0,0,0,0); 
  border: 0;  */
  }	
- 

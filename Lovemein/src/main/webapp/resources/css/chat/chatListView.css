@@ -87,9 +87,9 @@
 }
 #textDiv{
 	/* 내용부분 바깥영역 */
-	/*  border: 1px solid yellow;  */
+/* 	 border: 1px solid yellow;  */
 	height: 95%;
-	width: 75%;
+	width: 80%;
 	position: relative;
 	top: -20%;
 		margin:0;
@@ -100,10 +100,10 @@
 	border-radius: 10px;
 		/* 내용부분 안쪽영역 보이는 부분 */
 	height: 70%;
-	width: 90%;
+	width: 98%;
 	position: relative;
-	top: 5%;
-	left:5%;
+	top: 6%;
+	left:2%;
 	padding-top:10px;
 	margin:0px;
 	
@@ -111,6 +111,7 @@
 #textcon:hover {
 	/* box-shadow: 3px 3px 5px 1px #999; */
 	background-color : #eee;
+	/* x-index: 3; */
 }
 
 #textcon a{
@@ -145,29 +146,31 @@
 	/* 읽음표시부분 */
 	/* border: 1px solid red; */
 	height: 90%;
-	width: 5.5%;
+	width: 1.5%;
 	position: relative;
-	top: -25%;
-	left: 1%;
+	top: -45%;
+	left: -0.5%;
 		margin:0;
 		/* padding-top:5px; */
 }
 #rcountDiv #rcDiv{
-	width:35px;
+	width:36px;
 	height:35px;
 	display: inline-block;
 	/* border: 1px solid red; */
 	background-color: #e64c7f;
 	margin-top:25px;
+	padding-top:10%;
+	z-index: 1;
 	/* background-image: url('resources/images/p3.jpg'); */
 	background-repeat: no-repeat; 
 	background-size: cover;
 	align: center;
 	border-radius: 20px;
-	box-shadow: 2px 0px 6px 0px #999;
-
+	
+	text-align: center;
 }
-/* 
+
 #rcountDiv #rcDiv:after {
     content: '';
     position: absolute;
@@ -176,8 +179,9 @@
     border-radius: 25px;
     z-index: -1;
     background: #fff;
-    top: 42px;
-    right: 54px;
+/*     background: black; */
+    top: 52%;
+    right: 30%;
     
 }
 #rcountDiv #rcDiv:before {
@@ -186,31 +190,36 @@
     height: 20px;
     width: 20px;
     border-radius: 25px;
-    z-index: -1;
-    background: yellow;
-    top: 43px;
-    right: 45px;
-    box-shadow: 3px 3px 5px 1px #999;
-} */
+    z-index:-1;
+/*     z-index: -1; */
+    background: #e64c7f;
+    top:50%;
+    right: -50%;
+    /* box-shadow: 3px 3px 5px 1px #999; */
+} 
 
-#rcountDiv #rcDiv a{
+#rcountDiv #rcDiv p{
 	margin:0px;
 	padding-top:3px;
-	padding-left:9px;
+	text-align: center;
+	/* padding-left:30%; */
 		align: center;
-		font-size: 1.3em;
+		font-size: 1.2em;
 		font-weight: bold;
 		font-style: italic ;
 		color: #fff;
 }
-
+/* #rcountDiv #rcDiv:hover{
+	box-shadow: 2px 0px 6px 0px #999;
+	border: 2px solid #fff;
+} */
 #butDiv {
 		/* 버튼 div */
 	width: 80%;
 	height: 30px;
 	position: relative;
 	text-align: conter;
-	left: 10%;
+	left: 5%;
 	top: 10px;
 	align: center;
 	/* border: 1px solid red; */
@@ -228,7 +237,7 @@
 /* 	box-shadow: 3px 3px 10px 0px #999; */
 	display: inline-block;
 	position:relative;
-	left:14%;
+	left:24%;
 	/* padding-bottom:px; */
 }
 #butDiv #addlist:hover{

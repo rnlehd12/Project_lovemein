@@ -60,12 +60,12 @@ $(function(){
       <label for="type-special">
         <svg class="edit-pen-title">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#special"></use>
-        </svg>
+        </ >
         <span>Missions</span>
       </label>
     </div>
     
-    <div>
+   <!--  <div>
       <input name="type" type="radio" value="m_con" id="type-images">
       <label for="type-images">
         <svg class="edit-pen-title">
@@ -73,7 +73,7 @@ $(function(){
         </svg>
         <span>Images</span>
       </label>
-    </div>
+    </div> -->
     <div>
       <input name="type" type="radio" value="m_sta" id="type-posts">
       <label for="type-posts">
