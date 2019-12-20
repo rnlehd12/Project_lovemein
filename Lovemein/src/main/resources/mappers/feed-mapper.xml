@@ -182,5 +182,53 @@
 		from users
 		where u_no = #{u_no}
 	</select>
+	
+	<!-- 해시태그 검색 글조회 -->
+	<select id="searchFeed" parameterType="String" resultType="Feed">
+		select * from feed f
+		join users u on u.u_no = f.u_no
+		where f_tag like '%' || #{search} || '%'
+	</select>
+	
+	<!--  전체피드 로그인한 유저가 피드를 올린 유저를 좋아하는지 여부 확인 -->
+	<select id="AllFeedUserslikeList" parameterType="String" resultType="TargetLikeCheck">
+		select f_no, u_no_send as u_no, u_no_rec as target_no
+		from feed
+		join likes l on l.u_no_rec = feed.u_no
+		where u_no_send = #{u_no}
+	</select>
+
+	<!-- 전체피드 댓글 리스트 -->
+	<select id="allFeedReplyList" resultType="FeedReply">
+		select fr_no, f_no, fr_text, fr_date, u.u_no, u_name, u_profile
+		from feed_reply fr
+		join users u on u.u_no = fr.u_no
+	</select>
+	
+	<!-- 전체피드 피드글 좋아요 체크용 -->
+	<select id="allFeedLikeChk" parameterType="String" resultType="FeedLike">
+		select feed_like.f_no, feed_like.u_no
+		from feed_like 
+		left join feed f on feed_like.f_NO = f.f_NO
+		where feed_like.u_no = #{u_no}
+	</select>
+	
+	<!-- 해시태그 검색용 피드글 좋아요 체크용 -->
+	<select id="feed_Like_Chk" parameterType="String" resultType="Feed">
+		select f_no,(select count(*) from feed_like where f_no = feed.f_no) as count from feed where f_tag like '%' || #{search} || '%'
+	</select>
+	
+	<!-- 해시태그 검색용 피드 댓글 수 체크용 -->
+	<select id="feed_reply_cnt" parameterType="String" resultType="Feed">
+		 select f_no,(select count(*) from feed_reply where f_no = feed.f_no) count from feed where f_tag like '%' || #{search} || '%'
+	</select>
+	
+	<!-- 해시태그 검색용 피드 댓글 리스트 -->
+	<select id="SearchFeedReplyList" parameterType="String" resultType="FeedReply">
+		select NVL(fr_no,'0') as fr_no, fr.f_no, fr_date, fr_text, u_name, u_profile from feed_Reply fr
+		right outer join feed f on f.f_no = fr.f_no
+		left outer join users u on u.u_no = fr.u_no
+		where f_tag like '%' || #{search} || '%'
+	</select>
 
 </mapper>

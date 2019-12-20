@@ -161,6 +161,48 @@ public class FeedServiceImpl implements FeedService{
 		return feedDao.selectCoin(loginUno);
 	}
 
+	@Override
+	public List<Feed> searchFeed(String search) {
+		
+		return feedDao.searchFeed(search);
+	}
+
+	@Override
+	public List<TargetLikeCheck> AllFeedUserslikeList(String u_no) {
+		
+		return feedDao.AllFeedUserslikeList(u_no);
+	}
+
+	@Override
+	public List<FeedReply> allFeedReplyList() {
+		
+		return feedDao.allFeedReplyList();
+	}
+
+	@Override
+	public List<FeedLike> allFeedLikeChk(String u_no) {
+		
+		return feedDao.allFeedLikeChk(u_no);
+	}
+
+	@Override
+	public List<Feed> feed_Like_Chk(String search) {
+		
+		return feedDao.feed_Like_Chk(search);
+	}
+
+	@Override
+	public List<Feed> feed_reply_cnt(String search) {
+		
+		return feedDao.feed_reply_cnt(search);
+	}
+
+	@Override
+	public List<FeedReply> SearchFeedReplyList(String search) {
+		
+		return feedDao.SearchFeedReplyList(search);
+	}
+
 	
 	
 

@@ -127,7 +127,7 @@ public class FeedController {
 		  }
 		 
 		
-		return "redirect:redirectFeed.do";
+		return "redirect:redirectFeed.do" + "#feedContainer" + feedReply.getF_no();
 	}
 	
 	//## 댓글삭제용 컨트롤러
@@ -183,9 +183,14 @@ public class FeedController {
 		
 		if(result > 0) {
 			
-			mv.setViewName("JsonView");
+			mv.addObject("result", 1);
+			
+		}else {
+			
+			mv.addObject("result", 0);
 		}
 		
+		mv.setViewName("JsonView");
 		return mv;
 	}
 	
@@ -269,17 +274,16 @@ public class FeedController {
 	public ModelAndView insertReplyTargetMethod(FeedReply feedReply, @RequestParam("t_no") String t_no,
 			ModelAndView mv) {
 		
-		
 		  int result = feedService.insertReply(feedReply);
 		 
 		  if(result > 0){
 
-			 mv.setViewName("redirect:goTargetFeed.do?u_no="+ t_no);
+			 mv.setViewName("redirect:goTargetFeed.do?u_no="+ t_no + "#feedContainer" + feedReply.getF_no());
 			  
 		  }else {
 			  
 			  mv.addObject("failMessage", "댓글달기에 실패하였습니다. 다시 시도해주세요.");
-			  mv.setViewName("redirect:goTargetFeed.do?u_no="+ t_no); 
+			  mv.setViewName("redirect:goTargetFeed.do?u_no="+ t_no + "#feedContainer" + feedReply.getF_no()); 
 		  }
 		 
 		
@@ -311,6 +315,6 @@ public class FeedController {
 		return mv;
 
 	}
-	
+
 }
 

@@ -27,7 +27,8 @@ $(document).ready(function(){
 	    $(".tabs .current").css("border-bottom","4px solid #e42e5f");  
 	    
 	  });
-	 
+	  
+	
 });
 
 //비밀번호와 비밀번호 확인값이 같은지 체크하는 자바스크립트
@@ -244,59 +245,60 @@ function chkPwFun(){
 	  	</form>
 	  </div>
 	   <div id="tab-4" class="tab-content">
-	  		<form action="gojoinStep5.do" id="styleForm" method="post">
+	  		<form action="stylemodi.do" id="styleForm" method="post">
+	  			<input type="hidden" name="u_no" id="u_no" value="${loginMember.u_no}">
 		<table id="styleTable">
 			<tr>
 				<td>
 					<p class="styleTitle">나의 매력포인트 </p><p class="stylesubTitle">(최대 5개까지 설정가능)</p>
-					<p class="subCo">나는 이런사람! 나의 매력포인트를 어필해주세요!</p>
+					<input type="hidden" id="chk_appeal" value="${loginMember.s_appeal}">
 					<div class="appealDiv">
 						<div class="lines">
-							<input id="appeal1" name="s_appeal" type="checkbox" class="chks" value="운동을좋아해요">
-							<label for="appeal1" onclick="func(this);" class="label">운동을 좋아해요</label>
-							<input id="appeal2" name="s_appeal" type="checkbox" class="chks" value="잘먹어요">
-							<label for="appeal2" onclick="func(this);" class="label">잘먹어요</label>
-							<input id="appeal3" name="s_appeal" type="checkbox" class="chks" value="목소리가좋아요">
-							<label for="appeal3" onclick="func(this);" class="label">목소리가 좋아요</label>
-							<input id="appeal4" name="s_appeal" type="checkbox" class="chks" value="착해요">
-							<label for="appeal4" onclick="func(this);" class="label">착해요</label>
+							<input id="appeal1" name="s_appeal" type="checkbox" class="aChks" value="운동을좋아해요">
+							<label for="appeal1" onclick="funcs(this);" class="label">운동을 좋아해요</label>
+							<input id="appeal2" name="s_appeal" type="checkbox" class="aChks" value="잘먹어요">
+							<label for="appeal2" onclick="funcs(this);" class="label">잘먹어요</label>
+							<input id="appeal3" name="s_appeal" type="checkbox" class="aChks" value="목소리가좋아요">
+							<label for="appeal3" onclick="funcs(this);" class="label">목소리가 좋아요</label>
+							<input id="appeal4" name="s_appeal" type="checkbox" class="aChks" value="착해요">
+							<label for="appeal4" onclick="funcs(this);" class="label">착해요</label>
 						</div>
 						<div class="lines">
-							<input id="appeal5" name="s_appeal" type="checkbox" class="chks" value="섹시해요">
-							<label for="appeal5" onclick="func(this);" class="label">섹시해요</label>
-							<input id="appeal6" name="s_appeal" type="checkbox" class="chks" value="솔직해요">
-							<label for="appeal6" onclick="func(this);" class="label">솔직해요</label>
-							<input id="appeal7" name="s_appeal" type="checkbox" class="chks" value="귀여워요">
-							<label for="appeal7" onclick="func(this);" class="label">귀여워요</label>
-							<input id="appeal8" name="s_appeal" type="checkbox" class="chks" value="피부가좋아요">
-							<label for="appeal8" onclick="func(this);" class="label">피부가 좋아요</label>
+							<input id="appeal5" name="s_appeal" type="checkbox" class="aChks" value="섹시해요">
+							<label for="appeal5" onclick="funcs(this);" class="label">섹시해요</label>
+							<input id="appeal6" name="s_appeal" type="checkbox" class="aChks" value="솔직해요">
+							<label for="appeal6" onclick="funcs(this);" class="label">솔직해요</label>
+							<input id="appeal7" name="s_appeal" type="checkbox" class="aChks" value="귀여워요">
+							<label for="appeal7" onclick="funcs(this);" class="label">귀여워요</label>
+							<input id="appeal8" name="s_appeal" type="checkbox" class="aChks" value="피부가좋아요">
+							<label for="appeal8" onclick="funcs(this);" class="label">피부가 좋아요</label>
 						</div>
 						<div class="lines">	
-							<input id="appeal9" name="s_appeal" type="checkbox" class="chks" value="말을예쁘게해요">
-							<label for="appeal9" onclick="func(this);" class="label">말을 예쁘게 해요</label>
-							<input id="appeal10" name="s_appeal" type="checkbox" class="chks" value="털털해요">
-							<label for="appeal10" onclick="func(this);" class="label">털털해요</label>
-							<input id="appeal11" name="s_appeal" type="checkbox" class="chks" value="다정해요">
-							<label for="appeal11" onclick="func(this);" class="label">다정해요</label>
-							<input id="appeal12" name="s_appeal" type="checkbox" class="chks" value="허세가없어요">
-							<label for="appeal12" onclick="func(this);" class="label">허세가 없어요</label>
+							<input id="appeal9" name="s_appeal" type="checkbox" class="aChks" value="말을예쁘게해요">
+							<label for="appeal9" onclick="funcs(this);" class="label">말을 예쁘게 해요</label>
+							<input id="appeal10" name="s_appeal" type="checkbox" class="aChks" value="털털해요">
+							<label for="appeal10" onclick="funcs(this);" class="label">털털해요</label>
+							<input id="appeal11" name="s_appeal" type="checkbox" class="aChks" value="다정해요">
+							<label for="appeal11" onclick="funcs(this);" class="label">다정해요</label>
+							<input id="appeal12" name="s_appeal" type="checkbox" class="aChks" value="허세가없어요">
+							<label for="appeal12" onclick="funcs(this);" class="label">허세가 없어요</label>
 						</div>
 						<div class="lines">	
 							
-							<input id="appeal13" name="s_appeal" type="checkbox" class="chks" value="한사람만바라봐요">
-							<label for="appeal13" onclick="func(this);" class="label">한사람만 바라봐요</label>
-							<input id="appeal14" name="s_appeal" type="checkbox" class="chks" value="노래를잘해요">
-							<label for="appeal14" onclick="func(this);" class="label">노래를 잘해요</label>
-							<input id="appeal15" name="s_appeal" type="checkbox" class="chks" value="춤을잘춰요">
-							<label for="appeal15" onclick="func(this);" class="label">춤을 잘춰요</label>
+							<input id="appeal13" name="s_appeal" type="checkbox" class="aChks" value="한사람만바라봐요">
+							<label for="appeal13" onclick="funcs(this);" class="label">한사람만 바라봐요</label>
+							<input id="appeal14" name="s_appeal" type="checkbox" class="aChks" value="노래를잘해요">
+							<label for="appeal14" onclick="funcs(this);" class="label">노래를 잘해요</label>
+							<input id="appeal15" name="s_appeal" type="checkbox" class="aChks" value="춤을잘춰요">
+							<label for="appeal15" onclick="funcs(this);" class="label">춤을 잘춰요</label>
 						</div>
 						<div class="lines">	
-							<input id="appeal16" name="s_appeal" type="checkbox" class="chks" value="표현잘해요">
-							<label for="appeal16" onclick="func(this);" class="label">표현 잘해요</label>
-							<input id="appeal17" name="s_appeal" type="checkbox" class="chks" value="애교가많아요">
-							<label for="appeal17" onclick="func(this);" class="label">애교가 많아요</label>
-							<input id="appeal18" name="s_appeal" type="checkbox" class="chks" value="배려심이많아요">
-							<label for="appeal18" onclick="func(this);" class="label">배려심이 많아요</label>
+							<input id="appeal16" name="s_appeal" type="checkbox" class="aChks" value="표현잘해요">
+							<label for="appeal16" onclick="funcs(this);" class="label">표현 잘해요</label>
+							<input id="appeal17" name="s_appeal" type="checkbox" class="aChks" value="애교가많아요">
+							<label for="appeal17" onclick="funcs(this);" class="label">애교가 많아요</label>
+							<input id="appeal18" name="s_appeal" type="checkbox" class="aChks" value="배려심이많아요">
+							<label for="appeal18" onclick="funcs(this);" class="label">배려심이 많아요</label>
 						</div>
 					</div>
 				</td>
@@ -305,80 +307,80 @@ function chkPwFun(){
 				</td>
 				<td>
 					<p class="rstyleTitle">나의 관심사 </p><p class="stylesubTitle">(최대 3개까지 설정가능)</p>
-					<p class="rsubCo">요즘 꽂힌 나의 관심사를 알려주세요!</p>
+					<input type="hidden" id="chk_inter" value="${loginMember.s_inter}">
 					<div class="interDiv">
 						<div class="rlines">	
-							<input id="inter1" name="s_inter" type="checkbox" class="chks" value="악기연주">
+							<input id="inter1" name="s_inter" type="checkbox" class="schks" value="악기연주">
 							<label for="inter1" onclick="func2(this);" class="label">악기연주</label>
-							<input id="inter2" name="s_inter" type="checkbox" class="chks" value="IT">
+							<input id="inter2" name="s_inter" type="checkbox" class="schks" value="IT">
 							<label for="inter2" onclick="func2(this);" class="label">IT</label>
-							<input id="inter3" name="s_inter" type="checkbox" class="chks" value="술">
+							<input id="inter3" name="s_inter" type="checkbox" class="schks" value="술">
 							<label for="inter3" onclick="func2(this);" class="label">술</label>
-							<input id="inter4" name="s_inter" type="checkbox" class="chks" value="봉사활동">
+							<input id="inter4" name="s_inter" type="checkbox" class="schks" value="봉사활동">
 							<label for="inter4" onclick="func2(this);" class="label">봉사활동</label>
-							<input id="inter5" name="s_inter" type="checkbox" class="chks" value="반려동물">
+							<input id="inter5" name="s_inter" type="checkbox" class="schks" value="반려동물">
 							<label for="inter5" onclick="func2(this);" class="label">반려동물</label>
-							<input id="inter6" name="s_inter" type="checkbox" class="chks" value="게임">
+							<input id="inter6" name="s_inter" type="checkbox" class="schks" value="게임">
 							<label for="inter6" onclick="func2(this);" class="label">게임</label>
-							<input id="inter7" name="s_inter" type="checkbox" class="chks" value="웹툰">
+							<input id="inter7" name="s_inter" type="checkbox" class="schks" value="웹툰">
 							<label for="inter7" onclick="func2(this);" class="label">웹툰</label>
 						</div>
 						<div class="rlines">
-							<input id="inter8" name="s_inter" type="checkbox" class="chks" value="재테크">
+							<input id="inter8" name="s_inter" type="checkbox" class="schks" value="재테크">
 							<label for="inter8" onclick="func2(this);" class="label">재테크</label>
-							<input id="inter9" name="s_inter" type="checkbox" class="chks" value="등산">
+							<input id="inter9" name="s_inter" type="checkbox" class="schks" value="등산">
 							<label for="inter9" onclick="func2(this);" class="label">등산</label>
-							<input id="inter11" name="s_inter" type="checkbox" class="chks" value="독서">
+							<input id="inter11" name="s_inter" type="checkbox" class="schks" value="독서">
 							<label for="inter11" onclick="func2(this);" class="label">독서</label>
-							<input id="inter12" name="s_inter" type="checkbox" class="chks" value="글쓰기">
+							<input id="inter12" name="s_inter" type="checkbox" class="schks" value="글쓰기">
 							<label for="inter12" onclick="func2(this);" class="label">글쓰기</label>
-							<input id="inter13" name="s_inter" type="checkbox" class="chks" value="사진촬영">
+							<input id="inter13" name="s_inter" type="checkbox" class="schks" value="사진촬영">
 							<label for="inter13" onclick="func2(this);" class="label">사진촬영</label>
-							<input id="inter14" name="s_inter" type="checkbox" class="chks" value="스포츠/운동">
+							<input id="inter14" name="s_inter" type="checkbox" class="schks" value="스포츠/운동">
 							<label for="inter14" onclick="func2(this);" class="label">스포츠/운동</label>
 						</div>
 						<div class="rlines">
-							<input id="inter15" name="s_inter" type="checkbox" class="chks" value="인테리어">
+							<input id="inter15" name="s_inter" type="checkbox" class="schks" value="인테리어">
 							<label for="inter15" onclick="func2(this);" class="label">인테리어</label>
-							<input id="inter16" name="s_inter" type="checkbox" class="chks" value="미드정주행">
+							<input id="inter16" name="s_inter" type="checkbox" class="schks" value="미드정주행">
 							<label for="inter16" onclick="func2(this);" class="label">미드 정주행</label>
-							<input id="inter17" name="s_inter" type="checkbox" class="chks" value="노래">
+							<input id="inter17" name="s_inter" type="checkbox" class="schks" value="노래">
 							<label for="inter17" onclick="func2(this);" class="label">노래</label>
-							<input id="inter18" name="s_inter" type="checkbox" class="chks" value="자기계발">
+							<input id="inter18" name="s_inter" type="checkbox" class="schks" value="자기계발">
 							<label for="inter18" onclick="func2(this);" class="label">자기계발</label>
-							<input id="inter19" name="s_inter" type="checkbox" class="chks" value="드라이브">
+							<input id="inter19" name="s_inter" type="checkbox" class="schks" value="드라이브">
 							<label for="inter19" onclick="func2(this);" class="label">드라이브</label>
-							<input id="inter20" name="s_inter" type="checkbox" class="chks" value="춤">
+							<input id="inter20" name="s_inter" type="checkbox" class="schks" value="춤">
 							<label for="inter20" onclick="func2(this);" class="label">춤</label>
 						</div>
 						<div class="rlines">
-							<input id="inter21" name="s_inter" type="checkbox" class="chks" value="요리">
+							<input id="inter21" name="s_inter" type="checkbox" class="schks" value="요리">
 							<label for="inter21" onclick="func2(this);" class="label">요리</label>
-							<input id="inter22" name="s_inter" type="checkbox" class="chks" value="레저">
+							<input id="inter22" name="s_inter" type="checkbox" class="schks" value="레저">
 							<label for="inter22" onclick="func2(this);" class="label">레저</label>
-							<input id="inter23" name="s_inter" type="checkbox" class="chks" value="쇼핑하기">
+							<input id="inter23" name="s_inter" type="checkbox" class="schks" value="쇼핑하기">
 							<label for="inter23" onclick="func2(this);" class="label">쇼핑하기</label>
-							<input id="inter24" name="s_inter" type="checkbox" class="chks" value="커피">
+							<input id="inter24" name="s_inter" type="checkbox" class="schks" value="커피">
 							<label for="inter24" onclick="func2(this);" class="label">커피</label>
-							<input id="inter25" name="s_inter" type="checkbox" class="chks" value="정치">
+							<input id="inter25" name="s_inter" type="checkbox" class="schks" value="정치">
 							<label for="inter25" onclick="func2(this);" class="label">정치</label>
-							<input id="inter26" name="s_inter" type="checkbox" class="chks" value="패션">
+							<input id="inter26" name="s_inter" type="checkbox" class="schks" value="패션">
 							<label for="inter26" onclick="func2(this);" class="label">패션</label>
-							<input id="inter27" name="s_inter" type="checkbox" class="chks" value="애니">
+							<input id="inter27" name="s_inter" type="checkbox" class="schks" value="애니">
 							<label for="inter27" onclick="func2(this);" class="label">애니</label>
 						</div>
 						<div class="rlines">
-							<input id="inter28" name="s_inter" type="checkbox" class="chks" value="미용">
+							<input id="inter28" name="s_inter" type="checkbox" class="schks" value="미용">
 							<label for="inter28" onclick="func2(this);" class="label">미용</label>
-							<input id="inter29" name="s_inter" type="checkbox" class="chks" value="외국어/어학">
+							<input id="inter29" name="s_inter" type="checkbox" class="schks" value="외국어/어학">
 							<label for="inter29" onclick="func2(this);" class="label">외국어/어학</label>
-							<input id="inter30" name="s_inter" type="checkbox" class="chks" value="여행">
+							<input id="inter30" name="s_inter" type="checkbox" class="schks" value="여행">
 							<label for="inter30" onclick="func2(this);" class="label">여행</label>
-							<input id="inter31" name="s_inter" type="checkbox" class="chks" value="음악">
+							<input id="inter31" name="s_inter" type="checkbox" class="schks" value="음악">
 							<label for="inter31" onclick="func2(this);" class="label">음악</label>
-							<input id="inter32" name="s_inter" type="checkbox" class="chks" value="맛집탐방">
+							<input id="inter32" name="s_inter" type="checkbox" class="schks" value="맛집탐방">
 							<label for="inter32" onclick="func2(this);" class="label">맛집탐방</label>
-							<input id="inter33" name="s_inter" type="checkbox" class="chks" value="영화감상">
+							<input id="inter33" name="s_inter" type="checkbox" class="schks" value="영화감상">
 							<label for="inter33" onclick="func2(this);" class="label">영화감상</label>
 						</div>
 					</div>	
@@ -387,102 +389,102 @@ function chkPwFun(){
 			<tr>
 				<td>
 					<p class="styleTitle">나의 라이프스타일 </p><p class="stylesubTitle">(최대 3개까지 설정가능)</p>
-					<p class="subCo">나는 이렇게 생활해요!</p>
+					<input type="hidden" id="chk_life" value="${loginMember.s_ls}">
 					<div class="lifeDiv">
 						<div class="lines">
-							<input id="life1" name="s_ls" type="checkbox" class="chks" value="비공개">
+							<input id="life1" name="s_ls" type="checkbox" class="lchks" value="비공개">
 							<label for="life1" onclick="func3(this);" class="label">비공개</label>
-							<input id="life2" name="s_ls" type="checkbox" class="chks" value="아침형인간">
+							<input id="life2" name="s_ls" type="checkbox" class="lchks" value="아침형인간">
 							<label for="life2" onclick="func3(this);" class="label">아침형 인간</label>
-							<input id="life3" name="s_ls" type="checkbox" class="chks" value="교대근무">
+							<input id="life3" name="s_ls" type="checkbox" class="lchks" value="교대근무">
 							<label for="life3" onclick="func3(this);" class="label">교대근무</label>
-							<input id="life4" name="s_ls" type="checkbox" class="chks" value="반려동물과함께지내요">
+							<input id="life4" name="s_ls" type="checkbox" class="lchks" value="반려동물과함께지내요">
 							<label for="life4" onclick="func3(this);" class="label">반려동물과 함께 지내요</label>
 						</div>
 						<div class="lines">
-							<input id="life5" name="s_ls" type="checkbox" class="chks" value="룸메이트와함께지내요">
+							<input id="life5" name="s_ls" type="checkbox" class="lchks" value="룸메이트와함께지내요">
 							<label for="life5" onclick="func3(this);" class="label">룸메이트와 함께 지내요</label>
-							<input id="life6" name="s_ls" type="checkbox" class="chks" value="새벽형인간/올빼미형">
+							<input id="life6" name="s_ls" type="checkbox" class="lchks" value="새벽형인간/올빼미형">
 							<label for="life6" onclick="func3(this);" class="label">새벽형 인간/올빼미형</label>
-							<input id="life7" name="s_ls" type="checkbox" class="chks" value="야간근무">
+							<input id="life7" name="s_ls" type="checkbox" class="lchks" value="야간근무">
 							<label for="life7" onclick="func3(this);" class="label">야간근무</label>
 						</div>
 						<div class="lines">
-							<input id="life8" name="s_ls" type="checkbox" class="chks" value="집에있는걸좋아해요">
+							<input id="life8" name="s_ls" type="checkbox" class="lchks" value="집에있는걸좋아해요">
 							<label for="life8" onclick="func3(this);" class="label">집순이/집돌이에요</label>
-							<input id="life9" name="s_ls" type="checkbox" class="chks" value="1인가구">
+							<input id="life9" name="s_ls" type="checkbox" class="lchks" value="1인가구">
 							<label for="life9" onclick="func3(this);" class="label">1인가구</label>
-							<input id="life10" name="s_ls" type="checkbox" class="chks" value="규칙적인생활">
+							<input id="life10" name="s_ls" type="checkbox" class="lchks" value="규칙적인생활">
 							<label for="life10" onclick="func3(this);" class="label">규칙적인 생활</label>
-							<input id="life11" name="s_ls" type="checkbox" class="chks" value="평일근무">
+							<input id="life11" name="s_ls" type="checkbox" class="lchks" value="평일근무">
 							<label for="life11" onclick="func3(this);" class="label">평일근무</label>
 						</div>
 						<div class="lines">	
-							<input id="life12" name="s_ls" type="checkbox" class="chks" value="주말에근무해요">
+							<input id="life12" name="s_ls" type="checkbox" class="lchks" value="주말에근무해요">
 							<label for="life12" onclick="func3(this);" class="label">주말에 근무해요</label>
-							<input id="life13" name="s_ls" type="checkbox" class="chks" value="돌싱이에요">
+							<input id="life13" name="s_ls" type="checkbox" class="lchks" value="돌싱이에요">
 							<label for="life13" onclick="func3(this);" class="label">돌싱이에요</label>
-							<input id="life14" name="s_ls" type="checkbox" class="chks" value="외출을좋아해요">
+							<input id="life14" name="s_ls" type="checkbox" class="lchks" value="외출을좋아해요">
 							<label for="life14" onclick="func3(this);" class="label">외출을 좋아해요</label>
 						</div>
 						<div class="lines">	
-							<input id="life15" name="s_ls" type="checkbox" class="chks" value="자녀가있어요">
+							<input id="life15" name="s_ls" type="checkbox" class="lchks" value="자녀가있어요">
 							<label for="life15" onclick="func3(this);" class="label">자녀가 있어요</label>
-							<input id="life16" name="s_ls" type="checkbox" class="chks" value="기숙사/숙소에서지내요">
+							<input id="life16" name="s_ls" type="checkbox" class="lchks" value="기숙사/숙소에서지내요">
 							<label for="life16" onclick="func3(this);" class="label">기숙사/숙소에서 지내요</label>
-							<input id="life17" name="s_ls" type="checkbox" class="chks" value="불규칙적인생활">
+							<input id="life17" name="s_ls" type="checkbox" class="lchks" value="불규칙적인생활">
 							<label for="life17" onclick="func3(this);" class="label">불규칙적인 생활</label>
 						</div>
 					</div>	
 				</td>
 				<td>
 					<p class="rstyleTitle" id="dateText">나의 데이트스타일 </p><p class="stylesubTitle">(최대 3개까지 설정가능)</p>
-					<p class="rsubCo">나는 이런 데이트를 좋아해요!</p>
+					<input type="hidden" id="chk_date" value="${loginMember.s_ds}">
 					<div class="DateDiv">
 						<div class="rlines">	
-							<input id="date1" name="s_ds" type="checkbox" class="chks" value="집데이트">
+							<input id="date1" name="s_ds" type="checkbox" class="dchks" value="집데이트">
 							<label for="date1" onclick="func4(this);" class="label">집 데이트</label>
-							<input id="date2" name="s_ds" type="checkbox" class="chks" value="카페데이트">
+							<input id="date2" name="s_ds" type="checkbox" class="dchks" value="카페데이트">
 							<label for="date2" onclick="func4(this);" class="label">카페 데이트</label>
-							<input id="date3" name="s_ds" type="checkbox" class="chks" value="영화관람">
+							<input id="date3" name="s_ds" type="checkbox" class="dchks" value="영화관람">
 							<label for="date3" onclick="func4(this);" class="label">영화관람</label>
-							<input id="date4" name="s_ds" type="checkbox" class="chks" value="맛집투어">
+							<input id="date4" name="s_ds" type="checkbox" class="dchks" value="맛집투어">
 							<label for="date4" onclick="func4(this);" class="label">맛집투어</label>
 						</div>
 						<div class="rlines">
-							<input id="date5" name="s_ds" type="checkbox" class="chks" value="짧더라도자주만나기">
+							<input id="date5" name="s_ds" type="checkbox" class="dchks" value="짧더라도자주만나기">
 							<label for="date5" onclick="func4(this);" class="label">짧더라도 자주 만나기</label>
-							<input id="date6" name="s_ds" type="checkbox" class="chks" value="한번볼때진하게만나기">
+							<input id="date6" name="s_ds" type="checkbox" class="dchks" value="한번볼때진하게만나기">
 							<label for="date6" onclick="func4(this);" class="label">한번 볼 때 진하게 만나기</label>
-							<input id="date7" name="s_ds" type="checkbox" class="chks" value="통화하기">
+							<input id="date7" name="s_ds" type="checkbox" class="dchks" value="통화하기">
 							<label for="date7" onclick="func4(this);" class="label">통화하기</label>
 						</div>
 						<div class="rlines">
-							<input id="date8" name="s_ds" type="checkbox" class="chks" value="친구같은편한만남">
+							<input id="date8" name="s_ds" type="checkbox" class="dchks" value="친구같은편한만남">
 							<label for="date8" onclick="func4(this);" class="label">친구같은 편한 만남</label>
-							<input id="date9" name="s_ds" type="checkbox" class="chks" value="전시회관람">
+							<input id="date9" name="s_ds" type="checkbox" class="dchks" value="전시회관람">
 							<label for="date9" onclick="func4(this);" class="label">전시회 관람</label>
-							<input id="date10" name="s_ds" type="checkbox" class="chks" value="노래방데이트">
+							<input id="date10" name="s_ds" type="checkbox" class="dchks" value="노래방데이트">
 							<label for="date10" onclick="func4(this);" class="label">노래방 데이트</label>
 						</div>	
 						<div class="rlines">
-							<input id="date11" name="s_ds" type="checkbox" class="chks" value="즉흥적인만남">
+							<input id="date11" name="s_ds" type="checkbox" class="dchks" value="즉흥적인만남">
 							<label for="date11" onclick="func4(this);" class="label">즉흥적인 만남</label>
-							<input id="date12" name="s_ds" type="checkbox" class="chks" value="산책하기">
+							<input id="date12" name="s_ds" type="checkbox" class="dchks" value="산책하기">
 							<label for="date12" onclick="func4(this);" class="label">산책하기</label>
-							<input id="date13" name="s_ds" type="checkbox" class="chks" value="함께공연관람">
+							<input id="date13" name="s_ds" type="checkbox" class="dchks" value="함께공연관람">
 							<label for="date13" onclick="func4(this);" class="label">함께 공연관람</label>
-							<input id="date14" name="s_ds" type="checkbox" class="chks" value="매일 연락하기">
+							<input id="date14" name="s_ds" type="checkbox" class="dchks" value="매일 연락하기">
 							<label for="date14" onclick="func4(this);" class="label">매일 연락하기</label>
 						</div>
 						<div class="rlines">	
-							<input id="date15" name="s_ds" type="checkbox" class="chks" value="술마시기">
+							<input id="date15" name="s_ds" type="checkbox" class="dchks" value="술마시기">
 							<label for="date15" onclick="func4(this);" class="label">술 마시기</label>
-							<input id="date16" name="s_ds" type="checkbox" class="chks" value="함께게임하기">
+							<input id="date16" name="s_ds" type="checkbox" class="dchks" value="함께게임하기">
 							<label for="date16" onclick="func4(this);" class="label">함께 게임하기</label>
-							<input id="date17" name="s_ds" type="checkbox" class="chks" value="함께스포츠관람">
+							<input id="date17" name="s_ds" type="checkbox" class="dchks" value="함께스포츠관람">
 							<label for="date17" onclick="func4(this);" class="label">함께 스포츠관람</label>
-							<input id="date18" name="s_ds" type="checkbox" class="chks" value="함께여행가기">
+							<input id="date18" name="s_ds" type="checkbox" class="dchks" value="함께여행가기">
 							<label for="date18" onclick="func4(this);" class="label">함께 여행가기</label>
 						</div>
 					</div>
@@ -493,15 +495,70 @@ function chkPwFun(){
 			<tr>
 				<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
 				<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
-				<td><input type="submit" value="다음단계"></td>
+				<td><input type="submit" value="수정하기"></td>
 				<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
 				<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
 			</tr>
 		</table>	
 	</form>
 	  </div>
+	  <!-- 이상형 영역 시작 -->
 	  <div id="tab-5" class="tab-content">
-	  	이상형 수정 탭 영역
+	  	<form method="post" id="idealForm" action="idealmodi.do">
+			<p class="priStyleTitle1" id="titles1">나이</p>
+			<input type="number" name="age" id="age" value="${loginMember.i_age}">
+			<p class="priStyleTitle1" id="titles1">거주지역</p>
+			<input type="hidden" value="${loginMember.i_loc}" id="chk_iloc">
+			<select id="i_loc" name="i_loc">
+				<option class="iloc" value="서울특별시">서울특별시</option>
+				<option class="iloc" value="경기도">경기도</option>
+				<option class="iloc" value="인천광역시">인천광역시</option>
+				<option class="iloc" value="대전광역시">대전광역시</option>
+				<option class="iloc" value="대전광역시">울산광역시</option>
+				<option class="iloc" value="대구광역시">대구광역시</option>
+				<option class="iloc" value="대구광역시">부산광역시</option>
+				<option class="iloc" value="강원도">강원도</option>
+				<option class="iloc" value="충청북도">충청북도</option>
+				<option class="iloc" value="충청남도">충청남도</option>
+				<option class="iloc" value="전라북도">전라북도</option>
+				<option class="iloc" value="전라남도">전라남도</option>
+				<option class="iloc" value="경상북도">경상북도</option>
+				<option class="iloc" value="경상남도">경상남도</option>
+				<option class="iloc" value="제주도">제주도</option>
+				<option class="iloc" value="기타">기타</option>
+			</select>
+			<p class="priStyleTitle1">학력</p>
+			<input type="hidden" value="${loginMember.i_edu}" id="chk_edu">
+			<select id="i_edu" name="i_edu">
+				<option class="iedu" value="고등학교졸업미만">고등학교 졸업 미만</option>
+				<option class="iedu" value="고등학교졸업">고등학교 졸업</option>
+				<option class="iedu" value="전문대학졸업">전문대학 졸업</option>
+				<option class="iedu" value="4년제대학졸업" selected>4년제대학 졸업</option>
+				<option class="iedu" value="석사이상">석사 이상</option>
+			</select><br>
+			<p class="priStyleTitle1">키</p>
+			<input type="number" name="i_height" id="i_height" value="${loginMember.i_height}" min="140">
+			<p class="priStyleTitle1">체형 </p>
+			<input type="hidden" value="${loginMember.i_weight}" id="chk_iweight">
+			<div class="weightDiv">
+				<div class="wlines">
+					<input id="iweight1" name="i_weight" type="radio" class="ichks" value="슬림">
+					<label for="iweight1" onclick="iweightChk1(this);" class="wlabel">슬림</label>
+					<input id="iweight2" name="i_weight" type="radio" class="ichks" value="근육질">
+					<label for="iweight2" onclick="iweightChk2(this);" class="wlabel">근육질</label>
+					<input id="iweight3" name="i_weight" type="radio" class="ichks" value="보통">
+					<label for="iweight3" onclick="iweightChk3(this);" class="wlabel">보통</label>
+					<input id="iweight4" name="i_weight" type="radio" class="ichks" value="글래머">
+					<label for="iweight4" onclick="iweightChk4(this);" class="wlabel">글래머</label>
+					<input id="iweight5" name="i_weight" type="radio" class="ichks" value="통통">
+					<label for="iweight5" onclick="iweightChk5(this);" class="wlabel">통통</label>
+				</div>
+			</div>
+			<div>
+				<input id="u_no" name="u_no" type="hidden" value="${loginMember.u_no}">
+				<input id="idealBtn" value="이상형수정완료" type="submit">
+			</div>			
+		</form>	
 	  </div>
 	</div>
 	<c:import url="../common/footer.jsp"/>

@@ -204,48 +204,6 @@ function goPayFunc(){
 	location.href = "payMain.do";
 }
 
-//피드슬라이드 api  시작
-$(document).ready(function () {
-	
-	  var mySwiper = new Swiper('.swiper-container', {
-          
-		 /* loop : true,*/
-          calculateHeight : false,
-          grabCursor : true,
-          slidesPerView : 1,
-          paginationClickable : true,
-          loopAdditionalSlides: 0,
-          slidesPerColumn: 1,
-          navigation : {
-  			nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-  			prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
-          },
-		scrollbar: {
-	        el: '.swiper-scrollbar',
-	        hide: false,
-	      },	
-	  });
-	  
-	  var mySwiper2 = new Swiper('#swiper-container32', {
-          
-			 /* loop : true,*/
-	          calculateHeight : false,
-	          grabCursor : true,
-	          slidesPerView : 1,
-	          paginationClickable : true,
-	          loopAdditionalSlides: 0,
-	          slidesPerColumn: 1,
-	          navigation : {
-	  			nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-	  			prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
-	          },
-			scrollbar: {
-		        el: '.swiper-scrollbar',
-		        hide: false,
-		      },	
-		  });	
-});
-
 //댓글더보기 자바스크립트
 function moreReplyFunc(f_no,more){
     
@@ -274,6 +232,7 @@ function closeMaskFun(){
 	
 	$("#mask").css("display","none");
 	$("#golike").css("display","none");
+	$("#goReport").css("display","none");
 	
 }
 
@@ -299,6 +258,7 @@ function findCloseFnc(){
 	
 	$('#golike').css("display","none");
 	$('#golike').css("display","none");
+	$("#goReport").css("display","none");
 	$('#mask').css({'width':maskWidth,'height':maskHeight});
 	$('#mask').css("z-index","-1");
 	$('#mask').fadeTo(800,0);
@@ -309,5 +269,74 @@ function findCloseFnc(){
 function ullikeBtnFunc(t_no, u_no){
 	
 	location.href= 'unLikeTarget.do?t_no=' + t_no + "&u_no=" + u_no;
+	
+}
+
+//해시태그 검색 페이지로 이동하는 스크립트
+function goTagSearchFunc(search){
+	
+	// '#'기호 제거함.
+	while(search.charAt(0) === '#'){
+	    
+		search= search.substr(1);
+	}
+	
+	location.href = "search.do?search=" + search;
+}
+
+//피드이미지 api 시작
+$(document).ready(function () {
+	
+	$('.targetfeedSlideDiv').slick({
+			
+		autoplay : true,
+		dots: true,
+		speed : 300 /* 이미지가 슬라이딩시 걸리는 시간 */,
+		infinite: true,
+		autoplaySpeed: 3000 /* 이미지가 다른 이미지로 넘어 갈때의 텀 */,
+		arrows: false,
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		fade: false
+	});
+});
+
+//신고하기 모달팝업 노출
+function goReportFunc(){
+	
+	var maskHeight = $(document).height();  
+	var maskWidth = $(window).width();
+	
+	$('#goReport').css("display","block");
+	$('#mask').css({'width':maskWidth,'height':maskHeight});
+	$('#mask').css("background","#000");
+	$('#mask').css("z-index","999");
+	$('#mask').fadeTo(500,0.8);
+}
+
+//신고하기 ajax
+function goReportConFunc(){
+	
+	var r_send_uno = $("#loginUno").val();
+	var r_rec_uno = $("#targetUno").val();
+	var r_text = $("#r_text").val();
+	
+	$.ajax({
+		
+		 url : "goReportCon.do",
+        data : {r_send_uno : r_send_uno, r_rec_uno: r_rec_uno, r_text: r_text },
+        type : "post",
+        success : function(){
+       	
+       	 alert('정상적으로 신고가 접수되었습니다.');
+       	 location.reload();
+       	 
+        },
+        error : function(request, status, errorData){
+           console.log("error code : " + request.status 
+                 + "\nMessage : " + request.responseText
+                 + "\nError : " + errorData);
+        }        
+	});	
 	
 }

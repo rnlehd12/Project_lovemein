@@ -9,12 +9,14 @@ public class TargetLikeCheck implements Serializable{
 	private String u_no;
 	private String target_no;
 	private int count;
+	private String f_no;	//전체피드용
 	
 	public TargetLikeCheck(){}
 
 	@Override
 	public String toString() {
-		return "TargetLikeCheck [u_no=" + u_no + ", target_no=" + target_no + ", count=" + count + "]";
+		return "TargetLikeCheck [u_no=" + u_no + ", target_no=" + target_no + ", count=" + count + ", f_no=" + f_no
+				+ "]";
 	}
 
 	public String getU_no() {
@@ -42,11 +44,20 @@ public class TargetLikeCheck implements Serializable{
 		this.count = count;
 	}
 
-	public TargetLikeCheck(String u_no, String target_no, int count) {
+	public String getF_no() {
+		return f_no;
+	}
+
+	public void setF_no(String f_no) {
+		this.f_no = f_no;
+	}
+
+	public TargetLikeCheck(String u_no, String target_no, int count, String f_no) {
 		super();
 		this.u_no = u_no;
 		this.target_no = target_no;
 		this.count = count;
+		this.f_no = f_no;
 	};
 	
 	

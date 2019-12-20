@@ -18,7 +18,7 @@
 
 
 <!-- 타이틀 -->
-<h2 class="listfont">럽미인님의 결제내역  ${ listCount } 건</h2>
+<h2 class="listfont">${loginMember.u_name}의 결제내역  ${ listCount } 건</h2>
 <!-- //타이틀 -->
 
 <!-- 결제내역 -->

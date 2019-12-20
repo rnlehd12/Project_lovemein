@@ -19,6 +19,7 @@
 		<typeAlias type="bclass.finalproject.lovemein.likes.model.vo.TargetLikeCheck" alias="TargetLikeCheck" />
 		<typeAlias type="bclass.finalproject.lovemein.admin.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="bclass.finalproject.lovemein.admin.model.vo.Report" alias="Report"/>
+		<typeAlias type="bclass.finalproject.lovemein.admin.model.vo.UserReport" alias="UserReport"/>
 		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.Talk" alias="Talk" />
 		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.TalkChat" alias="TalkChat" />
 		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.Chat" alias="Chat" />
@@ -27,7 +28,7 @@
 		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.TalkReport" alias="TalkReport" />
 		<typeAlias type="bclass.finalproject.lovemein.talk.model.vo.Search" alias="Search" />
 		<typeAlias type="bclass.finalproject.lovemein.match.model.vo.Match" alias="Match" />	
-		
+		<typeAlias type="bclass.finalproject.lovemein.recent_search.vo.RecentSearch" alias="RecentSearch" />
   </typeAliases>
 
 	<mappers>

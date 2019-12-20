@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>common footer</title>
 <link rel="stylesheet" type="text/css" href="resources/css/common/common.css">
-<script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 	<div id="footerArea">

@@ -136,4 +136,39 @@ public class FeedDao {
 		return sqlSession.selectOne("feedMapper.selectCoin",loginUno);
 	}
 
+	public List<Feed> searchFeed(String search) {
+		
+		return sqlSession.selectList("feedMapper.searchFeed",search);
+	}
+
+	public List<TargetLikeCheck> AllFeedUserslikeList(String u_no) {
+		
+		return sqlSession.selectList("feedMapper.AllFeedUserslikeList",u_no);
+	}
+
+	public List<FeedReply> allFeedReplyList() {
+		
+		return sqlSession.selectList("feedMapper.allFeedReplyList");
+	}
+
+	public List<FeedLike> allFeedLikeChk(String u_no) {
+		
+		return sqlSession.selectList("feedMapper.allFeedLikeChk", u_no);
+	}
+
+	public List<Feed> feed_Like_Chk(String search) {
+		
+		return sqlSession.selectList("feedMapper.feed_Like_Chk",search);
+	}
+
+	public List<Feed> feed_reply_cnt(String search) {
+		
+		return sqlSession.selectList("feedMapper.feed_reply_cnt",search);
+	}
+
+	public List<FeedReply> SearchFeedReplyList(String search) {
+		
+		return sqlSession.selectList("feedMapper.SearchFeedReplyList",search);
+	}
+
 }

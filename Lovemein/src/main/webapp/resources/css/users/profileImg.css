@@ -1,0 +1,9 @@
+@charset "UTF-8";
+/* 프로필 이미지 수정 by 귀정*/
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,900&display=swap');
+
+#promodiArea{width:80%; margin:0 auto; text-align:center; margin-top:10px; font-family: 'Roboto', sans-serif;}
+#promodiArea img{width:100px; height:100px;}
+#profileImgs{border-radius:50%;}
+#promodiArea p{font-weight:bold; font-size:18px; margin-bottom:18px;}

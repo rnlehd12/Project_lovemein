@@ -57,4 +57,18 @@ public interface FeedService {
 
 	int selectCoin(String loginUno);
 
+	List<Feed> searchFeed(String search);
+
+	List<TargetLikeCheck> AllFeedUserslikeList(String u_no);
+
+	List<FeedReply> allFeedReplyList();
+
+	List<FeedLike> allFeedLikeChk(String u_no);
+
+	List<Feed> feed_Like_Chk(String search);
+
+	List<Feed> feed_reply_cnt(String search);
+
+	List<FeedReply> SearchFeedReplyList(String search);
+
 }

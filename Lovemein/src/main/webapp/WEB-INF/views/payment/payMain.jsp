@@ -9,8 +9,8 @@
 <meta charset="UTF-8">
 <title>결제메인페이지</title>
 <link  rel= "stylesheet" type="text/css" href="resources/css/payment/payMain.css">
+<c:import url="../common/header.jsp"/>
 <script src="https://cdn.bootpay.co.kr/js/bootpay-3.0.7.min.js" type="application/javascript"></script>
-
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 
@@ -121,7 +121,6 @@ function payTest(price){
 
 </head>
 <body>
-<c:import url="../common/header.jsp"/>
 <div class="main">
 <input type="hidden" id="u_no" name="" value="${ loginMember.u_no }">
 <input type="hidden" id="u_name" name="" value="${ loginMember.u_name }">

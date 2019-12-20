@@ -9,20 +9,17 @@
 <head>
 <meta charset="UTF-8">
 <title>${loginMember.u_name}님의 피드</title>
+<c:import url="../common/header.jsp"/>
 <link rel="stylesheet" type="text/css" href="resources/css/common/common.css">
 <link rel="stylesheet" type="text/css" href="resources/css/feed/feed.css">
-<link rel="stylesheet" type="text/css" href="resources/css/feed/swiper.min.css">
-<script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/css/feed/slick.css">
+<link rel="stylesheet" type="text/css" href="resources/css/feed/slick-theme.css">
 <script type="text/javascript" src="resources/js/feed/feed.js"></script>
-<script type="text/javascript" src="resources/js/feed/swiper.min.js"></script>
-<script>
-
-</script>
+<script type="text/javascript" src="resources/js/feed/slick.js"></script>
 </head>
 <body>
 	<div id="mask" onclick="closeMaskFun();"></div> 
 	<input type="hidden" id="hiddenU_no" value="${loginMember.u_no}">
-	<c:import url="../common/header.jsp"/>
 	<div id="feedWrap">
 		<!-- 피드영역 -->
 		<div id="feedArea">
@@ -34,7 +31,7 @@
 					</div>
 				</c:if><!-- 피드가없을시 피드없다는 메시지 노출 -->
 				<c:forEach var="feed" items="${feed_list}">
-				<div id="feedContainer">
+				<div id="feedContainer${feed.f_no}" class="feedContainer">
 					<!-- 피드 글영역 시작 -->
 					<div id="feedContents">
 						<div id="feedWriterWrap">
@@ -79,12 +76,12 @@
 								<input type="hidden" name="f_no" value="${feed.f_no}">
 								<input type="submit" id="writeSubmitBtn" value="작성완료">
 							</form>
-						</div>
+						</div><!-- 글 수정 폼 영역 끝 -->
 						<div id="feed_date"><fmt:formatDate value="${feed.f_date}" pattern="M월 dd일"/></div>
     					<div id="textArea">${feed.f_text}</div>
     					<div id="feedTag">
     							<c:forTokens items="${feed.f_tag}" delims="," var="tag">
-								    <a id="hashTagId" href="${tag}">${tag}</a>
+								    <a id="hashTagId" href="#" onclick="goTagSearchFunc('${tag}');">${tag}</a>
 								</c:forTokens>
     					</div>
     					<div id="likeCnt">
@@ -148,13 +145,55 @@
 								    						<div id="rightArea">
 								    							<div id="replyNickName">${feed_reply_list.u_name}</div>
 								    							<div id="replyDate">
-								    								<fmt:formatDate value="${feed_reply_list.fr_date}" pattern="M월 dd일"/>
+								    								<c:forEach var="replyTimes" items="${rtList}">
+								    									<c:if test="${replyTimes.fr_no eq feed_reply_list.fr_no}">
+								    										${replyTimes.fr_date_msg }
+								    									</c:if>
+								    								</c:forEach>
+								    								<c:if test="${loginMember.u_no ne feed_reply_list.u_no}">
+									    								<div id="editArea">
+									    									<a href="#" onclick="replyReportFunc('${feed_reply_list.fr_no}');">신고</a>
+									    									 <!-- 신고하기 모달 팝업 -->
+																			<div id="goReport${feed_reply_list.fr_no}" class="goReport">
+																				<button id="findClose" onclick="findCloseFnc();">X</button>
+																					<p id="goReportTitle">
+																					신고하기
+																					</p>
+																					<div id="golikeimgArea">
+																						<c:if test="${feed_reply_list.u_profile == null}">
+																							<img id="profileImg" src="resources/images/common/nullProfile.png">
+																						</c:if>
+																						<c:if test="${feed_reply_list.u_profile != null}">
+																							<img id="profileImg" src="resources/images/profile/${feed_reply_list.u_profile}">
+																						</c:if>
+																					</div>
+																					<p id="reportMessage1"><span>${feed_reply_list.u_name}</span>님을 신고하시겠습니까?</p>
+																					<p id="reportMessage2">신고사유를 선택해주세요.</p>
+																					<div id="reportDiv">
+																						<select id="r_text${feed_reply_list.fr_no}" name="r_text" class="reportText">
+																							<option value="사진도용">사진도용</option>
+																							<option value="폭력적 또는 혐오적인 콘텐츠">폭력적 또는 혐오적인 콘텐츠</option>
+																							<option value="악의적인 콘텐츠">악의적인 콘텐츠</option>
+																							<option value="유해한 위험행위">유해한 위험행위</option>
+																							<option value="욕설 또는 비방">욕설 또는 비방</option>
+																							<option value="음란물 게재">음란물 개제</option>
+																							<option value="광고">광고</option>
+																							<option value="권리침해">권리침해</option>
+																						</select>
+																						<button type="button" id="goReportSub" onclick="goReportConFunc('${feed_reply_list.fr_no}');">신고하기</button>
+																					</div>
+																					<input type="hidden" id="loginUno" name="r_send_uno" value="${loginMember.u_no}">
+																					<input type="hidden" id="targetUno${feed_reply_list.fr_no}" name="r_rec_uno" value="${feed_reply_list.u_no}">
+																			</div>
+									    								</div>
+									    							</c:if>	
 								    								<c:if test="${loginMember.u_no eq feed_reply_list.u_no}">
 									    								<div id="editArea">
 									    									<a href="#" onclick="replydelFunc('${feed_reply_list.fr_no}');">삭제</a>
 									    									<a href="#" onclick="replyModiFunc('${feed_reply_list.fr_no}');">수정</a>
 									    								</div>
-									    							</c:if>	 
+									    							</c:if>
+									  
 								    							</div>
 								    							<div id="replyText">${feed_reply_list.fr_text}</div>
 								    						</div>
@@ -190,7 +229,48 @@
 									    						<div id="rightArea">
 									    							<div id="replyNickName">${feed_reply_list.u_name}</div>
 									    							<div id="replyDate">
-									    								<fmt:formatDate value="${feed_reply_list.fr_date}" pattern="M월 dd일"/>
+									    								<c:forEach var="replyTimes" items="${rtList}">
+									    									<c:if test="${replyTimes.fr_no eq feed_reply_list.fr_no}">
+									    										${replyTimes.fr_date_msg }
+									    									</c:if>
+								    									</c:forEach>
+									    								<c:if test="${loginMember.u_no ne feed_reply_list.u_no}">
+										    								<div id="editArea">
+										    									<a href="#" onclick="replyReportFunc('${feed_reply_list.fr_no}');">신고</a>
+										    									<!-- 신고하기 모달 팝업 -->
+																			<div id="goReport${feed_reply_list.fr_no}" class="goReport">
+																				<button id="findClose" onclick="findCloseFnc();">X</button>
+																					<p id="goReportTitle">
+																					신고하기
+																					</p>
+																					<div id="golikeimgArea">
+																						<c:if test="${feed_reply_list.u_profile == null}">
+																							<img id="profileImg" src="resources/images/common/nullProfile.png">
+																						</c:if>
+																						<c:if test="${feed_reply_list.u_profile != null}">
+																							<img id="profileImg" src="resources/images/profile/${feed_reply_list.u_profile}">
+																						</c:if>
+																					</div>
+																					<p id="reportMessage1"><span>${feed_reply_list.u_name}</span>님을 신고하시겠습니까?</p>
+																					<p id="reportMessage2">신고사유를 선택해주세요.</p>
+																					<div id="reportDiv">
+																						<select id="r_text${feed_reply_list.fr_no}" name="r_text" class="reportText">
+																							<option value="사진도용">사진도용</option>
+																							<option value="폭력적 또는 혐오적인 콘텐츠">폭력적 또는 혐오적인 콘텐츠</option>
+																							<option value="악의적인 콘텐츠">악의적인 콘텐츠</option>
+																							<option value="유해한 위험행위">유해한 위험행위</option>
+																							<option value="욕설 또는 비방">욕설 또는 비방</option>
+																							<option value="음란물 게재">음란물 개제</option>
+																							<option value="광고">광고</option>
+																							<option value="권리침해">권리침해</option>
+																						</select>
+																						<button type="button" id="goReportSub" onclick="goReportConFunc('${feed_reply_list.fr_no}');">신고하기</button>
+																					</div>
+																					<input type="hidden" id="loginUno" name="r_send_uno" value="${loginMember.u_no}">
+																					<input type="hidden" id="targetUno${feed_reply_list.fr_no}" name="r_rec_uno" value="${feed_reply_list.u_no}">
+																			</div>
+										    								</div>
+									    								</c:if>	
 									    								<c:if test="${loginMember.u_no eq feed_reply_list.u_no}">
 										    								<div id="editArea">
 										    									<a href="#" onclick="replydelFunc('${feed_reply_list.fr_no}');">삭제</a>
@@ -212,6 +292,7 @@
 									    					</div>
 								    					</a>
 								    			 </c:if>
+								    			
 					    				</c:forEach>
 					    				
 				    				</div>
@@ -235,16 +316,10 @@
 						<!-- 피드 이미지 슬라이드 영역  -->
 						<div id="slide${feed.f_no}" class="feedSlideDiv">
 							<c:if test="${feed.f_img != null}">
-								<div class="swiper-container" id="swiper-container${feed.f_no}">
-								    <div class="swiper-wrapper">
-								        <c:forTokens items="${feed.f_img}" delims="," var="f_img">
-								        	<div class="swiper-slide"><img src="resources/images/feedImages/${f_img}"></div>
-								        </c:forTokens>
-								    </div>    
-								   <!--  <div class="swiper-pagination"></div> -->
-									<div class="swiper-scrollbar"></div>
-								    <!-- <div class="swiper-button-prev"></div>
-								    <div class="swiper-button-next"></div> -->
+								<div class="myfeedSlideDiv" align="center" style="width: 400px; left: 400px;">
+								     <c:forTokens items="${feed.f_img}" delims="," var="f_img">
+							        	<div class="swiper-slide"><img src="resources/images/feedImages/${f_img}"></div>
+							        </c:forTokens>
 								</div>
 							</c:if>	
 							<c:if test="${feed.f_img == null}">
@@ -267,12 +342,18 @@
 				<c:if test="${loginMember.u_profile != null}">
 					<img id="profileImg" src="resources/images/profile/${loginMember.u_profile}">
 				</c:if>
+				<!-- 프로필이미지 수정 팝업 -->
+				<a id="profileModi" onClick="profileImgModiFunc();">
+					<img src="resources/images/feed/settingIcon.png" width="17">
+				</a>
 			</div>
 			<div id="accountPrimaryInfo">
 				<div id="accountName">${loginMember.u_name}
 					 <span>
 					 	<!-- 정보수정 이동 링크 -->
-					 	<a href="myInfo.do"><img src="resources/images/feed/settingIcon.png" width="17"></a>
+					 	<a id="myInfoLink" href="myInfo.do">
+					 		<img src="resources/images/feed/settingIcon.png" width="13">정보수정
+					 	</a>
 					 </span>
 				 </div>
 				<div id="accountEmail">${loginMember.u_email}</div>
@@ -306,6 +387,8 @@
 			<!-- 찜한사람목록 -->
 			<div id="accountLikeList"></div>
 		</div><!-- 계정영역 끝 -->
+	</div>
+	<div id="modalLikeList">
 	</div>
 	<c:import url="../common/footer.jsp"/>
 </body>

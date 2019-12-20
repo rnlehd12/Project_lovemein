@@ -1,19 +1,29 @@
 package bclass.finalproject.lovemein.users.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.Date;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
+import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
@@ -28,13 +38,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import bclass.finalproject.lovemein.admin.model.vo.Report;
+import bclass.finalproject.lovemein.admin.model.vo.UserReport;
 import bclass.finalproject.lovemein.feed.model.service.FeedService;
 import bclass.finalproject.lovemein.feed.model.vo.Feed;
 import bclass.finalproject.lovemein.feed.model.vo.FeedLike;
 import bclass.finalproject.lovemein.feed.model.vo.FeedReply;
+import bclass.finalproject.lovemein.feed.model.vo.ReplyTimes;
 import bclass.finalproject.lovemein.likes.model.vo.Likes;
 import bclass.finalproject.lovemein.payment.model.service.PaymentService;
 import bclass.finalproject.lovemein.payment.model.vo.Payment;
+import bclass.finalproject.lovemein.recent_search.vo.RecentSearch;
 import bclass.finalproject.lovemein.likes.model.vo.TargetLikeCheck;
 import bclass.finalproject.lovemein.users.model.service.UsersService;
 import bclass.finalproject.lovemein.users.model.vo.AddInfo;
@@ -61,12 +75,17 @@ public class UsersController {
 	private PaymentService paymentService;
 
 	private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
+	
+	
 
 	// 회원가입 저장용 맵 필드선언
 	HashMap<String, Object> map = new HashMap<String, Object>();
-
+	
+	//로그인한 유저정보 세션 저장용
 	AllUsers loginMember = null;
-
+	
+	ArrayList<RecentSearch> rsList = new ArrayList<RecentSearch>();
+	
 	// ##로그인용 컨트롤러
 	@RequestMapping(value = "loginCheck.do", method = RequestMethod.POST)
 	public ModelAndView loginMethod(Users users, AllUsers allusers, HttpSession session, HttpServletRequest request,
@@ -76,20 +95,54 @@ public class UsersController {
 
 		if (loginMember != null && bcryptPasswordEncoder.matches(users.getU_pw(), loginMember.getU_pw())) {
 
-			// 관리자 로그인처리
-			
-			  if(loginMember.getU_email().equals("admin@lovemein.com")) {
+		  // 관리자 로그인처리
+		  if(loginMember.getU_email().equals("admin@lovemein.com")) {
+		 
+			  mv.setViewName("admin/adminMain");
+			  session.setAttribute("loginMember", loginMember);	  
+		  
+		  }else {	//일반회원 로그인처리
+		  
+			  session.setAttribute("loginMember", loginMember);
 			  
-			  
-				  mv.setViewName("admin/adminMain");
-				  session.setAttribute("loginMember", loginMember);
-			  
-			  }else {
-			  
-				  session.setAttribute("loginMember", loginMember);
-				  mv.setViewName("redirect:redirectFeed.do");
-			  
+			  //헤더 검색내역 리스트 불러옴
+			  try {
+				  
+				 rsList = (ArrayList<RecentSearch>)userService.historyList(loginMember.getU_no());
+				  
+			  } catch (NullPointerException e) {
+					
+				  mv.setViewName("users/login");
 			  }
+			 
+			  
+			  if(rsList.size() > 0) {
+				  
+				  //리스트 정렬 시작
+				  TreeMap<Integer, RecentSearch> tm = new TreeMap<Integer, RecentSearch>();
+				  for(RecentSearch r: rsList) {
+					 
+					  map.put(Integer.toString(r.getRownum()), r);
+				  }
+				  
+				  //내림차순정렬
+				  Iterator<Integer> it = tm.descendingKeySet().iterator(); 
+				  while (it.hasNext()){
+					  
+				      int key = it.next();
+				      rsList.clear();
+				      rsList.add(tm.get(key));
+				  }
+				  
+				  session.setAttribute("searchHistory", rsList);
+				  
+			  }else {
+				  
+				  session.setAttribute("notSearchMsg", "최근 검색기록이 없습니다.");
+			  }
+			  mv.setViewName("redirect:redirectFeed.do");
+		  
+		  }
 
 		} else {
 
@@ -102,46 +155,110 @@ public class UsersController {
 
 	// ##마이피드 재호출용 컨트롤러★★★★★★★★★★★★★★★
 	@RequestMapping("redirectFeed.do")
-	public ModelAndView redirectFeed(ModelAndView mv) {
+	public ModelAndView redirectFeed(ModelAndView mv) throws ParseException {
 
 		mv.setViewName("feed/myFeed");
 
-		// 피드 리스트 출력
-		List<Feed> feedList = new ArrayList<Feed>();
-		feedList = feedService.myFeedList(loginMember.getU_no());
-		
-		// 피드 좋아요수 출력
-		List<Feed> feedLikeCnt = new ArrayList<Feed>();
-		feedLikeCnt = feedService.feedLikeMethod(loginMember.getU_no());
-		
-		// 피드 댓글수 출력
-		List<Feed> feedReplyCnt = new ArrayList<Feed>();
-		feedReplyCnt = feedService.feedReplyMethod(loginMember.getU_no());
-		
-		// 피드댓글리스트 출력
-		List<FeedReply> feedReplyList = new ArrayList<FeedReply>();
-		feedReplyList = feedService.feedReplyListMethod(loginMember.getU_no());
-		
-		//// 내가 좋아요한 글 처리표시
-		List<Feed> feedLikeChk = new ArrayList<Feed>();
-		feedLikeChk = feedService.feedLikeChkMethod(loginMember.getU_no());
-	
-		if(feedList.size() > 0) {
+		try {
 			
-			mv.addObject("feed_list", feedList);
-			mv.addObject("feed_like_cnt", feedLikeCnt);
-			mv.addObject("feed_reply_cnt", feedReplyCnt);
-			mv.addObject("feed_Reply_List", feedReplyList);
-			mv.addObject("feed_Like_Chk", feedLikeChk);
+			// 피드 리스트 출력
+			List<Feed> feedList = new ArrayList<Feed>();
+			feedList = feedService.myFeedList(loginMember.getU_no());
+			
+			// 피드 좋아요수 출력
+			List<Feed> feedLikeCnt = new ArrayList<Feed>();
+			feedLikeCnt = feedService.feedLikeMethod(loginMember.getU_no());
+			
+			// 피드 댓글수 출력
+			List<Feed> feedReplyCnt = new ArrayList<Feed>();
+			feedReplyCnt = feedService.feedReplyMethod(loginMember.getU_no());
+			
+			// 피드댓글리스트 출력
+			List<FeedReply> feedReplyList = new ArrayList<FeedReply>();
+			feedReplyList = feedService.feedReplyListMethod(loginMember.getU_no());
+			
+			//댓글 시간계산 시작!
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREA);
+			java.util.Date d1 = new java.util.Date();	//오늘 날짜 받기
+			String today = sdf.format(d1);	//오늘 날짜 형식변환후 String형으로 저장
+			String[] daysStr = new String[feedReplyList.size()];	//댓글 시간 받을 String배열 선언
+			java.util.Date replyDate[] = new java.util.Date[feedReplyList.size()];
+			java.util.Date toDate = sdf.parse(today);
+			
+			//view로 보낼 댓글 시간용 ArrayList 선언
+			List<ReplyTimes> rtList = new ArrayList<ReplyTimes>();
+			
+			for(int i =0; i<feedReplyList.size(); i++) {
+				
+				daysStr[i] = sdf.format(feedReplyList.get(i).getFr_date());	//날짜 변환 후 배열 저장
+				replyDate[i] = sdf.parse(daysStr[i]);
+				long diff = toDate.getTime() - replyDate[i].getTime();	//현재날짜에서 댓글 시간 계산
+				
+				int sec = (int) (diff / 1000) % 60 ;         //초
+				int min = (int) ((diff / (1000*60)) % 60);  //분
+				int hour   = (int) ((diff / (1000*60*60)) % 24);//시
+				int days   = (int) ((diff / (1000*60*60*24)) % 24);	//날짜
+				
+				//ArrayList에 담을 객체 선언
+				ReplyTimes rtObj = new ReplyTimes();
+				rtObj.setF_no(feedReplyList.get(i).getF_no());
+				rtObj.setFr_no(feedReplyList.get(i).getFr_no());
+				
+				if(days > 0) {	//댓글이 하루이상 지났을 때
+					
+					rtObj.setFr_date_msg(days + "일 전");
+				
+				}else if(days==0 && hour>0 && hour<24 ){
+					
+					rtObj.setFr_date_msg(hour + "시간 전");
+					
+				}else if(hour==0 && min>0 && min<60) {
+					
+					rtObj.setFr_date_msg(min + "분 전");
+					
+				}else {
+					
+					rtObj.setFr_date_msg("방금전");
+				}
+				
+				rtList.add(rtObj);	//저장
+			
+			}
+		
+			
+			//// 내가 좋아요한 글 처리표시
+			List<Feed> feedLikeChk = new ArrayList<Feed>();
+			feedLikeChk = feedService.feedLikeChkMethod(loginMember.getU_no());
+		
+			if(feedList.size() > 0) {
+				
+				mv.addObject("feed_list", feedList);
+				mv.addObject("feed_like_cnt", feedLikeCnt);
+				mv.addObject("feed_reply_cnt", feedReplyCnt);
+				mv.addObject("feed_Reply_List", feedReplyList);
+				mv.addObject("feed_Like_Chk", feedLikeChk);
+				mv.addObject("rtList", rtList);
+				
+			}else {	//피드가 없을시에 실행
+				
+				mv.addObject("nullMessage","등록된 피드가 없습니다. 첫 글을 등록해보세요!");
+			}
+			
+		} catch (NullPointerException e) {
 			
 			
-		}else {	//피드가 없을시에 실행
+			mv.setViewName("users/login");
 			
-			mv.addObject("nullMessage","등록된 피드가 없습니다. 첫 글을 등록해보세요!");
 		}
+		
 		
 		return mv;
 
+	}
+
+	private ReplyTimes setFr_no(String fr_no) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// ##로그아웃용 컨트롤러
@@ -151,7 +268,10 @@ public class UsersController {
 		HttpSession session = request.getSession(false);
 
 		if (session != null) {
+			
+			session.setAttribute("loginMember", null);
 			session.invalidate();
+			
 		}
 		return "users/login";
 	}
@@ -220,7 +340,7 @@ public class UsersController {
 		String returnView = "users/login";
 
 		map.put("style", style);
-
+		
 		int result = userService.joinService(map);
 
 		if (result > 0) {
@@ -247,66 +367,6 @@ public class UsersController {
 
 		}
 		return returnView;
-	}
-
-	// ##회원가입 휴대폰 인증번호 전송용 컨트롤러
-	@RequestMapping(value = "sendmessage.do")
-	public ModelAndView sendMessage(@RequestParam("u_phone") String phone, ModelAndView mv) throws Exception {
-
-		String api_key = "NCSUDLKISOTXKF5N";
-		String api_secret = "WTBIU2WGCT6IHVAKVG2KEGNQJ7QZCY1M";
-		Message coolsms = new Message(api_key, api_secret);
-		Random random = new Random();
-		int AuthNum = random.nextInt(999999);
-
-		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("to", phone);
-		params.put("from", "01022479633");
-		params.put("type", "SMS");
-		params.put("text", "럽미인 인증번호[" + AuthNum + "]을 올바르게 입력해주세요."); // 문자내용
-		params.put("app_version", "JAVA SDK v1.2");
-
-		try {
-			JSONObject obj = (JSONObject) coolsms.send(params);
-			System.out.println(obj.toString());
-		} catch (CoolsmsException e) {
-			System.out.println(e.getMessage());
-			System.out.println(e.getCode());
-		}
-		
-		logger.info("인증번호  : " + AuthNum);
-		mv.setViewName("users/join1");
-		mv.addObject("AuthNum", AuthNum);
-		mv.addObject("phone", phone);
-		return mv;
-	}
-
-	// ##회원가입 휴대폰 번호인증 재인증용 컨트롤러
-	@RequestMapping(value = "auth.do", method = RequestMethod.POST)
-	public ModelAndView authMethod(@RequestParam("auth") String auth, @RequestParam("authNum") String authNum,
-			@RequestParam("u_phone") String phone, ModelAndView mv) {
-
-		String result = "인증에 실패하였습니다. 다시 시도하세요.";
-		int num = 0; // 인증여부 값
-
-		if (auth.equals(authNum)) {
-
-			result = "인증에 성공하였습니다.";
-			num = 1;
-
-		} else {
-
-			result = "인증에 실패하였습니다. 다시 시도하세요.";
-			num = 0;
-		}
-
-		mv.setViewName("users/join1");
-		mv.addObject("message", result);
-		mv.addObject("num", num);
-		mv.addObject("authNum", authNum);
-		mv.addObject("phone", phone);
-		return mv;
-
 	}
 
 	// ##아이디 찾기 컨트롤러(ajax)
@@ -501,11 +561,43 @@ public class UsersController {
 		
 		return "redirect:redirectFeed.do"; // 피드재호출
 	}
-
+	
+	// ##스타일 정보수정 tab4  컨트롤러
+	@RequestMapping(value="stylemodi.do", method=RequestMethod.POST)
+	public String styleInfoMethod(Style style) {
+		
+		  userService.StyleInfo(style);
+		  
+		  loginMember.setS_appeal(style.getS_appeal());
+		  loginMember.setS_inter(style.getS_inter());
+		  loginMember.setS_ls(style.getS_ls()); loginMember.setS_ds(style.getS_ds());
+		 
+		
+		return "redirect:redirectFeed.do"; // 피드재호출
+		
+	}
+	
+	// ##이상형 정보수정 tab5 컨트롤러
+	@RequestMapping(value="idealmodi.do", method=RequestMethod.POST)
+	public String idealModiMethod(Ideal ideal) {
+		
+		int result = userService.idealModi(ideal);
+		
+		if(result > 0) {
+			
+			loginMember.setI_age(ideal.getI_age());
+			loginMember.setI_loc(ideal.getI_loc());
+			loginMember.setI_edu(ideal.getI_edu());
+			loginMember.setI_height(ideal.getI_height());
+			loginMember.setI_weight(ideal.getI_weight());
+		}
+		return "redirect:redirectFeed.do"; // 피드재호출 
+	}
+	
 	//## 상대방 피드 이동용 컨트롤러
 	@RequestMapping("goTargetFeed.do")
 	public ModelAndView goTargetFeedMethod(@RequestParam("u_no") String u_no, ModelAndView mv, AllUsers allUsers,
-			TargetLikeCheck targetChk, TargetLikeCheck target, TargetLikeCheck targetLikeCheck) {
+			TargetLikeCheck targetChk, TargetLikeCheck target, TargetLikeCheck targetLikeCheck) throws ParseException {
 
 		// 이동하려는 피드 회원번호가 세션 회원번호랑 같을시 자신의 피드 재호출함.
 		if (loginMember.getU_no().equals(u_no)) {
@@ -544,9 +636,59 @@ public class UsersController {
 			// 피드댓글리스트 출력
 			List<FeedReply> feedReplyList = new ArrayList<FeedReply>();
 			feedReplyList = feedService.feedReplyListMethod(u_no);
-
+			
 			mv.addObject("feed_Reply_List", feedReplyList);
-
+			
+			//댓글 시간계산 시작!
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREA);
+			java.util.Date d1 = new java.util.Date();	//오늘 날짜 받기
+			String today = sdf.format(d1);	//오늘 날짜 형식변환후 String형으로 저장
+			String[] daysStr = new String[feedReplyList.size()];	//댓글 시간 받을 String배열 선언
+			java.util.Date replyDate[] = new java.util.Date[feedReplyList.size()];
+			java.util.Date toDate = sdf.parse(today);
+			
+			//view로 보낼 댓글 시간용 ArrayList 선언
+			List<ReplyTimes> rtList = new ArrayList<ReplyTimes>();
+			
+			for(int i =0; i<feedReplyList.size(); i++) {
+				
+				daysStr[i] = sdf.format(feedReplyList.get(i).getFr_date());	//날짜 변환 후 배열 저장
+				replyDate[i] = sdf.parse(daysStr[i]);
+				long diff = toDate.getTime() - replyDate[i].getTime();	//현재날짜에서 댓글 시간 계산
+				
+				int sec = (int) (diff / 1000) % 60 ;         //초
+				int min = (int) ((diff / (1000*60)) % 60);  //분
+				int hour   = (int) ((diff / (1000*60*60)) % 24);//시
+				int days   = (int) ((diff / (1000*60*60*24)) % 24);	//날짜
+				
+				//ArrayList에 담을 객체 선언
+				ReplyTimes rtObj = new ReplyTimes();
+				rtObj.setF_no(feedReplyList.get(i).getF_no());
+				rtObj.setFr_no(feedReplyList.get(i).getFr_no());
+				
+				if(days > 0) {	//댓글이 하루이상 지났을 때
+					
+					rtObj.setFr_date_msg(days + "일 전");
+				
+				}else if(days==0 && hour>0 && hour<24 ){
+					
+					rtObj.setFr_date_msg(hour + "시간 전");
+					
+				}else if(hour==0 && min>0 && min<60) {
+					
+					rtObj.setFr_date_msg(min + "분 전");
+					
+				}else {
+					
+					rtObj.setFr_date_msg("방금전");
+				}
+				
+				rtList.add(rtObj);	//저장
+			
+			}
+			
+			mv.addObject("rtList", rtList);
+		
 			// 내가 좋아요한 글 처리표시
 			List<Feed> feedLikeChkTarget = new ArrayList<Feed>();
 			targetChk.setU_no(loginMember.getU_no());
@@ -599,43 +741,82 @@ public class UsersController {
 
 	//## 전체유저 피드글 보기
 	@RequestMapping("allFeed.do")
-	public ModelAndView allFeedMethod(ModelAndView mv) {
+	public ModelAndView allFeedMethod(ModelAndView mv, TargetLikeCheck target) {
 		
-		List<Feed> allFeedList = new ArrayList<Feed>();
-		allFeedList = feedService.allFeed();	//전체피드 리스트용
-		String[] f_images = null;	// 이미지 나눠서 담을 배열 선언
-		String first_image;
+		try {
+			
+			if(loginMember.getU_no() != null) {
+				
+				List<Feed> allFeedList = new ArrayList<Feed>();
+				allFeedList = feedService.allFeed();	//전체피드 리스트용
+				String[] f_images = null;	// 이미지 나눠서 담을 배열 선언
+				String first_image;
+				
+				for(Feed f : allFeedList) {
+					
+					f_images = f.getF_img().split(",");
+					first_image = f_images[0];	//첫번째 이미지만 변수에 담음
+					int imgSize = f_images.length;	//피드별 이미지 개수 저장
+					f.setCount(Integer.toString(imgSize));	//이미지 개수 set
+					f.setF_allImg(first_image);	// 첫번째 이미지만 저장함
+				}
+				
+				int feedSize = allFeedList.size();	//피드 개수 조회
+				
+				//전체 피드 좋아요 체크여부확인
+				List<FeedLike> allFeedHeartChk = new ArrayList<FeedLike>();	
+				allFeedHeartChk = feedService.allFeedHeartChk(loginMember.getU_no());
+				
+				//로그인한 유저가 피드글을 쓴 유저를 좋아요했는지 아닌지 여부확인
+				List<TargetLikeCheck> AllFeedUserslikeList = new ArrayList<TargetLikeCheck>();
+				AllFeedUserslikeList = feedService.AllFeedUserslikeList(loginMember.getU_no());
+				
+				//로그인한 유저가 피드를 좋아했는지 여부 체크
+				List<FeedLike> fLikeChk = new ArrayList<FeedLike>();
+				fLikeChk = feedService.allFeedLikeChk(loginMember.getU_no());
+				
+				// 피드 좋아요수 출력
+				List<Feed> feedLikeCnt = new ArrayList<Feed>();
+				feedLikeCnt = feedService.feedLikeMethod(loginMember.getU_no());
+				
+				// 피드 댓글수출력
+				List<Feed> feedReplyCnt = new ArrayList<Feed>();
+				feedReplyCnt = feedService.feedReplyMethod(loginMember.getU_no());
+				
+				//피드별 댓글 리스트
+				List<FeedReply> AllFeedReplyList = new ArrayList<FeedReply>();
+				AllFeedReplyList = feedService.allFeedReplyList();
 		
-		for(Feed f : allFeedList) {
+				if(allFeedList != null) {
+					
+					mv.addObject("allFeed", allFeedList);	//피드 리스트
+					mv.addObject("feedSize", feedSize);		//피드 글 수
+					mv.addObject("allFeedHeartChk", allFeedHeartChk);	//피드 글 좋아요 체크여부
+					mv.addObject("userLikeChkList", AllFeedUserslikeList);	//로그인한 유저가 피드글을 쓴 유저를 좋아요했는지 아닌지 여부확인
+					mv.addObject("allFeedReplyList", AllFeedReplyList);	//댓글 리스트 출력
+					mv.addObject("feed_Like_Chk", fLikeChk);
+					mv.addObject("feed_like_cnt", feedLikeCnt);
+					mv.addObject("feed_reply_cnt", feedReplyCnt);
+					mv.setViewName("feed/allFeed");
+					
+				}else {
+					
+					mv.setViewName("redirect:redirectFeed.do");
+				}
+				
+			}else {
+				
+				mv.setViewName("redirect:login.do");
+				
+			}
 			
-			f_images = f.getF_img().split(",");
-			first_image = f_images[0];	//첫번째 이미지만 변수에 담음
-			int imgSize = f_images.length;	//피드별 이미지 개수 저장
-			f.setCount(Integer.toString(imgSize));	//이미지 개수 set
-			f.setF_allImg(first_image);	// 첫번째 이미지만 저장함
-		}
-		
-		int feedSize = allFeedList.size();	//피드 개수 조회
-		
-		//전체 피드 좋아요 체크여부확인
-		List<FeedLike> allFeedHeartChk = new ArrayList<FeedLike>();	
-		allFeedHeartChk = feedService.allFeedHeartChk(loginMember.getU_no());
-		
-		if(allFeedList != null) {
+		} catch (NullPointerException e) {
 			
-			mv.addObject("allFeed", allFeedList);	//피드 리스트
-			mv.addObject("feedSize", feedSize);		//피드 글 수
-			mv.addObject("allFeedHeartChk", allFeedHeartChk);	//피드 글 좋아요 체크여부
-			
-			mv.setViewName("feed/allFeed");
-			
-		}else {
-			
-			mv.setViewName("redirect:redirectFeed.do");
+			mv.setViewName("users/login");
 		}
 		
 		return mv;
-	}	
+	}
 	
 	// ## user찜하기
 	@RequestMapping(value="golikeTarget.do", method=RequestMethod.POST)
@@ -660,5 +841,325 @@ public class UsersController {
 		
 		return mv;
 
+	}
+	
+	// ## 해시태그 검색
+	@RequestMapping("search.do")
+	public ModelAndView searchMethod(@RequestParam("search") String search, ModelAndView mv, RecentSearch rs, HttpSession session) {
+		
+		rs.setU_no(loginMember.getU_no());
+		rs.setSearch_text(search);
+		
+		//검색내용 중복 체크하고 중복값이면 UPDATE, 중복아니면 INSERT 처리
+		//최근검색어 저장갯수 10개제한
+		if(rsList.size() < 10) {	//10개 미만이면 insert or update
+			
+			userService.saveHistory(rs);
+			
+		}else { //10개 이상일 때 삭제후 update
+			
+			userService.tenSizeHistory(loginMember.getU_no());
+			userService.saveHistory(rs);
 		}
+		
+		
+		//헤더 검색내역 리스트 불러옴
+		rsList = (ArrayList<RecentSearch>)userService.historyList(loginMember.getU_no());
+
+		session.setAttribute("searchHistory", rsList);
+
+		  
+		//해시태그 검색내용에 대한 리스트 불러옴
+		List<Feed> allFeedList = new ArrayList<Feed>();
+		allFeedList = feedService.searchFeed(search);	//전체피드 리스트용
+		String[] f_images = null;	// 이미지 나눠서 담을 배열 선언
+		String first_image;
+		
+		for(Feed f : allFeedList) {
+			
+			f_images = f.getF_img().split(",");
+			first_image = f_images[0];	//첫번째 이미지만 변수에 담음
+			int imgSize = f_images.length;	//피드별 이미지 개수 저장
+			f.setCount(Integer.toString(imgSize));	//이미지 개수 set
+			f.setF_allImg(first_image);	// 첫번째 이미지만 저장함
+		}
+		
+		int feedSize = allFeedList.size();	//피드 개수 조회
+		
+		//전체 피드 좋아요 체크여부확인
+		List<FeedLike> allFeedHeartChk = new ArrayList<FeedLike>();	
+		allFeedHeartChk = feedService.allFeedHeartChk(loginMember.getU_no());
+		
+		//게시글 상세보기 좋아요 수
+		List<Feed> feed_like_cnt = feedService.feed_Like_Chk(search);
+		
+		//게시글 상세보기 댓글 수
+		List<Feed> feed_reply_cnt = feedService.feed_reply_cnt(search);
+		
+		//게시글 댓글 목록
+		List<FeedReply> SearchFeedReplyList = feedService.SearchFeedReplyList(search);
+		
+		//해당 유저 좋아요 여부 확인
+		List<TargetLikeCheck> AllFeedUserslikeList = new ArrayList<TargetLikeCheck>();
+		AllFeedUserslikeList = feedService.AllFeedUserslikeList(loginMember.getU_no());
+		
+		if(allFeedList != null) {
+			
+			mv.addObject("allFeed", allFeedList);	//피드 리스트
+			mv.addObject("feedSize", feedSize);		//피드 글 수
+			mv.addObject("allFeedHeartChk", allFeedHeartChk);	//피드 글 좋아요 체크여부
+			mv.addObject("search", search);		//검색내용
+			mv.addObject("feed_like_cnt", feed_like_cnt);	//게시글 상세보기 좋아요 개수
+			mv.addObject("feed_reply_cnt", feed_reply_cnt);	//게시글 상세보기 댓글 수
+			mv.addObject("SearchFeedReplyList", SearchFeedReplyList);	//게시글 댓글 목록
+			mv.addObject("userLikeChkList", AllFeedUserslikeList);	//로그인한 유저가 피드글을 쓴 유저를 좋아요했는지 아닌지 여부확인
+			
+			mv.setViewName("feed/searchFeed");
+			
+		}else {
+			
+			mv.addObject("NoSearchMsg", search + "에 대한 검색결과가 없습니다.");
+			mv.setViewName("redirect:redirectFeed.do");
+			
+		}
+		
+		return mv;
+		
+	}
+	
+	//## 검색기록 전부 삭제
+	@RequestMapping("historyAllDel.do")
+	public ModelAndView historyAllDelMethod(@RequestParam("u_no") String u_no, ModelAndView mv, HttpServletResponse rs, 
+			HttpSession session)
+			throws IOException {
+		
+		int result = userService.historyAllDel(u_no);
+		
+		if(result > 0) {
+		
+		  rsList = (ArrayList<RecentSearch>)userService.historyList(loginMember.getU_no());
+		  session.setAttribute("searchHistory", null);
+		  session.setAttribute("notSearchMsg", "최근 검색기록이 존재하지 않습니다.");
+		  
+		}
+		
+		mv.setViewName("JsonView");
+	
+		return mv;
+	}
+	
+	//##검색기록 한개만 삭제하기
+	@RequestMapping("searchOneDelete.do")
+	public ModelAndView searchOneDelMethod(@RequestParam("u_no") String u_no, @RequestParam("search_text") String search_text,
+			ModelAndView mv, HttpSession session, RecentSearch rs) {
+		
+		rs.setU_no(u_no);
+		rs.setSearch_text(search_text);
+		
+		int result = userService.searchOneDel(rs);
+		
+		if(result > 0) {
+			
+			  rsList = (ArrayList<RecentSearch>)userService.historyList(loginMember.getU_no());
+			  
+			  if(rsList.size() == 0) {
+				  
+				  session.setAttribute("searchHistory", null);
+				  session.setAttribute("notSearchMsg", "최근 검색기록이 존재하지 않습니다.");
+			  
+			  }else {
+				  
+				  session.setAttribute("searchHistory", rsList);
+			  }
+		}
+		
+		mv.setViewName("JsonView");
+		
+		return mv;
+	}
+	
+	//프로필수정 페이지 이동용 컨트롤러
+	@RequestMapping("modiProfile.do")
+	public String modiProfileMethod() {
+		
+		return "users/popupProfileModi";
+	}
+	
+	//회원 신고용 컨트롤러
+	@RequestMapping("goReportCon.do")
+	public ModelAndView goReportMethod(ModelAndView mv, HttpSession session, UserReport report,HttpServletResponse response,
+			HttpServletRequest request) throws IOException{
+		
+		report.setR_no("0");
+		report.setR_yn("N");
+		int result = userService.reportInsert(report);
+		mv.addObject("result", result);
+		mv.setViewName("JsonView");
+		return mv;
+	}
+	
+	//신고 리스트 이동용 컨트롤러
+	@RequestMapping("goReportList.do")
+	public ModelAndView goReportListMethod(ModelAndView mv, @RequestParam(name="page", required=false) String page) {
+	
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = Integer.parseInt(page);
+		}
+		//페이징 처리
+		int limit = 10;  //한 페이지에 출력할 목록 갯수
+		int listCount = userService.userReportListCount(loginMember.getU_no());
+
+		//페이지 수 계산
+		int maxPage = (int)((double)listCount / limit + 0.9);  //목록이 11개이면 총 2페이지가 됨.
+		//현재 페이지가 포함된 페이지 그룹의 시작값
+		int startPage = (int)((double)currentPage / limit + 0.9);
+		//현재 페이지가 포함된 페이지 그룹의 끝값
+		int endPage = startPage + limit - 1;
+		
+		if(maxPage < endPage)
+			endPage = maxPage;
+		
+		//쿼리문에 반영할 현재 페이지에 출력할 목록의 시작행과 끝행 계산
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("u_no", loginMember.getU_no());
+		//리스트 불러옴
+		List<Report> rlist = new ArrayList<Report>();
+		rlist = userService.userReportList(map);
+
+		if(rlist.size() > 0) {
+			
+			mv.addObject("rlist", rlist);
+			mv.addObject("listCount", listCount); //전체갯수
+			mv.addObject("maxPage", maxPage); // 맨마지막페이지 
+			mv.addObject("currentPage", currentPage); //해당페이지 기본값 1
+			mv.addObject("startPage", startPage); //첫페이지
+			mv.addObject("endPage", endPage); //끝페이지
+			mv.addObject("limit", limit); //한페이지당 출력할갯수 기본값10개
+		
+		}else {
+			
+			mv.addObject("listCount", 0);
+			mv.addObject("nullrlistMsg", "신고내역이 없습니다.");
+		}
+		
+		mv.setViewName("users/reportList");
+		return mv;
+	}
+	
+	//##휴대폰 번호 중복 가입 방지 컨트롤러
+		@RequestMapping("phoneAuthChk.do")
+		public ModelAndView phoneAuthChkMethod(ModelAndView mv, @RequestParam("clientPhone") String authPhone){
+			
+			//빈칸 들어가지않도록 앞단에서 처리하였음.
+			
+			int result = userService.phoneDBChk(authPhone);
+			
+			if(result > 0){	//이미 가입된 계정일시 가입불가능 메시지 출력
+				
+				mv.addObject("result", 1);
+				
+			}else {
+				
+				String api_key = "NCSUDLKISOTXKF5N";
+				String api_secret = "WTBIU2WGCT6IHVAKVG2KEGNQJ7QZCY1M";
+				Message coolsms = new Message(api_key, api_secret);
+				Random random = new Random();
+				int AuthNum = random.nextInt(999999);
+
+				HashMap<String, String> params = new HashMap<String, String>();
+				params.put("to", authPhone);
+				params.put("from", "01022479633");
+				params.put("type", "SMS");
+				params.put("text", "럽미인 인증번호[" + AuthNum + "]을 올바르게 입력해주세요."); // 문자내용
+				params.put("app_version", "JAVA SDK v1.2");
+
+				try {
+					JSONObject obj = (JSONObject) coolsms.send(params);
+					System.out.println(obj.toString());
+				} catch (CoolsmsException e) {
+					System.out.println(e.getMessage());
+					System.out.println(e.getCode());
+				}
+				
+				logger.info("인증번호 : " + AuthNum);
+				
+				mv.addObject("result", 0);
+				mv.addObject("AuthNum",AuthNum);
+				mv.addObject("phone", authPhone);
+			
+			}
+			
+			mv.setViewName("JsonView");
+			return mv;
+		}
+		
+	//##이메일 중복체크 컨트롤러
+	@RequestMapping(value = "checkEmail.do", method = RequestMethod.POST)
+	public ModelAndView chkMailMethod(ModelAndView mv, @RequestParam("chkmail") String chkMail) {
+		
+		int result = userService.chkMailMethod(chkMail);
+		
+		if(result > 0) {
+			
+			mv.addObject("chkresult", 1);
+		
+		}else {
+			
+			mv.addObject("chkresult", 0);
+		}
+		
+		mv.setViewName("JsonView");
+		return mv;
+	}
+	
+	//##이름 중복체크 컨트롤러
+	@RequestMapping(value = "checkName.do", method = RequestMethod.POST)
+	public ModelAndView chkNameMethod(ModelAndView mv, @RequestParam("chkName") String chkName) {
+		
+		int result = userService.chkNameMethod(chkName);
+		
+		if(result > 0) {
+			
+			mv.addObject("chkresult", 1);
+		
+		}else {
+			
+			mv.addObject("chkresult", 0);
+		}
+		
+		mv.setViewName("JsonView");
+		return mv;
+	}
+	
+	//##비번 중복체크 컨트롤러
+	@RequestMapping(value = "checkPwd.do", method = RequestMethod.POST)
+	public ModelAndView chkPwdMethod(ModelAndView mv, @RequestParam("pwd1") String pwd1, @RequestParam("pwd2") String pwd2) {
+		
+		if(pwd1.equals(pwd2)){
+			
+			mv.addObject("message", 1);
+			
+		}else {
+			
+			mv.addObject("message", 0);
+		}
+		mv.setViewName("JsonView");
+		return mv;
+	}
+	
+	//##글자수 체크 컨트롤러
+	@RequestMapping(value = "chkLengthAjax.do", method = RequestMethod.POST)
+	public ModelAndView chkLengthMethod(ModelAndView mv, @RequestParam("chkLength") int chkLength) {
+		
+		mv.addObject("counts", chkLength);
+		mv.setViewName("JsonView");
+		return mv;
+	}
+	
 }
