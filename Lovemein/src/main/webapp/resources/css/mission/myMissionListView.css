@@ -1,0 +1,472 @@
+@charset "UTF-8";
+
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+*{ margin:0; padding:0; font-family:'Noto Sans KR', sans-serif;}
+
+
+/* 전체 */
+#myMissionListView{
+	width: 65%;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top:5px;
+	/* border: 1px solid black; */
+}
+#myMi_top{
+	padding: 15px;
+	padding-top: 0px;
+}
+#myMi_title {
+	vertical-align: top;
+	display: inline-block;
+	width: 50%;
+	height: 70px;
+	margin-left:auto;
+	margin-right:auto;
+	/* border: 1px solid red; */
+}
+#myMi_title span{
+	display: inline-block;
+	height: 70px;
+	color: rgb(230, 76, 117);
+	/* border: 1px solid blue; */ 
+	font-size: 2.5em;
+	font-weight: bold;
+	vertical-align: top;
+	padding-left: 25px;		
+	padding-top:5px;
+/* 	font-size: 2.8em;
+	font-weight: bold;
+	color: rgb(230, 76, 117);
+ 	margin: 0px;
+	padding: 0px; 
+	border: 1px solid blue; */
+	
+}
+#myMi_title #lcount{
+	font-size: 1.0em;
+	padding-top:35px;
+	height:20px;
+}
+/* 검색 */
+#muMi_search2{
+	/* color: #e24040; */
+		vertical-align: top;
+	display: inline-block;
+	width: 37%;
+	height: 50px;
+  	margin-left:auto;
+	margin-right:auto;
+	padding-top: 18px;
+	padding-left: 12%;
+/* 
+	border: 1px solid yellow; */
+  color: #fff;
+  font-size: 13px;
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
+}
+#muMi_search2:before{
+	box-sizing: border-box;
+}
+#muMi_search2:afte{
+	box-sizing: border-box;
+	
+	
+}
+
+
+
+/*--------------------
+App
+--------------------*/
+.search-form {
+
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 350px;
+  height: 40px;
+  border-radius: 40px;
+ /*  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); */
+  transform: translate(-50%, -50%);
+/*   background: #fff; */
+  transition: all 0.3s ease;
+  /* background: #DEDEDE; */
+  background: #f0f0f0;
+
+}
+.search-form .focus {
+	 box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15); 
+ }
+.search-input {
+  position: absolute;
+  top: 10px;
+  left: 38px;
+  font-size: 14px;
+  background: none;
+  color: #5a6674;
+  width: 195px;
+  height: 20px;
+  border: none;
+  appearance: none;
+  outline: none;
+    /* background: #DEDEDE; */
+  /* color: #5a6674; */
+}
+.search-input: -webkit-search-cancel-button {
+    appearance: none;
+ }
+.search-button {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  outline: none!important;
+  cursor: pointer;
+
+}
+.search-button svg {
+    width: 20px;
+    height: 20px;
+    fill: #5a6674;
+}
+.search-option {
+  position: absolute;
+  text-align: right;
+  top: 10px;
+  right: 15px;
+}
+.search-option div {
+    position: relative;
+    display: inline-block;
+    margin: 0 1px;
+    cursor: pointer;
+}    
+.search-option div input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0.01;
+      cursor: pointer;
+}
+    
+.search-option div span {
+      position: absolute;
+      display: block;
+      text-align: center;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      background: #929AA3;
+      color: #fff;
+      font-size: 9px;
+      letter-spacing: 1px;
+      line-height: 1;
+      text-transform: uppercase;
+      padding: 4px 7px;
+      border-radius: 12px;
+      top: -18px;
+      transition: all .2s ease-in-out;
+} 
+.search-option div span:after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-top: 4px solid #929AA3;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      transition: all .2s ease-in-out;
+      
+}
+    
+.search-option div:hover span {
+      opacity: 1;
+      top: -21px;
+}
+.search-option div label {
+      display: block;
+      cursor: pointer;
+}
+    
+.search-option div svg {
+      height: 20px;
+      width: 20px;
+      fill: #5a6674;
+      opacity: 0.6;
+      transition: all .2s ease-in-out;
+      pointer-events: none;
+}
+    
+.search-option div:hover svg {
+      opacity: 1;
+}
+    
+.search-option div input:checked + label svg {
+      /* fill: $color; */
+      fill: #e24040;
+   /*    background: #e24040; */
+      opacity: .9;
+}
+/* .search-option div input:checked label svg {
+	 fill: $color;
+      opacity: .9;
+}  */
+.search-option div input:checked + label span {
+      background: #e24040;
+}
+.search-option div input:checked + label span:after {
+        border-top-color: #e24040;
+}
+/* 리턴 */
+/* .return-form {
+	display: inline-block;
+	position: relative;
+	top: -50px;
+	  width: 30px;
+  height: 40px;
+	 border: 1px solid red;
+	 
+}
+.return div svg {
+	
+} */
+/* .return-form{
+	
+  position: relative;
+  top: -30%;
+  left: 50%;
+  width: 30px;
+  height: 40px;
+  border-radius: 40px;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  transform: translate(-50%, -50%);
+  background: #fff;
+  transition: all 0.3s ease;
+  background: #DEDEDE;
+  background: #f0f0f0;
+} */
+
+.return-form {
+  display: inline-block;
+ position: absolute; 
+  text-align: right;
+  top: 9.5%;
+  right: 18.5%; 
+  /* border: 1px solid red; */
+}
+.return {
+    position: relative;
+    display: inline-block;
+    margin: 0 1px;
+    cursor: pointer;
+    /* border: 1px solid red; */
+}       
+.return span {
+      position: absolute;
+      display: block;
+      text-align: center;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      background: #929AA3;
+      color: #fff;
+      font-size: 9px;
+      letter-spacing: 1px;
+      line-height: 1;
+      text-transform: uppercase;
+      padding: 4px 7px;
+      border-radius: 12px;
+      top: -18px;
+      transition: all .2s ease-in-out;
+} 
+.return span:after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-top: 4px solid #929AA3;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      transition: all .2s ease-in-out;
+      
+} 
+.return:hover span {
+      opacity: 1;
+      top: -21px;
+}
+/* .return div label {
+      display: block;
+      cursor: pointer;
+} */
+    
+.return svg {
+	display: block;
+      cursor: pointer;
+      height: 35px;
+      width: 35px;
+      /* fill: #5a6674; */
+      fill: #5a6674;
+      opacity: 0.6;
+      transition: all .2s ease-in-out;
+      pointer-events: none;
+}
+    
+.return:hover svg {
+      opacity: 1;
+} 
+/* table css */
+#myMi_table{
+	width: 98%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 5px;
+	 height: 82%; 
+	/*  height: 600px;  */
+	/* border: 1px solid blue; */
+}
+#myMi_table table{
+	/* border: 1px solid gray; */
+	width: 100%;
+	text-align: center;
+    border-collapse: collapse;
+}
+#myMi_table table th{
+	padding:5px;
+	font-size: 1.5em;
+	border-bottom: 1px solid gray;
+	/* border: 1px solid gray; */
+}
+#myMi_table table td{
+	font-size: 1.0em;
+	color: gray;
+	/* border: 1px solid gray; */
+	border-bottom: 1px solid black;
+}
+#myMi_table table td img{
+	margin: 0px;
+	padding-top: 5px;
+	padding-bottom: 0px;
+	position: relative;
+	top:0;
+/* 	left:0;  */
+	width:60px;
+	height:60px;
+	border-radius: 2px;
+}
+table .m1 {
+	width: 15%;
+}
+table .m3 {
+	width: 15%;
+}
+
+
+/* 에러 css */
+
+#myMi_table table td.errorTd {
+	/* border: 1px solid red; */
+	align: center;
+	top: 300px;
+	font-size: 2.0em;
+	font-weight: bold;
+	padding-top: 20%;
+	padding-bottom: 20%;
+
+	
+}
+.errorSp{
+	font-size: 1.5em;
+	color: rgb(230, 76, 117);
+	border: none;
+	/* border: 1px solid red; */
+}
+
+
+/* 페이징 div*/
+#myMi_paging {
+	text-align: center;
+	font-family: arial;
+	box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  border-bottom: 1px solid black;
+}
+
+.pagination{
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin-top: 5px;
+}
+.pagination li{
+    display: inline;
+    text-align: center;
+  }
+.pagination a{
+    float: left;
+    display: block;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 5px 12px;
+    color: gray;
+    margin-left: -1px;
+    border:1px solid transparent;
+    line-height: 1.5;
+    /* &.active{  cursor: default;}
+    &:active{ outline: none;} */
+  }
+.pagination a.active{
+	cursor: default;
+
+}
+.pagination a:active{	
+	outline: none;
+}
+.modal-3 a{
+    
+      margin-left: 3px;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      @include border-radius(100%);   
+}
+.modal-3 a:hover{
+        /* background-color: #4DAD16; */
+        background-color: rgb(230, 76, 117);
+        color: #fff;
+        radius: 50%;
+      }
+.modal-3 a.active{
+         background-color: rgb(230, 76, 117);
+         color: #fff;
+         radius: 50%;
+}
+.modal-3 a:active{
+         background-color: #37B247;
+         color: #fff;
+         radius: 50%;
+}
+.modal-3 a.btdisa{
+         background-color: #fff;
+}
+.modal-3 a.btdisa:active{
+         background-color: #fff;
+}
+.modal-3 a#currentP{
+         background-color: #37B247;
+}
+.modal-3 a#currentP:active{
+         background-color: #37B247;
+}

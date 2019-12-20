@@ -18,13 +18,24 @@
 	<select id="addFromMeList" parameterType="hashmap" resultType="Likes">
 		<![CDATA[
 		select *
-		from(select rownum rnum, u_no_send, u_no_rec, u_name as u_rec_name, u_profile as u_rec_profileImg, 
-		TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(u_birth, 'RR/MM/DD'))/12) as u_rec_age, u_job as u_rec_job, u_shcool as u_rec_sch, u_loc as u_rec_loc, u_type
-		from((select * from (select *from (select u_no_send, u_no_rec
-											from likes	where u_no_send = #{senderNo}) lk
-											full outer join (select  (nvl2((u_no_send +u_no_rec), 1,0)) u_type, u_no_send as uus, u_no_rec as uur
-									from likes where u_no_rec = #{senderNo} and u_no_send in (select u_no_rec
-									from likes where u_no_send = #{senderNo})) ru on ru.uus = lk.u_no_rec) lr
+		from(select rownum rnum, u_no_send, u_no_rec, 
+				u_name as u_rec_name, u_profile as u_rec_profileImg, 
+				TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(u_birth, 'RR/MM/DD'))/12) as u_rec_age, 
+				u_job as u_rec_job, u_shcool as u_rec_sch, 
+				u_loc as u_rec_loc, u_type
+			from((select * 
+				from (select * 
+					from (select u_no_send, u_no_rec
+							from likes	
+							where u_no_send = #{senderNo}) lk
+					full outer join (select (nvl2((u_no_send +u_no_rec), 1,0)) u_type, 
+											u_no_send as uus, u_no_rec as uur
+										from likes 
+										where u_no_rec = #{senderNo} 
+										and u_no_send in (select u_no_rec
+															from likes 
+															where u_no_send = #{senderNo})) ru 
+						on ru.uus = lk.u_no_rec) lr
 				join users u on lr.u_no_rec = u.u_no) lru
 		join primaryinfo p on lru.u_no_rec = p.u_no)order by rnum asc)
 		where rnum >= #{startRow} and rnum <= #{endRow}
@@ -34,15 +45,25 @@
 	<select id="addToMeList" parameterType="hashmap" resultType="Likes">
 		<![CDATA[
 		select *
-		from(select rownum rnum, u_no_send, u_no_rec, u_name as u_send_name, u_profile as u_send_profileImg, 
-				TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(u_birth, 'RR/MM/DD'))/12) as u_send_age, u_job as u_send_job, 
-				u_shcool as u_send_sch, u_loc as u_send_loc, u_type									
-				from((select * from (select *from(select u_no_send, u_no_rec
-											from likes	where u_no_rec = #{receiverNo}) lk
-											full outer join(select  (nvl2((u_no_send +u_no_rec), 1,0)) u_type, u_no_send as uus, u_no_rec as uur
-									from likes where u_no_send = #{receiverNo} and u_no_rec in (select u_no_send
-									from likes where u_no_rec = #{receiverNo})) ru on ru.uur = lk.u_no_send) lr
-				join users u on lr.u_no_send = u.u_no) lru
+		from(select rownum rnum, u_no_send, u_no_rec, 
+				u_name as u_send_name, u_profile as u_send_profileImg, 
+				TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(u_birth, 'RR/MM/DD'))/12) as u_send_age, 
+				u_job as u_send_job, u_shcool as u_send_sch, 
+				u_loc as u_send_loc, u_type									
+			from((select * 
+				from (select *
+					from(select u_no_send, u_no_rec
+							from likes	
+							where u_no_rec = #{receiverNo}) lk
+					full outer join(select (nvl2((u_no_send +u_no_rec), 1,0)) u_type, 
+											u_no_send as uus, u_no_rec as uur
+									from likes 
+									where u_no_send = #{receiverNo} 
+									and u_no_rec in (select u_no_send
+													from likes 
+													where u_no_rec = #{receiverNo})) ru 
+					on ru.uur = lk.u_no_send) lr
+			join users u on lr.u_no_send = u.u_no) lru
 		join primaryinfo p on lru.u_no_send = p.u_no)order by rnum asc)
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>

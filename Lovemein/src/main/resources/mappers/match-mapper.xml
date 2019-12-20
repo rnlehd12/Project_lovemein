@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="matchMapper">
+<!-- 매칭 Mapper -->
+	
+	<select id="matchListMethod" parameterType="hashmap" resultType="Match">
+		<![CDATA[
+		select * 
+		from(select rownum rnum, myi.u_no as my_no, 
+				mat.u_no as mat_no, mat.u_name as mat_name,
+				mat.u_profile as mat_prof, mat. u_birth 
+				as mat_age, mat.u_loc as mat_loc,
+				mat.u_height as mat_height, mat.u_shcool as mat_sch, 
+				mat.u_job as mat_job, count(*)over() as listcount 
+		from(select mu.u_no, u_name, u_profile,  
+						TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(u_birth, 'RR/MM/DD'))/12) as u_birth, 
+						u_gender, u_loc, decode(u_edu, '고등학교졸업', 1, '전문대학졸업', 2, 3) as u_edu, 
+						u_shcool, u_height, u_weight , u_job
+				from users mu
+				join primaryinfo mp on (mu.u_no = mp.u_no)) mat ,
+				(select p.U_NO, i.I_HEIGHT , i.I_LOC, 
+						decode(i.I_EDU, '고등학교졸업', '1', '전문대졸업', '2', '3') as i_edu
+						, i.I_AGE, i.I_WEIGHT, 
+						decode(p.U_GENDER, 'M', 'F','M') as i_gen
+				from primaryinfo p
+				join ideal i on i.u_no = p.u_no
+				where p.u_no = #{loginNo}) myi
+				where (mat.u_height 
+						between (myi.i_height-3) and (myi.i_height+3))
+				and (mat.u_loc = myi.i_loc)
+				and (mat.u_edu > myi.i_edu 
+						or mat.u_edu = myi.i_edu )
+				and (mat.u_birth  
+						between (myi.i_age-2) and (myi.i_age+2))
+				and (mat.u_weight = myi.i_weight)
+				and (mat.u_gender = myi.i_gen) 
+				and (mat.u_no not in 
+						(select u_no_rec 
+						from likes
+						where u_no_send = #{loginNo}))
+				order by my_no) 
+		where rnum >= #{startRow}  and rnum <= #{endRow}
+		]]>
+	</select>
+	
+	
+
+</mapper>

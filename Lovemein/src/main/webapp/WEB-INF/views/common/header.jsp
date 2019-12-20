@@ -30,10 +30,11 @@
 			<div id="quickMenuWrap">
 				<button id="matchingBtn" onclick="location.href='moveMatch.do'">소개팅 매칭</button>
 				<div id="iconWrap">
-					<button id="chatBtn" class="headerIcon">
+					<button id="chatBtn" class="headerIcon"  onclick="location.href='moveChat.do'">
 						<img src="resources/images/common/chatIcon.png">
+						<div class="badge-num">59</div>
 					</button>
-					<button id="likeBtn" class="headerIcon" onclick="location.href='moveLikesList.do'">
+					<button id="likeBtn" class="headerIcon" onclick="location.href='likesList.do'">
 						<img src="resources/images/common/heartIcon2.png">
 					</button>
 					<button id="alBtn" class="headerIcon" type="button" onclick="alOpenFunc();">
